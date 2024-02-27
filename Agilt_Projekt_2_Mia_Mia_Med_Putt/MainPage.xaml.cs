@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -47,6 +48,15 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt
         {
             // Handle Avsluta button click
             // Add your logic here
+            InitializeComponent();
+
+            // _ = behövs för att VS inte ska ge en grön orm
+            _ = Timer();
+        }
+
+        private async Task Timer()
+        {
+            await Task.Delay(5000);
         }
     }
 }

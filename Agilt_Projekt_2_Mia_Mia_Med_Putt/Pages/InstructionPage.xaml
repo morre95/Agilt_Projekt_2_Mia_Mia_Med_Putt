@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages.InstructionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="#0AA73F">
+        <Image Source="/Assets/Dice 1.png" Width="100" Height="100" Margin="50, 20, 20, 850" HorizontalAlignment="Left"/>
+        <TextBlock Text="Instruktioner"
+                   Margin="20, 100"
+                   FontSize="40"
+                   FontFamily="Arial"
+                   FontWeight="Bold"
+                   Foreground="Black" HorizontalAlignment="Center"/>
+        <TextBlock Text="Placera alla dina brickor på den stora cirkel som har din färg. Det är valfritt om gul, blå, grön eller röd börjar. För att kunna gå ut på spelplanen måste du slå 1 eller 6 med tärningen. Då hamnar du på en cirkel i din färg. Slår du 1 placerar du en pjäs på cirkel 1.  Slår du 6 placerar du endera 2 pjäser på cirkel 1 eller 1 på cirkel 6. Gå planen runt medsols. Du får extrakast varje gång du slår 6. Du slår ut pjäser som står på en cirkel som du flyttar till, varför de måste börja om från den stora rutan i deras färg (på 1 eller 6).  Kör man utan knuff skippar man detta. Du får inte placera någon pjäs där du redan har en annan av dina pjäser och ej heller flytta förbi någon av dina andra pjäser. När du kommer till cirkeln närmast före cirkel 1 så är det dags att börja flytta in mot centrum. För att nå mittencirkeln (=utgång) måste du slå exakt rätt siffra med tärningen. Visar tärningen för mycket måste du gå tillbaka överskjutande antal prickar. Den vinner som först får ut alla sina pjäser." 
+                   TextWrapping="Wrap"
+                   Margin="100, 200, 100 ,20"
+                   Foreground="White"
+                   FontFamily="Arial"
+                   FontSize="40"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center"/>
+        <Button Background="#F5B40D" 
+                Content="Tillbaka" 
+                Margin="20, 20, 100, 850" 
+                HorizontalAlignment="Right" 
+                Width="180" Height="60"
+                FontFamily="Arial"
+                FontWeight="Bold"
+                FontSize="30"
+                CornerRadius="10"
+                Click="BackButton_Click"/>
+    </Grid>
+</Page>
