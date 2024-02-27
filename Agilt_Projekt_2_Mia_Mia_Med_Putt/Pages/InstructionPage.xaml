@@ -25,8 +25,7 @@
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
                    TextAlignment="Center"/>
-        <Button x:Name="BackButton" 
-                Background="#F5B40D" 
+        <Button Background="#F5B40D" 
                 Content="Tillbaka" 
                 Margin="20, 20, 100, 850" 
                 HorizontalAlignment="Right" 
@@ -34,6 +33,7 @@
                 FontFamily="Arial"
                 FontWeight="Bold"
                 FontSize="30"
-                CornerRadius="10"/>
+                CornerRadius="10"
+                Click="Button_Click"/>
     </Grid>
 </Page>
