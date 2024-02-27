@@ -24,5 +24,6 @@
             <!-- Avsluta Button -->
             <Button Content="Avsluta" Margin="0,10" Background="orange" Click="AvslutaButton_Click" Width="162" FontFamily="Arial" FontSize="20"/>
         </StackPanel>
+        <Image HorizontalAlignment="Left" Height="159" Margin="46,50,0,0" VerticalAlignment="Top" Width="176" FocusVisualPrimaryBrush="Black" Source="/Assets/Dice.png"/>
     </Grid>
 </Page>
