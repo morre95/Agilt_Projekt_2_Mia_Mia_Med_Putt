@@ -22,8 +22,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt
     {
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
+            // _ = behövs för att VS inte ska ge en grön orm
+            _ = Timer();
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
@@ -48,10 +50,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt
         {
             // Handle Avsluta button click
             // Add your logic here
-            InitializeComponent();
-
-            // _ = behövs för att VS inte ska ge en grön orm
-            _ = Timer();
+            
         }
 
         private async Task Timer()
