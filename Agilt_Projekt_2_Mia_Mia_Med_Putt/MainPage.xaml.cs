@@ -17,14 +17,36 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
         public MainPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+
+        }
+
+        private void StartButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle Start button click
+            // Add your logic here
+        }
+
+        private void InstructionButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle Instructioner button click
+            // Add your logic here
+        }
+
+        private void OmButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle Om button click
+            // Add your logic here
+        }
+
+        private void AvslutaButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle Avsluta button click
+            // Add your logic here
         }
     }
 }

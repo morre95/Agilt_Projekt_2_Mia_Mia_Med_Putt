@@ -8,7 +8,25 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Background="Green">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Mia Med Putt" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" FontSize="48" FontWeight="Bold" Width="296" FontFamily="Ink Free"/>
 
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,93,0,0" Height="231" Width="172">
+            <!-- Start Button -->
+            <Button Content="Start" Margin="0,10" Background="orange" Click="StartButton_Click" Width="159" FontSize="20" FontFamily="Arial"/>
+
+            <!-- Instructioner Button -->
+            <Button Content="Instructioner" Margin="0,10" Background="orange" Click="InstructionButton_Click" Width="158" FontFamily="Arial" FontSize="20"/>
+
+            <!-- Om Button -->
+            <Button Content="Om" Margin="0,10" Background="orange" Click="OmButton_Click" Width="160" FontFamily="Arial" FontSize="20"/>
+
+            <!-- Avsluta Button -->
+            <Button Content="Avsluta" Margin="0,10" Background="orange" Click="AvslutaButton_Click" Width="162" FontFamily="Arial" FontSize="20"/>
+        </StackPanel>
+        <Image HorizontalAlignment="Left" Height="159" Margin="46,50,0,0" VerticalAlignment="Top" Width="176" FocusVisualPrimaryBrush="Black" Source="/Assets/Dice.png"/>
     </Grid>
 </Page>
