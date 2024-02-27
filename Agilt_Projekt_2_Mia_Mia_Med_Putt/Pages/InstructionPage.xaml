@@ -34,6 +34,6 @@
                 FontWeight="Bold"
                 FontSize="30"
                 CornerRadius="10"
-                Click="Button_Click"/>
+                Click="BackButton_Click"/>
     </Grid>
 </Page>
