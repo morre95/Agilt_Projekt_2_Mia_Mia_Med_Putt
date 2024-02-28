@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -69,12 +70,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             Debug.WriteLine($"width: {width}, height: {height}");
 
-            squareSide = Math.Min(Scale(width, 500, 2560, 20, 120), Scale(height, 319, 1360, 20, 120));
+            //squareSide = Math.Min(Scale(width, 500, 2560, 20, 120), Scale(height, 319, 1360, 20, 120));
 
-            //SetUpGrid();
+            //DrawPlayers();
         }
 
-        private int Scale(double value, int min, int max, int minScale, int maxScale)
+        private new int Scale(double value, int min, int max, int minScale, int maxScale)
         {
             int scaled = Convert.ToInt32(minScale + (double)(value - min) / (max - min) * (maxScale - minScale));
             return scaled;
@@ -95,7 +96,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     {
                         Width = size.Width,
                         Height = size.Height,
-                        Stroke = new SolidColorBrush(Colors.Orange)
+                        //Stroke = new SolidColorBrush(Colors.Orange)
                     };
 
                     // TBD: Denna if-sats kommer troligen bli onödig när ramarna inte behövs mer
@@ -107,8 +108,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                         )
                     {
                         //rectangle.Fill = new SolidColorBrush(Colors.White);
-                        rectangle.Stroke = new SolidColorBrush(Colors.Black);
-                        rectangle.StrokeThickness = 0.5;
+                        //rectangle.Stroke = new SolidColorBrush(Colors.Black);
+                        //rectangle.StrokeThickness = 0.5;
                     }
 
 
@@ -182,13 +183,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     if (yellowPlayer.IsMyPawnAt(gridLocation))
                     {
                         //DrawPawnEllipse(gridLocation, currentDimensions, Colors.Yellow);
-                        DrawPawn(gridLocation, currentDimensions, "Blue");
+                        DrawPawn(gridLocation, currentDimensions, "Yellow");
                     }
 
                     if (greenPlayer.IsMyPawnAt(gridLocation))
                     {
                         //DrawPawnEllipse(gridLocation, currentDimensions, Colors.Green);
-                        DrawPawn(gridLocation, currentDimensions, "Blue");
+                        DrawPawn(gridLocation, currentDimensions, "Green");
                     }
                 }
             }
@@ -199,7 +200,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Image img = new Image();
             BitmapImage bitmapImage = new BitmapImage();
 
-            Uri uri = new Uri($"ms-appx:///Assets/Pawns/{pawnColor}.png");
+            Uri uri = new Uri($"ms-appx:///Assets/Board/Pawns/{pawnColor}.png");
 
             bitmapImage.UriSource = uri;
             img.Source = bitmapImage;
@@ -207,25 +208,46 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             img.Width = currentDimensions.Width;
             img.Height = currentDimensions.Height;
 
-            Canvas.SetTop(img, (gridLocation.X * currentDimensions.Width) + currentDimensions.Width / 8);
-            Canvas.SetLeft(img, (gridLocation.Y * currentDimensions.Height) + currentDimensions.Height / 8);
+            //Canvas.SetTop(img, (gridLocation.X * currentDimensions.Width) + currentDimensions.Width / 4);
+            Canvas.SetTop(img, (gridLocation.X * currentDimensions.Width));
+            //Canvas.SetLeft(img, (gridLocation.Y * currentDimensions.Height) + currentDimensions.Height / 4);
+            Canvas.SetLeft(img, (gridLocation.Y * currentDimensions.Height));
             GridCanvas.Children.Add(img);
         }
 
 
-        private void DrawPawnEllipse(Point gridLocation, Size size, Color color)
+        private async Task RunGameAsync()
         {
-            Ellipse ellipse = new Ellipse
-            {
-                Width = size.Width / 2,
-                Height = size.Height / 2,
-                Fill = new SolidColorBrush(color),
-                Stroke = new SolidColorBrush(Colors.Black)
-            };
+            PlayerPawns player = currentPlayer;
+            Pawn pawn = player.NextPawnInPlay();
 
-            Canvas.SetTop(ellipse, (gridLocation.X * size.Width) + size.Width / 4);
-            Canvas.SetLeft(ellipse, (gridLocation.Y * size.Height) + size.Height / 4);
-            GridCanvas.Children.Add(ellipse);
+            if (player.GetPawnsInPlay().Count() == 0)
+            {
+                pawn = player.NextPawnInNest();
+            }
+
+            pawn.NextPosition();
+            DrawPlayers();
+
+            if (pawn.IsAtEnd())
+            {
+                ContentDialog noWifiDialog = new ContentDialog
+                {
+                    Title = $"{player.Name} Vann!!!!",
+                    Content = $"Är det {player.Name} som är bäste eller?",
+                    CloseButtonText = "Ja det tycker jag"
+                };
+
+                ContentDialogResult result = await noWifiDialog.ShowAsync();
+            }
+
+            currentIndex++;
+        }
+
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            await RunGameAsync();
         }
     }
 }
