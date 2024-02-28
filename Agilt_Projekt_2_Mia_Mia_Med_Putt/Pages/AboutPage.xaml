@@ -10,14 +10,8 @@
 
     <Grid Background="#0AA73F">
         <TextBlock Text="Om oss" Margin="200" FontSize="40" FontFamily="Arial" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center"/>
-        <TextBlock Text="Denna applikation är utvecklad under kursen Agilt Projekt 2 av grupp 4. Grupp 4, i bokstavsordning, består av Erik Morén, Mattias Waldehagen, Rebecca " 
-           TextWrapping="Wrap"
-           Margin="100, 200, 100 ,20"
-           Foreground="White"
-           FontFamily="Arial"
-           FontSize="40"
-           FontWeight="Bold"
-           HorizontalAlignment="Center"
-           TextAlignment="Center"/>
+        <TextBlock Text="Denna applikation är utvecklad under kursen Agilt Projekt 2 av grupp 4. Grupp 4, i bokstavsordning, består av: Erik Morén, Mattias Waldehagen, Rebecca Eskekärr och Star Bahadin" 
+           TextWrapping="Wrap" Margin="370, 300, 370 ,20" Foreground="White" FontFamily="Arial" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" SelectionChanged="TextBlock_SelectionChanged"/>
+        <Button Background="#F5B40D" Content="Tillbaka" Margin="1200, 20, 100, 850" HorizontalAlignment="Center" Width="180" Height="60" FontFamily="Arial" FontWeight="Bold" FontSize="30" Click="BackButton_Click"/>
     </Grid>
 </Page>
