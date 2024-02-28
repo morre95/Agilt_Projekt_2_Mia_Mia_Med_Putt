@@ -33,6 +33,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt
         {
             // Handle Start button click
             // Add your logic here
+            this.Frame.Navigate(typeof(GamePage));
         }
 
         private void InstructionButton_Click(object sender, RoutedEventArgs e)
