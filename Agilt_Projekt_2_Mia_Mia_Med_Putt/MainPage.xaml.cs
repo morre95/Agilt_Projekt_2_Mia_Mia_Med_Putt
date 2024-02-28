@@ -46,12 +46,21 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt
             // Add your logic here
         }
 
-        private void AvslutaButton_Click(object sender, RoutedEventArgs e)
+        private async void AvslutaButton_Click(object sender, RoutedEventArgs e)
         {
-            // Handle Avsluta button click
-            // Add your logic here
-            
+            await ExitDialog.ShowAsync();
         }
+
+        private void ExitDialog_PrimaryButtonClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Exit();
+        }
+
+        private void ExitDialog_SecondaryButtonClick(object sender, RoutedEventArgs e)
+        {
+            //Stängs per automatik om man väljer "NEJ", kod överflödig
+        }
+
 
         private async Task Timer()
         {
