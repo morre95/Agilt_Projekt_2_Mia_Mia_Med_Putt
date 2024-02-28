@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Gaming.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -45,8 +46,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt
 
         private void OmButton_Click(object sender, RoutedEventArgs e)
         {
-            // Handle Om button click
-            // Add your logic here
+            this.Frame.Navigate(typeof(AboutPage));
         }
 
         private async void AvslutaButton_Click(object sender, RoutedEventArgs e)

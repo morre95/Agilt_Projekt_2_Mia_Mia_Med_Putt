@@ -29,7 +29,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.GoBack();
         }
     }
 }
