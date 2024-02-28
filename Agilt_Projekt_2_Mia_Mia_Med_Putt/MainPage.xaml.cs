@@ -54,12 +54,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt
             await ExitDialog.ShowAsync();
         }
 
-        private void ExitDialog_PrimaryButtonClick(object sender, RoutedEventArgs e)
+        private void ExitDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             Application.Current.Exit();
         }
 
-        private void ExitDialog_SecondaryButtonClick(object sender, RoutedEventArgs e)
+        private void ExitDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             //Stängs per automatik om man väljer "NEJ", kod överflödig
         }
