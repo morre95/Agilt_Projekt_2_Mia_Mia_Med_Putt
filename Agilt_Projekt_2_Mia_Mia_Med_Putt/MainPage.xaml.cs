@@ -40,6 +40,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt
         {
             // Handle Instructioner button click
             // Add your logic here
+            Frame.Navigate(typeof(InstructionPage));
         }
 
         private void OmButton_Click(object sender, RoutedEventArgs e)

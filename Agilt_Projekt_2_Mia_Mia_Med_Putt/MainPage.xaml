@@ -19,7 +19,7 @@
             <Button Content="Start" Margin="0,10" Background="orange" Click="StartButton_Click" Width="159" FontSize="20" FontFamily="Arial"/>
 
             <!-- Instructioner Button -->
-            <Button Content="Instructioner" Margin="0,10" Background="orange" Click="InstructionButton_Click" Width="158" FontFamily="Arial" FontSize="20"/>
+            <Button Content="Instruktioner" Margin="0,10" Background="orange" Click="InstructionButton_Click" Width="158" FontFamily="Arial" FontSize="20"/>
 
             <!-- Om Button -->
             <Button Content="Om" Margin="0,10" Background="orange" Click="OmButton_Click" Width="160" FontFamily="Arial" FontSize="20"/>
