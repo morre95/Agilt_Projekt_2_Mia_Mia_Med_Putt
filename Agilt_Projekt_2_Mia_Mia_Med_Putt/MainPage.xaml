@@ -31,5 +31,13 @@
 
         <Image HorizontalAlignment="Left" Height="159" Margin="46,50,0,0" VerticalAlignment="Top" Width="176" FocusVisualPrimaryBrush="Black" Source="/Assets/Dice.png"/>
 
+        <ContentDialog x:Name="ExitDialog"
+               Title="Avsluta Mia med Putt?"
+               Content="Är du säker på att du vill avsluta?"
+               PrimaryButtonText="Ja"
+               SecondaryButtonText="Nej"
+               PrimaryButtonClick="ExitDialog_PrimaryButtonClick"
+               SecondaryButtonClick="ExitDialog_SecondaryButtonClick"
+               Background="#F5B40D" d:IsHidden="True"/>
     </Grid>
 </Page>
