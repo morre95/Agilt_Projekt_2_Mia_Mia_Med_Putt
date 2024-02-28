@@ -8,25 +8,28 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="Green">
+    <Grid Background="#0AA73F">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+
         <TextBlock Text="Mia Med Putt" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" FontSize="48" FontWeight="Bold" Width="296" FontFamily="Ink Free"/>
 
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,93,0,0" Height="231" Width="172">
             <!-- Start Button -->
-            <Button Content="Start" Margin="0,10" Background="orange" Click="StartButton_Click" Width="159" FontSize="20" FontFamily="Arial"/>
+            <Button Content="Start" Margin="0,10" Background="#F5B40D" Click="StartButton_Click" Width="159" FontSize="20" FontFamily="Arial" HorizontalAlignment="Center"/>
 
             <!-- Instructioner Button -->
-            <Button Content="Instruktioner" Margin="0,10" Background="orange" Click="InstructionButton_Click" Width="158" FontFamily="Arial" FontSize="20"/>
+            <Button Content="Instructioner" Margin="0,10" Background="#F5B40D" Click="InstructionButton_Click" Width="158" FontFamily="Arial" FontSize="20" HorizontalAlignment="Center"/>
 
             <!-- Om Button -->
-            <Button Content="Om" Margin="0,10" Background="orange" Click="OmButton_Click" Width="160" FontFamily="Arial" FontSize="20"/>
+            <Button Content="Om" Margin="0,10" Background="#F5B40D" Click="OmButton_Click" Width="160" FontFamily="Arial" FontSize="20" HorizontalAlignment="Center"/>
 
             <!-- Avsluta Button -->
-            <Button Content="Avsluta" Margin="0,10" Background="orange" Click="AvslutaButton_Click" Width="162" FontFamily="Arial" FontSize="20"/>
+            <Button Content="Avsluta" Margin="0,10" Background="#F5B40D" Click="AvslutaButton_Click" Width="162" FontFamily="Arial" FontSize="20" HorizontalAlignment="Center"/>
         </StackPanel>
+
         <Image HorizontalAlignment="Left" Height="159" Margin="46,50,0,0" VerticalAlignment="Top" Width="176" FocusVisualPrimaryBrush="Black" Source="/Assets/Dice.png"/>
+
     </Grid>
 </Page>
