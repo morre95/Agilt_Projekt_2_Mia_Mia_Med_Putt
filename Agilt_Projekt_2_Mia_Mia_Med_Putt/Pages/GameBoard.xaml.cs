@@ -85,8 +85,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         {
             GridCanvas.Children.Clear();
 
-            //LoadGameBoard();
-
             grid = new Grid(11, 11);
             Size size = new Size(SquareWidth, SquareHeight);
             for (int x = 0; x < 11; x++)
@@ -172,36 +170,36 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     if (redPlayer.IsMyPawnAt(gridLocation))
                     {
                         //DrawPawnEllipse(gridLocation, currentDimensions, Colors.Red);
-                        DrawPawn(gridLocation, currentDimensions);
+                        DrawPawn(gridLocation, currentDimensions, "Red");
                     }
 
                     if (bluePlayer.IsMyPawnAt(gridLocation))
                     {
                         //DrawPawnEllipse(gridLocation, currentDimensions, Colors.Blue);
-                        DrawPawn(gridLocation, currentDimensions);
+                        DrawPawn(gridLocation, currentDimensions, "Blue");
                     }
 
                     if (yellowPlayer.IsMyPawnAt(gridLocation))
                     {
                         //DrawPawnEllipse(gridLocation, currentDimensions, Colors.Yellow);
-                        DrawPawn(gridLocation, currentDimensions);
+                        DrawPawn(gridLocation, currentDimensions, "Blue");
                     }
 
                     if (greenPlayer.IsMyPawnAt(gridLocation))
                     {
                         //DrawPawnEllipse(gridLocation, currentDimensions, Colors.Green);
-                        DrawPawn(gridLocation, currentDimensions);
+                        DrawPawn(gridLocation, currentDimensions, "Blue");
                     }
                 }
             }
         }
 
-        private void DrawPawn(Point gridLocation, Size currentDimensions)
+        private void DrawPawn(Point gridLocation, Size currentDimensions, string pawnColor)
         {
             Image img = new Image();
             BitmapImage bitmapImage = new BitmapImage();
 
-            Uri uri = new Uri("ms-appx:///Assets/RedPawn.png");
+            Uri uri = new Uri($"ms-appx:///Assets/Pawns/{pawnColor}.png");
 
             bitmapImage.UriSource = uri;
             img.Source = bitmapImage;

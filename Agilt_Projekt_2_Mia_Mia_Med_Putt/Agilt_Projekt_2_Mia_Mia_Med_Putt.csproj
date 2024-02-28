@@ -140,10 +140,11 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Pawns\Blue.png" />
     <Content Include="Assets\Dice.png" />
     <Content Include="Assets\Figma7.png" />
     <Content Include="Assets\GameBoard.png" />
-    <Content Include="Assets\RedPawn.png" />
+    <Content Include="Assets\Pawns\Red.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
