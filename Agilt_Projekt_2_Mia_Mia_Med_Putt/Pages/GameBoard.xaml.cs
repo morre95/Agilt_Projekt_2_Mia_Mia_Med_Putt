@@ -88,25 +88,30 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             GridCanvas.Children.Clear();
 
             grid = new Grid(11, 11);
-            Size size = new Size(SquareWidth, SquareHeight);
             for (int x = 0; x < 11; x++)
             {
                 for (int y = 0; y < 11; y++)
                 {
-                    Rectangle rectangle = new Rectangle()
-                    {
-                        Width = size.Width,
-                        Height = size.Height
-                    };
-
+                    Size size = new Size(SquareWidth, SquareHeight);
                     grid.SetValue(x, y, size);
 
-                    Canvas.SetTop(rectangle, x * size.Width);
-                    Canvas.SetLeft(rectangle, y * size.Height);
-                    GridCanvas.Children.Add(rectangle);
+                    DrawRectangle(x, y, size);
                 }
             }
 
+        }
+
+        private void DrawRectangle(int x, int y, Size size)
+        {
+            Rectangle rectangle = new Rectangle()
+            {
+                Width = size.Width,
+                Height = size.Height
+            };
+
+            Canvas.SetTop(rectangle, x * size.Width);
+            Canvas.SetLeft(rectangle, y * size.Height);
+            GridCanvas.Children.Add(rectangle);
         }
 
         private void SetUpPlayers()
