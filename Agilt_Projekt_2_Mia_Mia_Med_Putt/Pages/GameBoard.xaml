@@ -9,7 +9,7 @@
     SizeChanged="PageSizeChanged"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Background="#0AA73F">
         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="671" Height="671">
             <Image.Source>
                 <BitmapImage DecodePixelWidth="1680" UriSource="/Assets/Board/GameBoard.png"/>
@@ -19,7 +19,7 @@
             
 
         </Canvas>
-        <Button Content="Nästa" Margin="676,195,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Nästa" Margin="0,195,0,0" VerticalAlignment="Top" Click="Button_Click" HorizontalAlignment="Right"/>
 
     </Grid>
 </Page>
