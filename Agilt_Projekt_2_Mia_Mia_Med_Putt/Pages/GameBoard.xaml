@@ -15,10 +15,10 @@
                 <BitmapImage DecodePixelWidth="1680" UriSource="/Assets/GameBoard.png"/>
             </Image.Source>
         </Image>
+        <Button Margin="1065,52,0,0" Content="Rulla" Click="RollDiceButton_Click" Background="#F5B40D" Width="300" Height="70" FontFamily="Arial" FontSize="40" FontWeight="Bold" VerticalAlignment="Top"/>
         <Canvas x:Name="GridCanvas" Width="660" Height="660" Margin="310,100,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-            
 
         </Canvas>
-        
+
     </Grid>
 </Page>
