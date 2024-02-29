@@ -5,6 +5,7 @@
     xmlns:local="using:Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:class="using:Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -36,6 +37,7 @@
                 Content="Bakåt"
                 Margin="20, 20, 100, 850" 
                 HorizontalAlignment="Right"
-                Click="BackButton_Click"/>
+                Click="BackButton_Click"
+                class:ButtonExtensions.ChangeCursorOnHover="True"/>
     </Grid>
 </Page>
