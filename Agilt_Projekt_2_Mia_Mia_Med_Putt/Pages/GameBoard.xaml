@@ -10,12 +10,12 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Image HorizontalAlignment="Left" VerticalAlignment="Top" Width="671" Height="671">
+        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="671" Height="671">
             <Image.Source>
                 <BitmapImage DecodePixelWidth="1680" UriSource="/Assets/Board/GameBoard.png"/>
             </Image.Source>
         </Image>
-        <Canvas x:Name="GridCanvas" Width="670" Height="670" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Canvas x:Name="GridCanvas" Width="670" Height="670" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
             
 
         </Canvas>
