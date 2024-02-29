@@ -98,7 +98,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     DrawRectangle(x, y, size);
                 }
             }
-
         }
 
         private void DrawRectangle(int x, int y, Size size)
@@ -116,35 +115,56 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
         private void SetUpPlayers()
         {
-            Pawn red1 = new Pawn("Red Pawn 1", PawnPaths.Red, new Point(2, 1));
-            Pawn red2 = new Pawn("Red Pawn 2", PawnPaths.Red, new Point(1, 1));
-            Pawn red3 = new Pawn("Red Pawn 3", PawnPaths.Red, new Point(2, 2));
-            Pawn red4 = new Pawn("Red Pawn 4", PawnPaths.Red, new Point(1, 2));
-
-            Pawn blue1 = new Pawn("Blue Pawn 1", PawnPaths.Blue, new Point(2, 8));
-            Pawn blue2 = new Pawn("Blue Pawn 2", PawnPaths.Blue, new Point(1, 8));
-            Pawn blue3 = new Pawn("Blue Pawn 3", PawnPaths.Blue, new Point(2, 9));
-            Pawn blue4 = new Pawn("Blue Pawn 4", PawnPaths.Blue, new Point(1, 9));
-
-            Pawn yellow1 = new Pawn("Yellow Pawn 1", PawnPaths.Yellow, new Point(8, 8));
-            Pawn yellow2 = new Pawn("Yellow Pawn 2", PawnPaths.Yellow, new Point(9, 8));
-            Pawn yellow3 = new Pawn("Yellow Pawn 3", PawnPaths.Yellow, new Point(8, 9));
-            Pawn yellow4 = new Pawn("Yellow Pawn 4", PawnPaths.Yellow, new Point(9, 9));
-
-            Pawn green1 = new Pawn("Green Pawn 1", PawnPaths.Green, new Point(8, 1));
-            Pawn green2 = new Pawn("Green Pawn 2", PawnPaths.Green, new Point(9, 1));
-            Pawn green3 = new Pawn("Green Pawn 3", PawnPaths.Green, new Point(8, 2));
-            Pawn green4 = new Pawn("Green Pawn 4", PawnPaths.Green, new Point(9, 2));
-
-            redPlayer = new PlayerPawns("Red Player", red1, red2, red3, red4);
-            bluePlayer = new PlayerPawns("Blue Player", blue1, blue2, blue3, blue4);
-            yellowPlayer = new PlayerPawns("Yellow Player", yellow1, yellow2, yellow3, yellow4);
-            greenPlayer = new PlayerPawns("Green Player", green1, green2, green3, green4);
+            AddPawnsToPlayer();
 
             playerPawns.Add(redPlayer);
             playerPawns.Add(bluePlayer);
             playerPawns.Add(yellowPlayer);
             playerPawns.Add(greenPlayer);
+        }
+
+        private void AddPawnsToPlayer()
+        {
+            AddRedPawns();
+            AddBluePawns();
+            AddYellowPawns();
+            AddGreenPawns();
+        }
+
+        private void AddGreenPawns()
+        {
+            Pawn green1 = new Pawn("Green Pawn 1", PawnPaths.Green, new Point(8, 1));
+            Pawn green2 = new Pawn("Green Pawn 2", PawnPaths.Green, new Point(9, 1));
+            Pawn green3 = new Pawn("Green Pawn 3", PawnPaths.Green, new Point(8, 2));
+            Pawn green4 = new Pawn("Green Pawn 4", PawnPaths.Green, new Point(9, 2));
+            greenPlayer = new PlayerPawns("Green Player", green1, green2, green3, green4);
+        }
+
+        private void AddYellowPawns()
+        {
+            Pawn yellow1 = new Pawn("Yellow Pawn 1", PawnPaths.Yellow, new Point(8, 8));
+            Pawn yellow2 = new Pawn("Yellow Pawn 2", PawnPaths.Yellow, new Point(9, 8));
+            Pawn yellow3 = new Pawn("Yellow Pawn 3", PawnPaths.Yellow, new Point(8, 9));
+            Pawn yellow4 = new Pawn("Yellow Pawn 4", PawnPaths.Yellow, new Point(9, 9));
+            yellowPlayer = new PlayerPawns("Yellow Player", yellow1, yellow2, yellow3, yellow4);
+        }
+
+        private void AddBluePawns()
+        {
+            Pawn blue1 = new Pawn("Blue Pawn 1", PawnPaths.Blue, new Point(2, 8));
+            Pawn blue2 = new Pawn("Blue Pawn 2", PawnPaths.Blue, new Point(1, 8));
+            Pawn blue3 = new Pawn("Blue Pawn 3", PawnPaths.Blue, new Point(2, 9));
+            Pawn blue4 = new Pawn("Blue Pawn 4", PawnPaths.Blue, new Point(1, 9));
+            bluePlayer = new PlayerPawns("Blue Player", blue1, blue2, blue3, blue4);
+        }
+
+        private void AddRedPawns()
+        {
+            Pawn red1 = new Pawn("Red Pawn 1", PawnPaths.Red, new Point(2, 1));
+            Pawn red2 = new Pawn("Red Pawn 2", PawnPaths.Red, new Point(1, 1));
+            Pawn red3 = new Pawn("Red Pawn 3", PawnPaths.Red, new Point(2, 2));
+            Pawn red4 = new Pawn("Red Pawn 4", PawnPaths.Red, new Point(1, 2));
+            redPlayer = new PlayerPawns("Red Player", red1, red2, red3, red4);
         }
 
         private void DrawPlayers()
