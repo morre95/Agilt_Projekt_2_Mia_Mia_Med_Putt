@@ -151,27 +151,31 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 {
                     Size currentDimensions = grid.GetValue(x, y);
                     Point gridLocation = new Point(x, y);
-
-                    if (redPlayer.IsMyPawnAt(gridLocation))
-                    {
-                        DrawPawn(gridLocation, currentDimensions, "Red");
-                    }
-
-                    if (bluePlayer.IsMyPawnAt(gridLocation))
-                    {
-                        DrawPawn(gridLocation, currentDimensions, "Blue");
-                    }
-
-                    if (yellowPlayer.IsMyPawnAt(gridLocation))
-                    {
-                        DrawPawn(gridLocation, currentDimensions, "Yellow");
-                    }
-
-                    if (greenPlayer.IsMyPawnAt(gridLocation))
-                    {
-                        DrawPawn(gridLocation, currentDimensions, "Green");
-                    }
+                    DrawIfPawnExists(currentDimensions, gridLocation);
                 }
+            }
+        }
+
+        private void DrawIfPawnExists(Size currentDimensions, Point gridLocation)
+        {
+            if (redPlayer.IsMyPawnAt(gridLocation))
+            {
+                DrawPawn(gridLocation, currentDimensions, "Red");
+            }
+
+            if (bluePlayer.IsMyPawnAt(gridLocation))
+            {
+                DrawPawn(gridLocation, currentDimensions, "Blue");
+            }
+
+            if (yellowPlayer.IsMyPawnAt(gridLocation))
+            {
+                DrawPawn(gridLocation, currentDimensions, "Yellow");
+            }
+
+            if (greenPlayer.IsMyPawnAt(gridLocation))
+            {
+                DrawPawn(gridLocation, currentDimensions, "Green");
             }
         }
 
