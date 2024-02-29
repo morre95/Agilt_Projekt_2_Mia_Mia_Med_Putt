@@ -26,31 +26,69 @@ using Windows.UI.Xaml.Shapes;
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// The frame with the game board
     /// </summary>
     public sealed partial class GameBoard : Page
     {
+        /// <summary>
+        /// The pawns of the red player.
+        /// </summary>
         private PlayerPawns redPlayer;
+
+        /// <summary>
+        /// The pawns of the blue player.
+        /// </summary>
         private PlayerPawns bluePlayer;
+
+        /// <summary>
+        /// The pawns of the yellow player.
+        /// </summary>
         private PlayerPawns yellowPlayer;
+
+        /// <summary>
+        /// The pawns of the green player.
+        /// </summary>
         private PlayerPawns greenPlayer;
 
+        /// <summary>
+        /// The side length of each square on the grid.
+        /// </summary>
         private int squareSide = 60;
 
+        /// <summary>
+        /// Gets the height of a square on the grid.
+        /// </summary>
         private int SquareHeight { get { return squareSide; } }
+
+        /// <summary>
+        /// Gets the width of a square on the grid.
+        /// </summary>
         private int SquareWidth { get { return squareSide; } }
 
+        /// <summary>
+        /// The grid representing the game board.
+        /// </summary>
         private Grid grid;
 
+        /// <summary>
+        /// List of all players' pawns.
+        /// </summary>
         private List<PlayerPawns> playerPawns = new List<PlayerPawns>();
 
+        /// <summary>
+        /// Index of the current player.
+        /// </summary>
         private int currentIndex = 0;
 
+        /// <summary>
+        /// Gets the current player whose turn it is.
+        /// </summary>
         private PlayerPawns currentPlayer
         {
             get
             {
-                if (currentIndex + 1 > playerPawns.Count) currentIndex = 0;
+                if (currentIndex + 1 > playerPawns.Count)
+                    currentIndex = 0;
                 return playerPawns[currentIndex];
             }
         }
