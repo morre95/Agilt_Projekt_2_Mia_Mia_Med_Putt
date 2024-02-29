@@ -140,10 +140,10 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Board\GameBoard.png" />
     <Content Include="Assets\Board\Pawns\Blue.png" />
     <Content Include="Assets\Dice.png" />
     <Content Include="Assets\Figma7.png" />
-    <Content Include="Assets\Board\GameBoard.png" />
     <Content Include="Assets\Board\Pawns\Green.png" />
     <Content Include="Assets\Board\Pawns\Red.png" />
     <Content Include="Assets\Board\Pawns\Yellow.png" />

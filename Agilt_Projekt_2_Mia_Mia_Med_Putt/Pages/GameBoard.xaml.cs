@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -95,24 +96,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     Rectangle rectangle = new Rectangle()
                     {
                         Width = size.Width,
-                        Height = size.Height,
-                        //Stroke = new SolidColorBrush(Colors.Orange)
+                        Height = size.Height
                     };
-
-                    // TBD: Denna if-sats kommer troligen bli onödig när ramarna inte behövs mer
-                    if (
-                        (x >= 4 && x <= 6 && y >= 0 && y <= 4) ||
-                        (y >= 4 && y <= 6 && x >= 0 && x <= 4) ||
-                        (y >= 6 && y <= 10 && x >= 4 && x <= 6) ||
-                        (x >= 6 && x <= 10 && y >= 4 && y <= 6)
-                        )
-                    {
-                        //rectangle.Fill = new SolidColorBrush(Colors.White);
-                        //rectangle.Stroke = new SolidColorBrush(Colors.Black);
-                        //rectangle.StrokeThickness = 0.5;
-                    }
-
-
 
                     grid.SetValue(x, y, size);
 
@@ -164,31 +149,26 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 for (int y = 0; y < 11; y++)
                 {
-
                     Size currentDimensions = grid.GetValue(x, y);
                     Point gridLocation = new Point(x, y);
 
                     if (redPlayer.IsMyPawnAt(gridLocation))
                     {
-                        //DrawPawnEllipse(gridLocation, currentDimensions, Colors.Red);
                         DrawPawn(gridLocation, currentDimensions, "Red");
                     }
 
                     if (bluePlayer.IsMyPawnAt(gridLocation))
                     {
-                        //DrawPawnEllipse(gridLocation, currentDimensions, Colors.Blue);
                         DrawPawn(gridLocation, currentDimensions, "Blue");
                     }
 
                     if (yellowPlayer.IsMyPawnAt(gridLocation))
                     {
-                        //DrawPawnEllipse(gridLocation, currentDimensions, Colors.Yellow);
                         DrawPawn(gridLocation, currentDimensions, "Yellow");
                     }
 
                     if (greenPlayer.IsMyPawnAt(gridLocation))
                     {
-                        //DrawPawnEllipse(gridLocation, currentDimensions, Colors.Green);
                         DrawPawn(gridLocation, currentDimensions, "Green");
                     }
                 }
@@ -208,9 +188,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             img.Width = currentDimensions.Width;
             img.Height = currentDimensions.Height;
 
-            //Canvas.SetTop(img, (gridLocation.X * currentDimensions.Width) + currentDimensions.Width / 4);
             Canvas.SetTop(img, (gridLocation.X * currentDimensions.Width));
-            //Canvas.SetLeft(img, (gridLocation.Y * currentDimensions.Height) + currentDimensions.Height / 4);
             Canvas.SetLeft(img, (gridLocation.Y * currentDimensions.Height));
             GridCanvas.Children.Add(img);
         }
@@ -231,6 +209,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             if (pawn.IsAtEnd())
             {
+                // TBD: Detta är bara för att få ett meddelande när en pjäs går i mål
                 ContentDialog noWifiDialog = new ContentDialog
                 {
                     Title = $"{player.Name} Vann!!!!",
