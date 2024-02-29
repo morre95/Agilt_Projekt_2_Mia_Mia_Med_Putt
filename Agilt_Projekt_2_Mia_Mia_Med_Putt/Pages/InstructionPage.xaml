@@ -31,17 +31,11 @@
                    HorizontalTextAlignment="DetectFromContent"
                    TextAlignment="Center"/>
             </StackPanel>
-            
-        <Button Background="#F5B40D" 
-                Content="Tillbaka" 
-                Margin="20, 20, 100, 850" 
-                HorizontalAlignment="Right" 
-                Width="180" Height="60"
-                FontFamily="Arial"
-                FontWeight="Bold"
-                FontSize="30"
-                CornerRadius="10"
-                Click="BackButton_Click"/>
 
+        <Button
+                Content="Bakåt"
+                Margin="20, 20, 100, 850" 
+                HorizontalAlignment="Right"
+                Click="BackButton_Click"/>
     </Grid>
 </Page>
