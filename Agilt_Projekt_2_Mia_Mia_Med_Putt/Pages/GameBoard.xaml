@@ -10,16 +10,18 @@
     SizeChanged="PageSizeChanged"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <Image HorizontalAlignment="Left" VerticalAlignment="Top" Width="1280" Height="1280">
-            <Image.Source>
-                <BitmapImage DecodePixelWidth="1680" UriSource="/Assets/GameBoard.png"/>
-            </Image.Source>
-        </Image>
-        <Button Margin="1065,52,0,0" Content="Rulla" Click="RollDiceButton_Click" VerticalAlignment="Top" class:ButtonExtensions.ChangeCursorOnHover="True"/>
-        <Canvas x:Name="GridCanvas" Width="660" Height="660" Margin="310,100,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+    <Grid Background="#0AA73F">
+        <Grid Background="#E0D2B5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="685" Height="685" CornerRadius="80">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="671" Height="671" Margin="8,5,0,0">
+                <Image.Source>
+                    <BitmapImage DecodePixelWidth="1680" UriSource="/Assets/Board/GameBoard.png"/>
+                </Image.Source>
+            </Image>
+        </Grid>
+        <Canvas x:Name="GridCanvas" Width="670" Height="670" Margin="8,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
 
         </Canvas>
+        <Button Content="Nästa" Margin="0,195,0,0" VerticalAlignment="Top" Click="Button_Click" HorizontalAlignment="Right"/>
 
     </Grid>
 </Page>
