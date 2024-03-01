@@ -26,7 +26,7 @@ using Windows.UI.Xaml.Shapes;
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 {
     /// <summary>
-    /// The frame with the game board
+    /// The Page with the game board
     /// </summary>
     public sealed partial class GameBoard : Page
     {
@@ -51,7 +51,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         private PlayerPawns greenPlayer;
 
         /// <summary>
-        /// The side length of each square on the grid.
+        /// The actual size (width and height) of each square on the grid.
         /// </summary>
         private int squareSide = 60;
 
@@ -71,7 +71,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         private Grid grid;
 
         /// <summary>
-        /// List of all players' pawns.
+        /// List of all players (a list of PlayerPawns class).
         /// </summary>
         private List<PlayerPawns> playerPawns = new List<PlayerPawns>();
 
@@ -93,6 +93,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
+        /// <summary>
+        /// Page constructor. It initializes the page, setup players and draw them on to the game board.
+        /// </summary>
         public GameBoard()
         {
             InitializeComponent();
