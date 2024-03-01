@@ -11,8 +11,10 @@
             <Setter Property="FontFamily" Value="Arial"/>
             <Setter Property="Width" Value="300"/>
             <Setter Property="Height" Value="70"/>
-            
-            <Setter Property="Template">
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="Foreground" Value="Black"/>
+
+            <!--<Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="ButtonRoot"
@@ -48,7 +50,7 @@
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
-            </Setter>
+            </Setter>-->
         </Style>
     </Application.Resources>
 </Application>
