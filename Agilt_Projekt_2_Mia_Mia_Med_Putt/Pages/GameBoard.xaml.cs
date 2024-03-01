@@ -347,6 +347,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
         private void GoToNextPosition(Pawn pawn)
         {
+            // TODO: Fixa så att en pjäs kan knuffar andra pjäser
             pawn.NextPosition();
             DrawPlayers();
         }
