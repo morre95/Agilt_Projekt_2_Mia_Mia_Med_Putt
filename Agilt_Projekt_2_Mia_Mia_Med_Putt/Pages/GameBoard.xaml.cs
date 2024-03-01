@@ -289,48 +289,68 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 )
             {
                 pawn = player.NextPawnInNest();
-                pawn.NextPosition();
-                DrawPlayers();
+                GoToNextPosition(pawn);
+
+                // If dice is = 1, go to next player
+                if (diceRoll == 6) Debug.WriteLine($"{player.Name} rullade 6 och får slå igen");
+                else currentIndex++;
+
                 return;
             }
             // If the dice shows 6, bring two pawns to the gameboard if there are two or more pawns in the nest.
             else if (pawnsInNest >= 2 && diceRoll == 6)
             {
                 pawn = player.NextPawnInNest();
-                pawn.NextPosition();
-                DrawPlayers();
+                GoToNextPosition(pawn);
 
                 pawn = player.NextPawnInNest();
-                pawn.NextPosition();
-                DrawPlayers();
+                GoToNextPosition(pawn);
+
+                Debug.WriteLine($"{player.Name} rullade 6 och får slå igen");
+                //currentIndex++;
+                return;
+            }
+            else if (player.GetPawnsInPlay().Count() == 0)
+            {
+                if (diceRoll == 6) Debug.WriteLine($"{player.Name} rullade 6 och får slå igen");
+                else currentIndex++;
+
                 return;
             }
 
             // Move the pawn the steps the dice shows and sleep 100 ms.
             for (int i = 0; i < diceRoll; i++)
             {
-                pawn.NextPosition();
-                DrawPlayers();
+                GoToNextPosition(pawn);
                 await Task.Delay(100);
-            }
-            
 
-            if (pawn.IsAtEnd())
-            {
-                // TBD: Detta är bara för att få ett meddelande när en pjäs går i mål
-                ContentDialog noWifiDialog = new ContentDialog
+                if (pawn.IsAtEnd())
                 {
-                    Title = $"{player.Name} Vann!!!!",
-                    Content = $"Är det {player.Name} som är bäste eller?",
-                    CloseButtonText = "Ja det tycker jag"
-                };
+                    // TBD: Detta är bara för att få ett meddelande när en pjäs går i mål
+                    ContentDialog noWifiDialog = new ContentDialog
+                    {
+                        Title = $"{player.Name} Vann!!!!",
+                        Content = $"Är det {player.Name} som är bäste eller?",
+                        CloseButtonText = "Ja det tycker jag"
+                    };
 
-                ContentDialogResult result = await noWifiDialog.ShowAsync();
+                    ContentDialogResult result = await noWifiDialog.ShowAsync();
+
+                    player.RemovePawn(pawn);
+
+                    break;
+                }
             }
 
             currentIndex++;
         }
 
+        private void GoToNextPosition(Pawn pawn)
+        {
+            // TODO: Fixa så att en pjäs kan knuffar andra pjäser
+            pawn.NextPosition();
+            DrawPlayers();
+        }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -348,6 +368,19 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         {
             Random random = new Random();
             return random.Next(1,7);
+        }
+
+        private void OpenButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(InGameMenu));
+        }
+
+        private void Page_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Escape)
+            {
+                Frame.Navigate(typeof(InGameMenu));
+            }
         }
     }
 }
