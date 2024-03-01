@@ -5,6 +5,7 @@
     xmlns:local="using:Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:class="using:Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes"
     mc:Ignorable="d"
     SizeChanged="PageSizeChanged"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -18,7 +19,6 @@
             </Image>
         </Grid>
         <Canvas x:Name="GridCanvas" Width="670" Height="670" Margin="8,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            
 
         </Canvas>
         <Button Content="Nästa" Margin="0,195,0,0" VerticalAlignment="Top" Click="Button_Click" HorizontalAlignment="Right"/>

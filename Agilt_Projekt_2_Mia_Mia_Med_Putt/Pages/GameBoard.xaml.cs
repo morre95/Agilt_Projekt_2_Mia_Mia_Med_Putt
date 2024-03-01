@@ -298,5 +298,18 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         {
             await RunGameAsync();
         }
+
+        private void RollDiceButton_Click(object sender, RoutedEventArgs e)
+        {
+            int result = RollDice();
+            Debug.WriteLine($"Resultat: {result}");
+        }
+
+        
+        private int RollDice()
+        {
+            Random random = new Random();
+            return random.Next(1,7);
+        }
     }
 }
