@@ -6,6 +6,7 @@
     <Application.Resources>
         <Style TargetType="Button">
             <Setter Property="Background" Value="#F5B40D"/>
+            <Setter Property="Foreground" Value="Black"/>
             <Setter Property="FontSize" Value="40"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontFamily" Value="Arial"/>
