@@ -7,12 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:class="using:Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Grid Background="#0AA73F">
-        <TextBlock Text="Om oss" Margin="0,150,0,0" FontSize="80" FontFamily="Arial" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center"/>
-        <TextBlock Text="Denna applikation är utvecklad under kursen Agilt Projekt 2 av grupp 4. Grupp 4, i bokstavsordning, består av: Erik Morén, Mattias Waldehagen, Rebecca Eskekärr och Star Bahadin" 
-           TextWrapping="Wrap" Margin="370, 300, 370 ,20" Foreground="White" FontFamily="Arial" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center"/>
-        <Button Content="Bakåt" Click="BackButton_Click" Margin="1122,0,0,800" VerticalAlignment="Center" class:ButtonExtensions.ChangeCursorOnHover="True"/>
-    </Grid>
+    Background="#0AA73F">
+    
+    <Viewbox Stretch="Uniform">
+        <Grid Background="#0AA73F" MaxWidth="1500" MaxHeight="1000">
+            <TextBlock Text="Om oss" Margin="0,0,0,360" FontSize="80" FontFamily="Arial" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="Denna applikation är utvecklad under kursen Agilt Projekt 2 av grupp 4." 
+             TextWrapping="Wrap" Margin="250, 0, 250 ,150" Foreground="White" FontFamily="Arial" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Text="Grupp 4, i bokstavsordning, består av: Erik Morén, Mattias Waldehagen, Rebecca Eskekärr och Star Bahadin" 
+             TextWrapping="Wrap" Margin="250, 80, 250 ,0" Foreground="White" FontFamily="Arial" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+            <Button Content="Bakåt" Click="BackButton_Click" Margin="900,0,0,700" HorizontalAlignment="Center" VerticalAlignment="Center" class:ButtonExtensions.ChangeCursorOnHover="True"/>
+        </Grid>
+    </Viewbox>
 </Page>
