@@ -279,7 +279,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             int pawnsInNest = player.GetPawnsInNest().Count();
 
-            
+            Debug.WriteLine($"{player.Name} slog {diceRoll}");
+
             if (
                 // If the dice shows 1, bring one pawn to the gameboard if there is one.
                 (pawnsInNest >= 1 && diceRoll == 1) ||
