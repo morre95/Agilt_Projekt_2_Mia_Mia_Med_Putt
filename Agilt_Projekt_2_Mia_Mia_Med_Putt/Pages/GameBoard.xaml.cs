@@ -269,13 +269,50 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             PlayerPawns player = currentPlayer;
             Pawn pawn = player.NextPawnInPlay();
 
+            // if the player has no pawns in play, bring one up so the variable pawn is not null.
             if (player.GetPawnsInPlay().Count() == 0)
             {
                 pawn = player.NextPawnInNest();
             }
 
-            pawn.NextPosition();
-            DrawPlayers();
+            int diceRoll = RollDice();
+
+            int pawnsInNest = player.GetPawnsInNest().Count();
+
+            
+            if (
+                // If the dice shows 1, bring one pawn to the gameboard if there is one.
+                (pawnsInNest >= 1 && diceRoll == 1) ||
+                // If the dice shows 6 and there is one pawn in the nest, bring one pawn to the gameboard.
+                (pawnsInNest == 1 && diceRoll == 6)
+                )
+            {
+                pawn = player.NextPawnInNest();
+                pawn.NextPosition();
+                DrawPlayers();
+                return;
+            }
+            // If the dice shows 6, bring two pawns to the gameboard if there are two or more pawns in the nest.
+            else if (pawnsInNest >= 2 && diceRoll == 6)
+            {
+                pawn = player.NextPawnInNest();
+                pawn.NextPosition();
+                DrawPlayers();
+
+                pawn = player.NextPawnInNest();
+                pawn.NextPosition();
+                DrawPlayers();
+                return;
+            }
+
+            // Move the pawn the steps the dice shows and sleep 100 ms.
+            for (int i = 0; i < diceRoll; i++)
+            {
+                pawn.NextPosition();
+                DrawPlayers();
+                await Task.Delay(100);
+            }
+            
 
             if (pawn.IsAtEnd())
             {

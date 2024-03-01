@@ -155,7 +155,6 @@
     <Content Include="Assets\Dice.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Pawns\Blue.png" />
     <Content Include="Assets\Dice.png" />
     <Content Include="Assets\Figma7.png" />
     <Content Include="Assets\Board\Pawns\Green.png" />
