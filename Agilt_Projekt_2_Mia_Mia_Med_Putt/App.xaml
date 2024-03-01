@@ -12,10 +12,8 @@
             <Setter Property="FontFamily" Value="Arial"/>
             <Setter Property="Width" Value="300"/>
             <Setter Property="Height" Value="70"/>
-            <Setter Property="CornerRadius" Value="20"/>
-            <Setter Property="Foreground" Value="Black"/>
 
-            <!--<Setter Property="Template">
+            <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="ButtonRoot"
@@ -23,7 +21,7 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="20">
-                            <VisualStateManager.VisualStateGroups>
+                            <!--<VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="Normal"/>
                                     <VisualState x:Name="Pressed">
@@ -45,13 +43,13 @@
                                         </Storyboard>
                                     </VisualState>
                                 </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
+                            </VisualStateManager.VisualStateGroups>-->
                             <ContentPresenter HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
-            </Setter>-->
+            </Setter>
         </Style>
     </Application.Resources>
 </Application>
