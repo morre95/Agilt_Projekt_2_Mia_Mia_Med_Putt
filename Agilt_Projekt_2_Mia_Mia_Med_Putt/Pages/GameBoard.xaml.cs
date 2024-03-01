@@ -349,5 +349,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Random random = new Random();
             return random.Next(1,7);
         }
+
+        private void OpenButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(InGameMenu));
+        }
     }
 }
