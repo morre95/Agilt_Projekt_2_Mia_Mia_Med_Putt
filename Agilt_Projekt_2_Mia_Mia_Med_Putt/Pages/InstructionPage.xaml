@@ -7,9 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:class="using:Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Grid Background="#0AA73F">
+    Background="#0AA73F">
+    <Viewbox Stretch="Uniform">
+        <Grid Background="#0AA73F" MaxHeight="1000" MaxWidth="1500">
         <StackPanel Orientation="Horizontal">
         <Image Source="/Assets/Dice.png" Width="100" Height="100" Margin="50, 20, 20, 850" HorizontalAlignment="Left"/>
         <TextBlock Text="Instruktioner"
@@ -40,4 +40,5 @@
                 Click="BackButton_Click"
                 class:ButtonExtensions.ChangeCursorOnHover="True"/>
     </Grid>
+    </Viewbox>
 </Page>

@@ -8,9 +8,9 @@
     xmlns:class="using:Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes"
     mc:Ignorable="d"
     SizeChanged="PageSizeChanged"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Grid>
+    Background="#0AA73F">
+    <Viewbox Stretch="Uniform">
+        <Grid MaxHeight="1000" MaxWidth="1500">
         <Image HorizontalAlignment="Left" VerticalAlignment="Top" Width="1280" Height="1280">
             <Image.Source>
                 <BitmapImage DecodePixelWidth="1680" UriSource="/Assets/GameBoard.png"/>
@@ -22,4 +22,5 @@
         </Canvas>
 
     </Grid>
+    </Viewbox>
 </Page>
