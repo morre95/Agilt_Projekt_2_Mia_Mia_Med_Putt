@@ -135,6 +135,9 @@
       <DependentUpon>GameBoard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Grid.cs" />
+    <Compile Include="Pages\InGameMenu.xaml.cs">
+      <DependentUpon>InGameMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\InstructionPage.xaml.cs">
       <DependentUpon>InstructionPage.xaml</DependentUpon>
     </Compile>
@@ -149,6 +152,8 @@
   <ItemGroup>
     <Content Include="Assets\Board\GameBoard.png" />
     <Content Include="Assets\Board\Pawns\Blue.png" />
+    <Content Include="Assets\GameBoard-blured.png" />
+    <Content Include="Assets\Hamburger-meny.png" />
     <Content Include="Assets\Spelplan.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -190,6 +195,10 @@
     <Page Include="Pages\GameBoard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\InGameMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\InstructionPage.xaml">
       <SubType>Designer</SubType>

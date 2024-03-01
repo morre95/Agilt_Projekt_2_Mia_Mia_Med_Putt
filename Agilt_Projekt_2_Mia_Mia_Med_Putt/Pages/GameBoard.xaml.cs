@@ -354,5 +354,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         {
             Frame.Navigate(typeof(InGameMenu));
         }
+
+        private void Page_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Escape)
+            {
+                Frame.Navigate(typeof(InGameMenu));
+            }
+        }
     }
 }

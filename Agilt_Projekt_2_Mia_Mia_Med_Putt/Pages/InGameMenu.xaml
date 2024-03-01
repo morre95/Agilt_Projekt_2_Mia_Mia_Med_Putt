@@ -1,0 +1,62 @@
+﻿<Page
+    x:Class="Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages.InGameMenu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    KeyUp="Page_KeyUp"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <Storyboard x:Name="upToDown">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="dialog" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="-1582.586"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.7" Value="-1.184"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="moveUpDialog">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="dialog" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="-1.184"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.7" Value="-1600.586"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+
+    <Grid Background="#0AA73F">
+        <Image Source="/Assets/GameBoard-blured.png" Width="900"/>
+        <Grid>
+            
+            <Canvas x:Name="dialog" Width="800" Height="800" RenderTransformOrigin="0.5,0.5">
+                <Canvas.RenderTransform>
+                    <CompositeTransform/>
+                </Canvas.RenderTransform>
+                <Border Width="800" Height="600" CornerRadius="30">
+                    <Rectangle Width="800" Height="600"  Fill="#E8D1A5" RadiusX="20" RadiusY="20">
+                    </Rectangle>
+                    <Border.BorderBrush>
+                        <SolidColorBrush Color="#E6E6E6"/>
+                    </Border.BorderBrush>
+                    <Border.BorderThickness>15</Border.BorderThickness>
+                </Border>
+                <TextBlock Text="In-Game Meny" FontFamily="Ink Free" FontSize="50" Foreground="#153D03" Canvas.Left="250" Canvas.Top="50"/>
+
+                <Button x:Name="button1" Width="200" Height="50" Click="BackToGameButton_Click" Background="#224EB5"  Canvas.Left="300" Canvas.Top="200" CornerRadius="20" FontFamily="Calibri" FontSize="20" Foreground="White">
+                    Tillbaka till spelet
+                </Button>
+
+                <Button Width="200" Height="50" Click="RulesButton_Click" Background="#224EB5" Canvas.Left="300"  Canvas.Top="300" CornerRadius="20"  FontFamily="Calibri" FontSize="20" Foreground="White">
+                    Regler
+                </Button>
+
+                <Button Width="200" Height="50" Click="ExitGameButton_Click" Background="#224EB5" Canvas.Left="300"  Canvas.Top="400" CornerRadius="20"  FontFamily="Calibri" FontSize="20" Foreground="White">
+                    Avsluta Spelet
+                </Button>
+            </Canvas>
+            <Button Background="Transparent" Width="60" Height="60" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="BackToGameButton_Click" CornerRadius="10" >
+                <Image Source="/Assets/Hamburger-meny.png" Stretch="Fill"/>
+            </Button>
+        </Grid>
+
+    </Grid>
+</Page>
