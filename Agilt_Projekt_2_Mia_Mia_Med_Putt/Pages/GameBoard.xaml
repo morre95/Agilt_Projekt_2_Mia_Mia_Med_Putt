@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:class="using:Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes"
     mc:Ignorable="d"
-    SizeChanged="PageSizeChanged"
     KeyUp="Page_KeyUp"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -28,5 +27,4 @@
         </Button>
 
     </Grid>
-    </Viewbox>
 </Page>

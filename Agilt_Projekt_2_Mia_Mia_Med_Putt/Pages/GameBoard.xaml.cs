@@ -105,25 +105,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             DrawPlayers();
         }
 
-        private void PageSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            double width = e.NewSize.Width;
-            double height = e.NewSize.Height;
-
-            Debug.WriteLine($"width: {width}, height: {height}");
-
-            //squareSide = Math.Min(Scale(width, 500, 2560, 20, 120), Scale(height, 319, 1360, 20, 120));
-
-            //DrawPlayers();
-        }
-
-        private new int Scale(double value, int min, int max, int minScale, int maxScale)
-        {
-            int scaled = Convert.ToInt32(minScale + (double)(value - min) / (max - min) * (maxScale - minScale));
-            return scaled;
-        }
-
-
         private void SetUpGrid()
         {
             GridCanvas.Children.Clear();
@@ -306,15 +287,15 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 pawn = player.NextPawnInNest();
                 GoToNextPosition(pawn);
 
-                Debug.WriteLine($"{player.Name} rullade 6 och får slå igen");
+                Debug.WriteLine($"{player.Name} rullade 6 och har plockat ut två spelare och får nu slå igen");
                 //currentIndex++;
                 return;
             }
             else if (player.GetPawnsInPlay().Count() == 0)
             {
-                if (diceRoll == 6) Debug.WriteLine($"{player.Name} rullade 6 och får slå igen");
-                else currentIndex++;
-
+                Debug.WriteLine($"{player.Name} har ingen spelare på plan");
+                currentIndex++;
+                Debug.WriteLine($"Nu är det {currentPlayer.Name} tur att spela");
                 return;
             }
 
