@@ -105,25 +105,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             DrawPlayers();
         }
 
-        private void PageSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            double width = e.NewSize.Width;
-            double height = e.NewSize.Height;
-
-            Debug.WriteLine($"width: {width}, height: {height}");
-
-            //squareSide = Math.Min(Scale(width, 500, 2560, 20, 120), Scale(height, 319, 1360, 20, 120));
-
-            //DrawPlayers();
-        }
-
-        private new int Scale(double value, int min, int max, int minScale, int maxScale)
-        {
-            int scaled = Convert.ToInt32(minScale + (double)(value - min) / (max - min) * (maxScale - minScale));
-            return scaled;
-        }
-
-
         private void SetUpGrid()
         {
             GridCanvas.Children.Clear();
@@ -367,7 +348,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         private int RollDice()
         {
             Random random = new Random();
-            return random.Next(1,7);
+            int result = random.Next(1,7);
+            Uri imageUri = new Uri($"ms-appx:///Assets/Board/Dice/D{result}.png");
+            BitmapImage image = new BitmapImage(imageUri);
+            DicePic.Source = image;
+            return result;
         }
 
         private void OpenButton_Click(object sender, RoutedEventArgs e)
