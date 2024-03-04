@@ -12,7 +12,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
     /// Represents a pawn on the game board.
     /// <seealso cref="PlayerPawns"/>
     /// </summary>
-    internal class Pawn
+    public class Pawn
     {
 
         /// <summary>

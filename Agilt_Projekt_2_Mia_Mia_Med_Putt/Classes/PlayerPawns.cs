@@ -16,7 +16,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
     /// Pawn that belongs to the current player, and the GetPawnAt method can be used to retrieve a 
     /// specific Pawn when a user clicks on a square on the game board.
     /// </example>
-    internal class PlayerPawns
+    public class PlayerPawns
     {
         /// <summary>
         /// The name of the player.

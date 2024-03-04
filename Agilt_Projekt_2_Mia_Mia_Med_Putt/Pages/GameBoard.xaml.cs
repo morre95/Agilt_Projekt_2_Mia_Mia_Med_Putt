@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -21,6 +22,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
+
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -101,10 +103,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         {
             InitializeComponent();
 
-            SetUpPlayers();
+            SetUpPlayers(); 
 
             DrawPlayers();
         }
+
 
         private void SetUpGrid()
         {
@@ -233,7 +236,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                         textBlock.Text = numberOfPawns.ToString();
                         textBlock.Foreground = new SolidColorBrush(Colors.Black);
                         Canvas.SetTop(textBlock, (gridLocation.X * currentDimensions.Width));
-                        Canvas.SetLeft(textBlock, (gridLocation.Y * currentDimensions.Height) + 2);
+                        Canvas.SetLeft(textBlock, (gridLocation.Y * currentDimensions.Height) + 4);
                         GridCanvas.Children.Add(textBlock);
                     }
 
@@ -305,6 +308,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
                 Debug.WriteLine($"{player.Name} rullade 6 och har plockat ut två spelare och får nu slå igen");
                 //currentIndex++;
+
                 return;
             }
             else if (player.GetPawnsInPlay().Count() == 0)
@@ -337,22 +341,43 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 if (pawn.IsAtEnd())
                 {
                     // TBD: Detta är bara för att få ett meddelande när en pjäs går i mål
-                    ContentDialog dialog = new ContentDialog
+                    /*ContentDialog dialog = new ContentDialog
                     {
                         Title = $"{player.Name} Vann!!!!",
                         Content = $"Är det {player.Name} som är bäste eller?",
                         CloseButtonText = "Ja det tycker jag"
                     };
 
-                    ContentDialogResult result = await dialog.ShowAsync();
+                    ContentDialogResult result = await dialog.ShowAsync();*/
+
+                    
+
+                    if (i < diceRoll - 1)
+                    {
+                        Debug.WriteLine($"{player.Name} slog {diceRoll} och ska studsa tillbaka {diceRoll - (i + 1)}");
+                        pawn.ChangeLocation(pawn.PawnPath[(pawn.PawnPath.Count - 1) - (diceRoll - (i + 1))]);
+
+                        DrawPlayers();
+                        break;
+                    }
+
+                    Debug.WriteLine($"{player.Name} raderar pjäsen {pawn.Name}");
 
                     player.RemovePawn(pawn);
                     DrawPlayers();
+
                     break;
                 }
             }
 
             // Kolla om det finns någon spelare som kan knuffa
+            PushPawns(player, pawn);
+
+            currentIndex++;
+        }
+
+        private void PushPawns(PlayerPawns player, Pawn pawn)
+        {
             foreach (PlayerPawns playerPawn in playerPawns.Where(x => !player.Equals(x)))
             {
                 if (playerPawn.HasPawnOnBoard())
@@ -369,8 +394,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     }
                 }
             }
-
-            currentIndex++;
         }
 
         private void GoToNextPosition(Pawn pawn)
@@ -405,4 +428,5 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
     }
+
 }
