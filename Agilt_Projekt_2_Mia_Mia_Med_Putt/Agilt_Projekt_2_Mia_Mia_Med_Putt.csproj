@@ -150,6 +150,12 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Board\Dice\D1.png" />
+    <Content Include="Assets\Board\Dice\D2.png" />
+    <Content Include="Assets\Board\Dice\D3.png" />
+    <Content Include="Assets\Board\Dice\D4.png" />
+    <Content Include="Assets\Board\Dice\D5.png" />
+    <Content Include="Assets\Board\Dice\D6.png" />
     <Content Include="Assets\Board\GameBoard.png" />
     <Content Include="Assets\Board\Pawns\Blue.png" />
     <Content Include="Assets\GameBoard-blured.png" />

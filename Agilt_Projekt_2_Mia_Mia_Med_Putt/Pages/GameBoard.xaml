@@ -7,25 +7,25 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:class="using:Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes"
     mc:Ignorable="d"
-    SizeChanged="PageSizeChanged"
     KeyUp="Page_KeyUp"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Grid Background="#0AA73F">
-        <Grid Background="#E0D2B5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="685" Height="685" CornerRadius="80">
+    Background="#0AA73F">
+    <Viewbox Stretch="Uniform">
+        <Grid Background="#0AA73F" MaxHeight="1000" MaxWidth="1500">
             <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="671" Height="671" Margin="8,5,0,0">
                 <Image.Source>
                     <BitmapImage DecodePixelWidth="1680" UriSource="/Assets/Board/GameBoard.png"/>
                 </Image.Source>
             </Image>
+            <Canvas x:Name="GridCanvas" Width="670" Height="670" Margin="8,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            </Canvas>
+            <Image x:Name="DicePic" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100" Margin="900,350,0,0">
+            </Image>
+            <Button Content="Rulla" Margin="900,600,0,0" VerticalAlignment="Center" Click="Button_Click" HorizontalAlignment="Center" Width="100"/>
+            <Button Background="Transparent" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1000,0,0,600" Click="OpenButton_Click" CornerRadius="10">
+                <Image Source="/Assets/Hamburger-meny.png" Stretch="Fill"/>
+            </Button>
+
         </Grid>
-        <Canvas x:Name="GridCanvas" Width="670" Height="670" Margin="8,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-
-        </Canvas>
-        <Button Content="Nästa" Margin="0,195,0,0" VerticalAlignment="Top" Click="Button_Click" HorizontalAlignment="Right"/>
-        <Button Background="Transparent" Width="60" Height="60" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="OpenButton_Click" CornerRadius="10" >
-            <Image Source="/Assets/Hamburger-meny.png" Stretch="Fill"/>
-        </Button>
-
-    </Grid>
+    </Viewbox>
 </Page>
