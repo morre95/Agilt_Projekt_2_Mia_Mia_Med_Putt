@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -205,25 +206,110 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
         private void DrawIfPawnExists(Size currentDimensions, Point gridLocation)
         {
-            if (redPlayer.IsMyPawnAt(gridLocation))
+            foreach (PlayerPawns player in playerPawns)
+            {
+                if (player.IsMyPawnAt(gridLocation))
+                {
+                    string color = "Red";
+                    if (player.Equals(greenPlayer))
+                    {
+                        color = "Green";
+                    } 
+                    else if (player.Equals(yellowPlayer))
+                    {
+                        color = "Yellow";
+                    }
+                    else if (player.Equals(bluePlayer))
+                    {
+                        color = "Blue";
+                    }
+
+                    if (player.CountPawnsAt(gridLocation) > 1)
+                    {
+                        int numberOfPawns = player.CountPawnsAt(gridLocation);
+                        Debug.WriteLine(player.Name + " har " + numberOfPawns + " pjäser på " + gridLocation);
+
+                        TextBlock textBlock = new TextBlock();
+                        textBlock.Text = numberOfPawns.ToString();
+                        textBlock.Foreground = new SolidColorBrush(Colors.Black);
+                        Canvas.SetTop(textBlock, (gridLocation.X * currentDimensions.Width));
+                        Canvas.SetLeft(textBlock, (gridLocation.Y * currentDimensions.Height) + 2);
+                        GridCanvas.Children.Add(textBlock);
+                    }
+
+                    DrawPawn(gridLocation, currentDimensions, color);
+                }
+            }
+            /*if (redPlayer.IsMyPawnAt(gridLocation))
             {
                 DrawPawn(gridLocation, currentDimensions, "Red");
+                if (redPlayer.CountPawnsAt(gridLocation) > 1)
+                {
+                    int numberOfPawns = redPlayer.CountPawnsAt(gridLocation);
+                    Debug.WriteLine(redPlayer.Name + " har " + numberOfPawns + " pjäser på " + gridLocation);
+
+                    TextBlock textBlock = new TextBlock();
+                    textBlock.Text = numberOfPawns.ToString();
+                    textBlock.Foreground = new SolidColorBrush(Colors.Black);
+                    Canvas.SetTop(textBlock, (gridLocation.X * currentDimensions.Width));
+                    Canvas.SetLeft(textBlock, (gridLocation.Y * currentDimensions.Height) + 2);
+                    GridCanvas.Children.Add(textBlock);
+                } 
             }
 
             if (bluePlayer.IsMyPawnAt(gridLocation))
             {
                 DrawPawn(gridLocation, currentDimensions, "Blue");
+                if (bluePlayer.CountPawnsAt(gridLocation) > 1)
+                {
+                    int numberOfPawns = bluePlayer.CountPawnsAt(gridLocation);
+                    Debug.WriteLine(bluePlayer.Name + " har " + numberOfPawns + " pjäser på " + gridLocation);
+                    
+
+                    TextBlock textBlock = new TextBlock();
+                    textBlock.Text = numberOfPawns.ToString();
+                    textBlock.Foreground = new SolidColorBrush(Colors.Black);
+                    Canvas.SetTop(textBlock, (gridLocation.X * currentDimensions.Width));
+                    Canvas.SetLeft(textBlock, (gridLocation.Y * currentDimensions.Height) + 2);
+                    GridCanvas.Children.Add(textBlock);
+                }
             }
 
             if (yellowPlayer.IsMyPawnAt(gridLocation))
             {
                 DrawPawn(gridLocation, currentDimensions, "Yellow");
+                if (yellowPlayer.CountPawnsAt(gridLocation) > 1)
+                {
+                    int numberOfPawns = yellowPlayer.CountPawnsAt(gridLocation);
+                    Debug.WriteLine(yellowPlayer.Name + " har " + numberOfPawns + " pjäser på " + gridLocation);
+
+
+                    TextBlock textBlock = new TextBlock();
+                    textBlock.Text = numberOfPawns.ToString();
+                    textBlock.Foreground = new SolidColorBrush(Colors.Black);
+                    Canvas.SetTop(textBlock, (gridLocation.X * currentDimensions.Width));
+                    Canvas.SetLeft(textBlock, (gridLocation.Y * currentDimensions.Height) + 2);
+                    GridCanvas.Children.Add(textBlock);
+                }
             }
 
             if (greenPlayer.IsMyPawnAt(gridLocation))
             {
                 DrawPawn(gridLocation, currentDimensions, "Green");
-            }
+                if (greenPlayer.CountPawnsAt(gridLocation) > 1)
+                {
+                    int numberOfPawns = greenPlayer.CountPawnsAt(gridLocation);
+                    Debug.WriteLine(greenPlayer.Name + " har " + numberOfPawns + " pjäser på " + gridLocation);
+
+
+                    TextBlock textBlock = new TextBlock();
+                    textBlock.Text = numberOfPawns.ToString();
+                    textBlock.Foreground = new SolidColorBrush(Colors.Black);
+                    Canvas.SetTop(textBlock, (gridLocation.X * currentDimensions.Width));
+                    Canvas.SetLeft(textBlock, (gridLocation.Y * currentDimensions.Height) + 2);
+                    GridCanvas.Children.Add(textBlock);
+                }
+            }*/
         }
 
         private void DrawPawn(Point gridLocation, Size currentDimensions, string pawnColor)
@@ -244,7 +330,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             GridCanvas.Children.Add(img);
         }
 
-
+        // TODO: om man tex slår en 1 och det står en annan spelare på den platsen så blir den inte tillbaka knuffad.
         private async Task RunGameAsync()
         {
             PlayerPawns player = currentPlayer;
@@ -302,24 +388,55 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             // Move the pawn the steps the dice shows and sleep 100 ms.
             for (int i = 0; i < diceRoll; i++)
             {
+                Point nextPosition = pawn.LookAhead(1);
+                if (nextPosition != null)
+                {
+                    //Pawn nextPawn = player.GetPawnAt(nextPosition);
+                    if (player.IsMyPawnAt(nextPosition))
+                    {
+                        Debug.WriteLine($"{player.Name} har {player.CountPawnsAt(nextPosition)} pjäser på denna plats och får inte gå om sin egen pjäs");
+                        GoToNextPosition(pawn);
+                        break;
+                    }
+                }
+
                 GoToNextPosition(pawn);
+
                 await Task.Delay(100);
 
                 if (pawn.IsAtEnd())
                 {
                     // TBD: Detta är bara för att få ett meddelande när en pjäs går i mål
-                    ContentDialog noWifiDialog = new ContentDialog
+                    ContentDialog dialog = new ContentDialog
                     {
                         Title = $"{player.Name} Vann!!!!",
                         Content = $"Är det {player.Name} som är bäste eller?",
                         CloseButtonText = "Ja det tycker jag"
                     };
 
-                    ContentDialogResult result = await noWifiDialog.ShowAsync();
+                    ContentDialogResult result = await dialog.ShowAsync();
 
                     player.RemovePawn(pawn);
-
+                    DrawPlayers();
                     break;
+                }
+            }
+
+            // Kolla om det finns någon spelare som kan knuffa
+            foreach (PlayerPawns playerPawn in playerPawns.Where(x => !player.Equals(x)))
+            {
+                if (playerPawn.HasPawnOnBoard())
+                {
+                    //Debug.WriteLine("Spelare '" + playerPawn.Name + "' har spelare på plan");
+                    foreach (Pawn pawnToPush in playerPawn.GetPawnsInPlay())
+                    {
+                        if (pawn.CanPawnPush(pawnToPush.Location))
+                        {
+                            Debug.WriteLine("Payer: " + playerPawn.Name + " blev tillbaka knuffad av " + player.Name);
+                            pawnToPush.ChangeLocation(pawnToPush.NestLocation);
+                            DrawPlayers();
+                        }
+                    }
                 }
             }
 
@@ -329,6 +446,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         private void GoToNextPosition(Pawn pawn)
         {
             // TODO: Fixa så att en pjäs kan knuffar andra pjäser
+
             pawn.NextPosition();
             DrawPlayers();
         }
@@ -338,13 +456,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             await RunGameAsync();
         }
 
-        private void RollDiceButton_Click(object sender, RoutedEventArgs e)
-        {
-            int result = RollDice();
-            Debug.WriteLine($"Resultat: {result}");
-        }
-
-        
         private int RollDice()
         {
             Random random = new Random();

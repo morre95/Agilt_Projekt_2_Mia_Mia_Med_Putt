@@ -75,6 +75,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
             Location = PawnPath[i + 1];
         }
 
+        public Point LookAhead(int steps)
+        {
+            int i = PawnPath.FindIndex(p => p.Equals(Location));
+            if (i == -1 || i + steps + 1 > PawnPath.Count) return new Point();
+            return PawnPath[i + steps];
+        }
+
         /// <summary>
         /// Changes the location of the pawn.
         /// </summary>

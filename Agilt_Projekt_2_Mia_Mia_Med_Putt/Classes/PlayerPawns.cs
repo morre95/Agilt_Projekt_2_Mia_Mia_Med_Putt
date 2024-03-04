@@ -69,6 +69,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
         /// <returns><c>true</c> if the player has a pawn at the specified location; otherwise, <c>false</c>.</returns>
         public bool IsMyPawnAt(Point location) => playerRepository.Any(p => p.IsAtPosition(location));
 
+        public int CountPawnsAt(Point location) => playerRepository.Count(p => p.IsAtPosition(location));
+
         /// <summary>
         /// Gets the pawn at the specified location.
         /// </summary>
