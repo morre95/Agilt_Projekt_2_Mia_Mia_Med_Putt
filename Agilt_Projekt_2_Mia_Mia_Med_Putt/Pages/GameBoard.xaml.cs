@@ -319,6 +319,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
 
             int diceRoll = RollDice();
+            await PlaySoundFile("dice-throw.wav");
+
+            // TBD: Ganska jobbigt att behöva vänta 1 sek för detta
+            await Task.Delay(1000);
 
             int pawnsInNest = player.GetPawnsInNest().Count();
 
@@ -372,7 +376,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     if (player.IsMyPawnAt(nextPosition))
                     {
                         Debug.WriteLine($"{player.Name} har {player.CountPawnsAt(nextPosition)} pjäser på denna plats och får inte gå om sin egen pjäs");
-                        GoToNextPosition(pawn);
+                        await GoToNextPosition(pawn);
                         break;
                     }
                 }
