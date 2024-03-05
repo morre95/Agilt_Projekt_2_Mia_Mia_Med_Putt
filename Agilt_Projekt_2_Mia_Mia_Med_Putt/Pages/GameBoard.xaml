@@ -9,7 +9,34 @@
     mc:Ignorable="d"
     KeyUp="Page_KeyUp"
     Background="#0AA73F">
+    <Page.Resources>
+        <Storyboard x:Name="DiceRollAnimation">
+            <DoubleAnimation Storyboard.TargetName="DicePic"
+                         Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)"
+                         From="0" To="360" Duration="0:0:1" 
+                         RepeatBehavior="3x"/>
 
+            <DoubleAnimation Storyboard.TargetName="DicePic"
+                         Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)"
+                         From="1" To="0" Duration="0:0:0.5" AutoReverse="True"
+                         RepeatBehavior="3x"/>
+
+            <DoubleAnimation Storyboard.TargetName="DicePic"
+                         Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)"
+                         From="1" To="0" Duration="0:0:0.5" AutoReverse="True"
+                         RepeatBehavior="3x"/>
+
+            <DoubleAnimation Storyboard.TargetName="DicePic"
+                         Storyboard.TargetProperty="Width"
+                         From="100" To="50" Duration="0:0:0.5" AutoReverse="True"
+                         RepeatBehavior="3x"/>
+
+            <DoubleAnimation Storyboard.TargetName="DicePic"
+                         Storyboard.TargetProperty="Opacity"
+                         From="1.0" To="0.5" Duration="0:0:0.5" AutoReverse="True"
+                         RepeatBehavior="3x"/>
+        </Storyboard>
+    </Page.Resources>
     <Viewbox Stretch="Uniform">
         <Grid Background="#0AA73F" MaxHeight="1000" MaxWidth="1500">
             <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="671" Height="671" Margin="8,5,0,0">
@@ -20,7 +47,10 @@
             <Canvas x:Name="GridCanvas" Width="670" Height="670" Margin="8,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
 
             </Canvas>
-            <Image x:Name="DicePic" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100" Margin="900,350,0,0">
+            <Image x:Name="DicePic" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100" Margin="900,350,0,0" RenderTransformOrigin="0.5,0.5">
+                <Image.RenderTransform>
+                    <CompositeTransform/>
+                </Image.RenderTransform>
             </Image>
             <Button Content="Rulla" Margin="900,600,0,0" VerticalAlignment="Center" Click="Button_Click" HorizontalAlignment="Center" Width="100"/>
             <Button Background="Transparent" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="920,0,0,600" Click="OpenButton_Click" CornerRadius="10">

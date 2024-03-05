@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
@@ -94,6 +95,21 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         }
 
         /// <summary>
+        /// Creates timer from roll-animation
+        /// </summary>
+        private DispatcherTimer timer = new DispatcherTimer();
+
+        /// <summary>
+        /// Randomizer-variable for all of the GameBoard
+        /// </summary>
+        private Random random = new Random();
+
+        /// <summary>
+        /// Int-variable for all of the GameBoard
+        /// </summary>
+        private int finalResult;
+
+        /// <summary>
         /// Page constructor. It initializes the page, setup players and draw them on to the game board.
         /// </summary>
         public GameBoard()
@@ -103,6 +119,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             SetUpPlayers();
 
             DrawPlayers();
+
+            timer.Interval = TimeSpan.FromMilliseconds(60);
+            timer.Tick += Timer_Tick;
         }
 
         private void SetUpGrid()
@@ -347,12 +366,31 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         
         private int RollDice()
         {
-            Random random = new Random();
-            int result = random.Next(1,7);
-            Uri imageUri = new Uri($"ms-appx:///Assets/Board/Dice/D{result}.png");
-            BitmapImage image = new BitmapImage(imageUri);
-            DicePic.Source = image;
-            return result;
+            finalResult = random.Next(1,7);
+            //Uri imageUri = new Uri($"ms-appx:///Assets/Board/Dice/D{result}.png");
+            //BitmapImage image = new BitmapImage(imageUri);
+            //DicePic.Source = image;
+            DiceRollAnimation.Begin();
+            timer.Start();
+            return finalResult;
+        }
+
+        private void Timer_Tick(object sender, object e)
+        {
+            int tempResult = random.Next(1, 7);
+            while (tempResult == finalResult)
+            {
+                tempResult = random.Next(1, 7);
+            }
+
+            Uri imageUri = new Uri($"ms-appx:///Assets/Board/Dice/D{tempResult}.png");
+            DicePic.Source = new BitmapImage(imageUri);
+
+            if (!DiceRollAnimation.GetCurrentState().Equals(ClockState.Active))
+            {
+                timer.Stop();
+                DicePic.Source = new BitmapImage(new Uri($"ms-appx:///Assets/Board/Dice/D{finalResult}.png"));
+            }
         }
 
         private void OpenButton_Click(object sender, RoutedEventArgs e)
