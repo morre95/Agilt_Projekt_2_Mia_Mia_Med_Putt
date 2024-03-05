@@ -115,6 +115,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
         public GameBoard(PawnColor color)
         {
+            SetUpPlayers();
+
             foreach (PlayerPawns player in playerPawns)
             {
                 if (player.Color == color)
@@ -122,6 +124,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     player.IsSelectedPlayer = true;
                 }
             }
+
+            DrawPlayers();
         }
 
         /*private async Task CheckSaveGame()
@@ -210,7 +214,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn green2 = new Pawn("Green Pawn 2", PawnPaths.Green, new Point(9, 1));
             Pawn green3 = new Pawn("Green Pawn 3", PawnPaths.Green, new Point(8, 2));
             Pawn green4 = new Pawn("Green Pawn 4", PawnPaths.Green, new Point(9, 2));
-            greenPlayer = new PlayerPawns("Green Player", green1, green2, green3, green4);
+            greenPlayer = new PlayerPawns("Green Player", PawnColor.Green, green1, green2, green3, green4);
         }
 
         private void AddYellowPawns()
@@ -219,7 +223,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn yellow2 = new Pawn("Yellow Pawn 2", PawnPaths.Yellow, new Point(9, 8));
             Pawn yellow3 = new Pawn("Yellow Pawn 3", PawnPaths.Yellow, new Point(8, 9));
             Pawn yellow4 = new Pawn("Yellow Pawn 4", PawnPaths.Yellow, new Point(9, 9));
-            yellowPlayer = new PlayerPawns("Yellow Player", yellow1, yellow2, yellow3, yellow4);
+            yellowPlayer = new PlayerPawns("Yellow Player", PawnColor.Yellow, yellow1, yellow2, yellow3, yellow4);
         }
 
         private void AddBluePawns()
@@ -228,7 +232,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn blue2 = new Pawn("Blue Pawn 2", PawnPaths.Blue, new Point(1, 8));
             Pawn blue3 = new Pawn("Blue Pawn 3", PawnPaths.Blue, new Point(2, 9));
             Pawn blue4 = new Pawn("Blue Pawn 4", PawnPaths.Blue, new Point(1, 9));
-            bluePlayer = new PlayerPawns("Blue Player", blue1, blue2, blue3, blue4);
+            bluePlayer = new PlayerPawns("Blue Player", PawnColor.Blue, blue1, blue2, blue3, blue4);
         }
 
         private void AddRedPawns()
@@ -237,7 +241,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn red2 = new Pawn("Red Pawn 2", PawnPaths.Red, new Point(1, 1));
             Pawn red3 = new Pawn("Red Pawn 3", PawnPaths.Red, new Point(2, 2));
             Pawn red4 = new Pawn("Red Pawn 4", PawnPaths.Red, new Point(1, 2));
-            redPlayer = new PlayerPawns("Red Player", red1, red2, red3, red4);
+            redPlayer = new PlayerPawns("Red Player", PawnColor.Red, red1, red2, red3, red4);
         }
 
         private void DrawPlayers()

@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
 {
+    public enum PawnColor  //lagt till
+    {
+        Red,
+        Blue,
+        Yellow,
+        Green
+    }
+
     /// <summary>
     /// Manages a collection of pawns that belong to a single player.
     /// </summary>
@@ -36,13 +44,17 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
 
         public bool IsSelectedPlayer { get; set; }
 
+        public PawnColor Color { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerPawns"/> class.
         /// </summary>
         /// <param name="playerName">The name of the player.</param>
         /// <param name="pawns">The pawns that belong to the player.</param>
-        public PlayerPawns(string playerName, params Pawn[] pawns)
+        public PlayerPawns(string playerName, PawnColor color, params Pawn[] pawns)
         {
+            IsSelectedPlayer = false;
+            Color = color;
             Name = playerName;
             foreach (var pawn in pawns) { playerRepository.Add(pawn); }
         }
