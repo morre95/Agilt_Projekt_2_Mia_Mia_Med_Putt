@@ -278,24 +278,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 if (player.IsMyPawnAt(gridLocation))
                 {
-
-                    // TBD: Skapa tre bilder till för varje färg. En med 2, 3 och 4 pjäser som kan användas istället för siffran
-                    // Exempel: i DrawPawn() kan man sätta:
-                    // int pawnCount = player.CountPawnsAt(gridLocation)
-                    // Uri uri = new Uri($"ms-appx:///Assets/Board/Pawns/{pawnColor}-{pawnCount}.png");
-                    if (player.CountPawnsAt(gridLocation) > 1)
-                    {
-                        int numberOfPawns = player.CountPawnsAt(gridLocation);
-                        //Debug.WriteLine(player.Name + " har " + numberOfPawns + " pjäser på " + gridLocation);
-
-                        TextBlock textBlock = new TextBlock();
-                        textBlock.Text = numberOfPawns.ToString();
-                        textBlock.Foreground = new SolidColorBrush(Colors.Black);
-                        Canvas.SetTop(textBlock, (gridLocation.X * currentDimensions.Width));
-                        Canvas.SetLeft(textBlock, (gridLocation.Y * currentDimensions.Height) + 4);
-                        GridCanvas.Children.Add(textBlock);
-                    }
-
                     DrawPawn(gridLocation, currentDimensions, player);
                 }
             }
@@ -307,7 +289,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             BitmapImage bitmapImage = new BitmapImage();
 
             string pawnColor = player.Color.ToString();
-            Uri uri = new Uri($"ms-appx:///Assets/Board/Pawns/{pawnColor}.png");
+            int pawnCount = player.CountPawnsAt(gridLocation);
+            Uri uri = new Uri($"ms-appx:///Assets/Board/Pawns/{pawnColor}-{pawnCount}.png");
 
             bitmapImage.UriSource = uri;
             img.Source = bitmapImage;
