@@ -281,6 +281,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
                     // TODO: bör städas bort då det används Enum för färger
                     // Skicka in player objektet och använda sträng värdet från player.Color som bild namnet.
+                    // Exempel: Tar reda på färgen som sträng så här
+                    // string pawnColor = nameof(player.Color);
+                    // Uri uri = new Uri($"ms-appx:///Assets/Board/Pawns/{pawnColor}.png");
                     string color = "Red";
                     if (player.Equals(greenPlayer))
                     {
