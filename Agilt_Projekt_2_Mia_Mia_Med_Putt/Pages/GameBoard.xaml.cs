@@ -332,7 +332,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 )
             {
                 pawn = player.NextPawnInNest();
-                GoToNextPosition(pawn);
+                await GoToNextPosition(pawn);
 
                 // If dice is = 1, go to next player
                 if (diceRoll == 6) Debug.WriteLine($"{player.Name} rullade 6 och får slå igen");
@@ -344,10 +344,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             else if (pawnsInNest >= 2 && diceRoll == 6)
             {
                 pawn = player.NextPawnInNest();
-                GoToNextPosition(pawn);
+                await GoToNextPosition(pawn);
 
                 pawn = player.NextPawnInNest();
-                GoToNextPosition(pawn);
+                await GoToNextPosition(pawn);
 
                 Debug.WriteLine($"{player.Name} rullade 6 och har plockat ut två spelare och får nu slå igen");
                 //currentIndex++;
