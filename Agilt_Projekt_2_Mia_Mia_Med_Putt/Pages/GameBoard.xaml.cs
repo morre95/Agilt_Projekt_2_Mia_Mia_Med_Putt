@@ -9,8 +9,11 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.ViewManagement;
@@ -374,7 +377,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     }
                 }
 
-                GoToNextPosition(pawn);
+                await GoToNextPosition(pawn);
 
                 await Task.Delay(100);
 
@@ -436,12 +439,23 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
-        private void GoToNextPosition(Pawn pawn)
+        private async Task GoToNextPosition(Pawn pawn)
         {
             // TODO: Fixa så att en pjäs kan knuffar andra pjäser
 
             pawn.NextPosition();
             DrawPlayers();
+            await PlaySoundFile("move.wav");
+        }
+
+        private async Task PlaySoundFile(string fileName)
+        {
+            var mediaPlayer = new MediaPlayer();
+
+            StorageFile file = await Package.Current.InstalledLocation.GetFileAsync(fileName);
+            mediaPlayer.AutoPlay = true;
+            mediaPlayer.Source = MediaSource.CreateFromStorageFile(file);
+            mediaPlayer.Play();
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
