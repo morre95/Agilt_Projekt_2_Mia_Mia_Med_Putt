@@ -1,4 +1,5 @@
 ﻿using Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -103,9 +104,44 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         {
             InitializeComponent();
 
-            SetUpPlayers(); 
 
-            DrawPlayers();
+            //SetUpPlayers(); 
+
+            //DrawPlayers();
+
+            _ = CheckSaveGame();
+
+        }
+
+        private async Task CheckSaveGame()
+        {
+            //await FileHelper.DeleteSavedGameAsync();
+            Debug.WriteLine("Kör jag ens det här");
+            Debug.WriteLine(await FileHelper.SaveGameExistsAsync());
+
+            if (await FileHelper.SaveGameExistsAsync())
+            {
+                Debug.WriteLine("Det här körs");
+                SavedGame game = await FileHelper.GetSavedGameAsync();
+                
+                currentIndex = game.currentIndex;
+                playerPawns = game.playerPawns;
+                Debug.WriteLine(game.currentIndex);
+                Debug.WriteLine(game.playerPawns[game.currentIndex] == currentPlayer);
+
+                Debug.WriteLine("Men inte det här va????");
+                await FileHelper.DeleteSavedGameAsync();
+                
+                DrawPlayers();
+            }
+            else
+            {
+                Debug.WriteLine("Japp det blev en else");
+                SetUpPlayers();
+                DrawPlayers();
+            }
+
+            //DrawPlayers();
         }
 
 
@@ -415,8 +451,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             return random.Next(1,7);
         }
 
-        private void OpenButton_Click(object sender, RoutedEventArgs e)
+        private async void OpenButton_Click(object sender, RoutedEventArgs e)
         {
+            await FileHelper.SaveGameAsync(playerPawns, currentIndex);
             Frame.Navigate(typeof(InGameMenu));
         }
 
@@ -427,6 +464,81 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 Frame.Navigate(typeof(InGameMenu));
             }
         }
+    }
+
+    public class FileHelper
+    {
+        private static string fileName = "savedGame.json";
+
+        public static async Task SaveGameAsync(List<PlayerPawns> playerPawns, int currentIndex)
+        {
+            SavedGame game = new SavedGame
+            {
+                playerPawns = playerPawns,
+                currentIndex = currentIndex
+            };
+
+            var jsonData = JsonConvert.SerializeObject(game);
+            Debug.WriteLine(jsonData);
+
+            await SaveFileAsync(fileName, game);
+        }
+
+        public static async Task<SavedGame> GetSavedGameAsync()
+        {
+            return await ReadFileAsync<SavedGame>(fileName);
+        }
+
+        public static async Task<bool> SaveGameExistsAsync()
+        {
+            return await FileExistsAsync(fileName);
+        }
+
+        public static async Task DeleteSavedGameAsync()
+        {
+            await DeleteFileAsync(fileName);
+        }
+
+        public static async Task SaveFileAsync(string fileName, object data)
+        {
+            var localFolder = ApplicationData.Current.LocalFolder;
+            var file = await localFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+            var jsonData = JsonConvert.SerializeObject(data);
+            await FileIO.WriteTextAsync(file, jsonData);
+        }
+
+        public static async Task<T> ReadFileAsync<T>(string fileName)
+        {
+            var localFolder = ApplicationData.Current.LocalFolder;
+            var file = await localFolder.GetFileAsync(fileName);
+            var jsonData = await FileIO.ReadTextAsync(file);
+            return JsonConvert.DeserializeObject<T>(jsonData);
+        }
+
+        public static async Task<bool> FileExistsAsync(string fileName)
+        {
+            var localFolder = ApplicationData.Current.LocalFolder;
+            var item = await localFolder.TryGetItemAsync(fileName);
+            return item != null;
+        }
+
+        public static async Task DeleteFileAsync(string fileName)
+        {
+            var localFolder = ApplicationData.Current.LocalFolder;
+            var file = await localFolder.GetFileAsync(fileName);
+            if (file != null)
+            {
+                await file.DeleteAsync();
+            }
+        }
+    }
+
+    public class SavedGame
+    {
+        public List<PlayerPawns> playerPawns = new List<PlayerPawns>();
+
+        public int currentIndex = 0;
+
     }
 
 }
