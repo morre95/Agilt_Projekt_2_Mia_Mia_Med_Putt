@@ -104,8 +104,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         {
             InitializeComponent();
 
-
-            SetUpPlayers(); 
+            SetUpPlayers();
 
             DrawPlayers();
 
@@ -127,38 +126,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             DrawPlayers();
         }
-
-        /*private async Task CheckSaveGame()
-        {
-            //await FileHelper.DeleteSavedGameAsync();
-            Debug.WriteLine("Kör jag ens det här");
-            Debug.WriteLine(await FileHelper.SaveGameExistsAsync());
-
-            if (await FileHelper.SaveGameExistsAsync())
-            {
-                Debug.WriteLine("Det här körs");
-                SavedGame game = await FileHelper.GetSavedGameAsync();
-                
-                currentIndex = game.currentIndex;
-                playerPawns = game.playerPawns;
-                Debug.WriteLine(game.currentIndex);
-                Debug.WriteLine(game.playerPawns[game.currentIndex] == currentPlayer);
-
-                Debug.WriteLine("Men inte det här va????");
-                await FileHelper.DeleteSavedGameAsync();
-                
-                DrawPlayers();
-            }
-            else
-            {
-                Debug.WriteLine("Japp det blev en else");
-                SetUpPlayers();
-                DrawPlayers();
-            }
-
-            //DrawPlayers();
-        }*/
-
 
         private void SetUpGrid()
         {
@@ -256,6 +223,53 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     DrawIfPawnExists(currentDimensions, gridLocation);
                 }
             }
+
+            foreach (PlayerPawns player in playerPawns)
+            {
+                if (player.IsSelectedPlayer)
+                {
+                    Debug.WriteLine("Japp jag är bäst");
+                    Image img = new Image();
+                    BitmapImage bitmapImage = new BitmapImage();
+
+                    Uri uri = new Uri($"ms-appx:///Assets/Board/ArrowRight.png");
+                    if (player.Color == PawnColor.Green)
+                    {
+                        Canvas.SetTop(img, (9 * squareSide));
+                        Canvas.SetLeft(img, (0 * squareSide));
+                    }
+
+                    if (player.Color == PawnColor.Red)
+                    {
+                        Canvas.SetTop(img, (2 * squareSide));
+                        Canvas.SetLeft(img, (0 * squareSide));
+                    }
+
+                    if (player.Color == PawnColor.Yellow)
+                    {
+                        uri = new Uri($"ms-appx:///Assets/Board/ArrowLeft.png");
+                        Canvas.SetTop(img, (9 * squareSide));
+                        Canvas.SetLeft(img, (10.5 * squareSide));
+                    }
+                    if (player.Color == PawnColor.Blue)
+                    {
+                        uri = new Uri($"ms-appx:///Assets/Board/ArrowLeft.png");
+                        Canvas.SetTop(img, (2 * squareSide));
+                        Canvas.SetLeft(img, (10.5 * squareSide));
+                    }
+
+
+                    bitmapImage.UriSource = uri;
+                    img.Source = bitmapImage;
+
+                    img.Width = 32;
+                    img.Height = 15;
+
+
+
+                    GridCanvas.Children.Add(img);
+                }
+            }
         }
 
         private void DrawIfPawnExists(Size currentDimensions, Point gridLocation)
@@ -278,10 +292,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                         color = "Blue";
                     }
 
+                    
+
+
                     if (player.CountPawnsAt(gridLocation) > 1)
                     {
                         int numberOfPawns = player.CountPawnsAt(gridLocation);
-                        Debug.WriteLine(player.Name + " har " + numberOfPawns + " pjäser på " + gridLocation);
+                        //Debug.WriteLine(player.Name + " har " + numberOfPawns + " pjäser på " + gridLocation);
 
                         TextBlock textBlock = new TextBlock();
                         textBlock.Text = numberOfPawns.ToString();
@@ -479,6 +496,38 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 Frame.Navigate(typeof(InGameMenu));
             }
         }
+
+
+        /*private async Task CheckSaveGame()
+        {
+            //await FileHelper.DeleteSavedGameAsync();
+            Debug.WriteLine("Kör jag ens det här");
+            Debug.WriteLine(await FileHelper.SaveGameExistsAsync());
+
+            if (await FileHelper.SaveGameExistsAsync())
+            {
+                Debug.WriteLine("Det här körs");
+                SavedGame game = await FileHelper.GetSavedGameAsync();
+                
+                currentIndex = game.currentIndex;
+                playerPawns = game.playerPawns;
+                Debug.WriteLine(game.currentIndex);
+                Debug.WriteLine(game.playerPawns[game.currentIndex] == currentPlayer);
+
+                Debug.WriteLine("Men inte det här va????");
+                await FileHelper.DeleteSavedGameAsync();
+                
+                DrawPlayers();
+            }
+            else
+            {
+                Debug.WriteLine("Japp det blev en else");
+                SetUpPlayers();
+                DrawPlayers();
+            }
+
+            //DrawPlayers();
+        }*/
     }
 
     /*public class FileHelper
