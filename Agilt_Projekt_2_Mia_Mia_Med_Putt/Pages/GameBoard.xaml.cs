@@ -284,7 +284,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     // Exempel: Tar reda på färgen som sträng så här
                     // string pawnColor = nameof(player.Color);
                     // Uri uri = new Uri($"ms-appx:///Assets/Board/Pawns/{pawnColor}.png");
-                    string color = "Red";
+                    /*string color = "Red";
                     if (player.Equals(greenPlayer))
                     {
                         color = "Green";
@@ -296,7 +296,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     else if (player.Equals(bluePlayer))
                     {
                         color = "Blue";
-                    }
+                    }*/
 
                     // TBD: Skapa tre bilder till för varje färg. En med 2, 3 och 4 pjäser som kan användas istället för siffran
                     // Exempel: i DrawPawn() kan man sätta:
@@ -315,16 +315,17 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                         GridCanvas.Children.Add(textBlock);
                     }
 
-                    DrawPawn(gridLocation, currentDimensions, color);
+                    DrawPawn(gridLocation, currentDimensions, player);
                 }
             }
         }
 
-        private void DrawPawn(Point gridLocation, Size currentDimensions, string pawnColor)
+        private void DrawPawn(Point gridLocation, Size currentDimensions, PlayerPawns player)
         {
             Image img = new Image();
             BitmapImage bitmapImage = new BitmapImage();
 
+            string pawnColor = player.Color.ToString();
             Uri uri = new Uri($"ms-appx:///Assets/Board/Pawns/{pawnColor}.png");
 
             bitmapImage.UriSource = uri;
