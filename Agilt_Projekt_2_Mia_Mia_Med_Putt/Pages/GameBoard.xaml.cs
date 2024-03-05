@@ -279,25 +279,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 if (player.IsMyPawnAt(gridLocation))
                 {
 
-                    // TODO: bör städas bort då det används Enum för färger
-                    // Skicka in player objektet och använda sträng värdet från player.Color som bild namnet.
-                    // Exempel: Tar reda på färgen som sträng så här
-                    // string pawnColor = nameof(player.Color);
-                    // Uri uri = new Uri($"ms-appx:///Assets/Board/Pawns/{pawnColor}.png");
-                    /*string color = "Red";
-                    if (player.Equals(greenPlayer))
-                    {
-                        color = "Green";
-                    } 
-                    else if (player.Equals(yellowPlayer))
-                    {
-                        color = "Yellow";
-                    }
-                    else if (player.Equals(bluePlayer))
-                    {
-                        color = "Blue";
-                    }*/
-
                     // TBD: Skapa tre bilder till för varje färg. En med 2, 3 och 4 pjäser som kan användas istället för siffran
                     // Exempel: i DrawPawn() kan man sätta:
                     // int pawnCount = player.CountPawnsAt(gridLocation)
