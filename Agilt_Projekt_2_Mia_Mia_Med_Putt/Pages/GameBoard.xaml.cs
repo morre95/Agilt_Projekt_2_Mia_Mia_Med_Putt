@@ -287,15 +287,15 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 pawn = player.NextPawnInNest();
                 GoToNextPosition(pawn);
 
-                Debug.WriteLine($"{player.Name} rullade 6 och får slå igen");
+                Debug.WriteLine($"{player.Name} rullade 6 och har plockat ut två spelare och får nu slå igen");
                 //currentIndex++;
                 return;
             }
             else if (player.GetPawnsInPlay().Count() == 0)
             {
-                if (diceRoll == 6) Debug.WriteLine($"{player.Name} rullade 6 och får slå igen");
-                else currentIndex++;
-
+                Debug.WriteLine($"{player.Name} har ingen spelare på plan");
+                currentIndex++;
+                Debug.WriteLine($"Nu är det {currentPlayer.Name} tur att spela");
                 return;
             }
 
