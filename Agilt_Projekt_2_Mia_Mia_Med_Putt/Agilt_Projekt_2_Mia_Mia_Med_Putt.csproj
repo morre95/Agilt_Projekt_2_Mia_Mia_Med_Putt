@@ -184,6 +184,7 @@
     <Content Include="Assets\Board\Pawns\Red.png" />
     <Content Include="Assets\Board\Pawns\Yellow.png" />
     <Content Include="dice-throw.wav" />
+    <Content Include="evil-scream.wav" />
     <Content Include="move.wav" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

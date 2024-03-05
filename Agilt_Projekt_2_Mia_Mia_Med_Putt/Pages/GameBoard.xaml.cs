@@ -418,12 +418,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
 
             // Kolla om det finns någon spelare som kan knuffa
-            PushPawns(player, pawn);
+            await PushPawns(player, pawn);
 
             currentIndex++;
         }
 
-        private void PushPawns(PlayerPawns player, Pawn pawn)
+        private async Task PushPawns(PlayerPawns player, Pawn pawn)
         {
             foreach (PlayerPawns playerPawn in playerPawns.Where(x => !player.Equals(x)))
             {
@@ -435,8 +435,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                         if (pawn.CanPawnPush(pawnToPush.Location))
                         {
                             Debug.WriteLine("Payer: " + playerPawn.Name + " blev tillbaka knuffad av " + player.Name);
+                            await PlaySoundFile("evil-scream.wav");
+                            await Task.Delay(1500);
+
                             pawnToPush.ChangeLocation(pawnToPush.NestLocation);
                             DrawPlayers();
+
+                            await Task.Delay(1500);
                         }
                     }
                 }
