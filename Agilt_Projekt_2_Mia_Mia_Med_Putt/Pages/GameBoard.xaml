@@ -9,6 +9,7 @@
     mc:Ignorable="d"
     KeyUp="Page_KeyUp"
     Background="#0AA73F">
+
     <Viewbox Stretch="Uniform">
         <Grid Background="#0AA73F" MaxHeight="1000" MaxWidth="1500">
             <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="671" Height="671" Margin="8,5,0,0">
@@ -22,7 +23,7 @@
             <Image x:Name="DicePic" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100" Margin="900,350,0,0">
             </Image>
             <Button Content="Rulla" Margin="900,600,0,0" VerticalAlignment="Center" Click="Button_Click" HorizontalAlignment="Center" Width="100"/>
-            <Button Background="Transparent" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1000,0,0,600" Click="OpenButton_Click" CornerRadius="10">
+            <Button Background="Transparent" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="920,0,0,600" Click="OpenButton_Click" CornerRadius="10">
                 <Image Source="/Assets/Hamburger-meny.png" Stretch="Fill"/>
             </Button>
 
