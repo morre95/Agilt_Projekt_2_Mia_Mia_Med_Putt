@@ -366,10 +366,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         
         private int RollDice()
         {
+            RollButton.IsEnabled = false;
             finalResult = random.Next(1,7);
-            //Uri imageUri = new Uri($"ms-appx:///Assets/Board/Dice/D{result}.png");
-            //BitmapImage image = new BitmapImage(imageUri);
-            //DicePic.Source = image;
             DiceRollAnimation.Begin();
             timer.Start();
             return finalResult;
@@ -391,6 +389,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 timer.Stop();
                 DicePic.Source = new BitmapImage(new Uri($"ms-appx:///Assets/Board/Dice/D{finalResult}.png"));
             }
+        }
+
+        private void DiceRollAnimation_Completed(object sender, object e)
+        {
+            RollButton.IsEnabled=true;
         }
 
         private void OpenButton_Click(object sender, RoutedEventArgs e)
