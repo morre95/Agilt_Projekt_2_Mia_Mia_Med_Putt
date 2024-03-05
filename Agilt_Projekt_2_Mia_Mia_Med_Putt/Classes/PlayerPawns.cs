@@ -33,6 +33,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
         /// </summary>
         public int PawnCount { get { return playerRepository.Count; } }
 
+
+        public bool IsSelectedPlayer { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerPawns"/> class.
         /// </summary>
@@ -44,6 +47,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
             foreach (var pawn in pawns) { playerRepository.Add(pawn); }
         }
 
+        
         /// <summary>
         /// Adds a pawn to the collection.
         /// </summary>

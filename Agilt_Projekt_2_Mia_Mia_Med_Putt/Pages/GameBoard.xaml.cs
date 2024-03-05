@@ -105,15 +105,26 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             InitializeComponent();
 
 
-            //SetUpPlayers(); 
+            SetUpPlayers(); 
 
-            //DrawPlayers();
+            DrawPlayers();
 
-            _ = CheckSaveGame();
+            //_ = CheckSaveGame();
 
         }
 
-        private async Task CheckSaveGame()
+        public GameBoard(PawnColor color)
+        {
+            foreach (PlayerPawns player in playerPawns)
+            {
+                if (player.Color == color)
+                {
+                    player.IsSelectedPlayer = true;
+                }
+            }
+        }
+
+        /*private async Task CheckSaveGame()
         {
             //await FileHelper.DeleteSavedGameAsync();
             Debug.WriteLine("Kör jag ens det här");
@@ -142,7 +153,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
 
             //DrawPlayers();
-        }
+        }*/
 
 
         private void SetUpGrid()
@@ -453,7 +464,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
         private async void OpenButton_Click(object sender, RoutedEventArgs e)
         {
-            await FileHelper.SaveGameAsync(playerPawns, currentIndex);
+            //await FileHelper.SaveGameAsync(playerPawns, currentIndex);
             Frame.Navigate(typeof(InGameMenu));
         }
 
@@ -466,7 +477,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         }
     }
 
-    public class FileHelper
+    /*public class FileHelper
     {
         private static string fileName = "savedGame.json";
 
@@ -539,6 +550,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
         public int currentIndex = 0;
 
-    }
+    }*/
 
 }
