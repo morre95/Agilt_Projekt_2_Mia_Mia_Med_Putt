@@ -282,7 +282,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 if (player.IsMyPawnAt(gridLocation))
                 {
-                    DrawPawn(gridLocation, currentDimensions, player);
+                    Pawn pawn = player.GetPawnAt(gridLocation);
+                    if (!pawn.InAnimation) DrawPawn(gridLocation, currentDimensions, player);
                 }
             }
         }
@@ -450,7 +451,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
         private async Task GoToNextPosition(Pawn pawn, PlayerPawns player)
         {
-            /*Image image = new Image();
+            pawn.InAnimation = true;
+            DrawPlayers();
+
+            Image image = new Image();
             BitmapImage bitmapImage = new BitmapImage();
 
             string pawnColor = player.Color.ToString();
@@ -466,12 +470,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Point from = pawn.Location;
 
             double fromX = from.X * squareSide;
-            double fromY = from.Y * squareSide;*/
+            double fromY = from.Y * squareSide;
 
             pawn.NextPosition();
 
 
-            /*Point to = pawn.Location;
+            Point to = pawn.Location;
 
             double toX = to.X * squareSide;
             double toY = to.Y * squareSide;
@@ -481,15 +485,21 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             GridCanvas.Children.Add(image);
 
             Canvas.SetTop(image, fromX);
-            Canvas.SetLeft(image, fromY);*/
+            Canvas.SetLeft(image, fromY);
+
+            
+
+            GoToNextAnimation(fromX, fromY, toX, toY, image);
+
+            pawn.InAnimation = false;
+
+            await Task.Delay(100);
 
             DrawPlayers();
 
-           // GoToNextAnimation(fromX, fromY, toX, toY, image);
-
-            //await Task.Delay(1000);
-
             await PlaySoundFile("move.wav");
+
+            
         }
 
         private async Task PlaySoundFile(string fileName)
@@ -534,12 +544,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             DoubleAnimation xAnimation = new DoubleAnimation();
             xAnimation.From = fromX;
             xAnimation.To = toX;
-            xAnimation.Duration = TimeSpan.FromMilliseconds(1000);
+            xAnimation.Duration = TimeSpan.FromMilliseconds(100);
 
             DoubleAnimation yAnimation = new DoubleAnimation();
             yAnimation.From = fromY;
             yAnimation.To = toY;
-            yAnimation.Duration = TimeSpan.FromMilliseconds(1000);
+            yAnimation.Duration = TimeSpan.FromMilliseconds(100);
 
             Storyboard.SetTarget(xAnimation, image);
             Storyboard.SetTargetProperty(xAnimation, "(Canvas.Top)");
@@ -552,31 +562,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
 
             moveStoryboard.Begin();
-        }
-
-        private void MovePawnClick(object sender, RoutedEventArgs e)
-        {
-            Point from = new Point(4, 0);
-            Point to = new Point(4, 1);
-            Size currentDimensions = new Size(60, 60);
-
-            Image image = new Image();
-            image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Board/Pawns/Blue-1.png"));
-            image.Width = 60;
-            image.Height = 60;
-
-            GridCanvas.Children.Add(image);
-
-            double fromX = from.X * currentDimensions.Width;
-            double fromY = from.Y * currentDimensions.Height;
-
-            double toX = to.X * currentDimensions.Width;
-            double toY = to.Y * currentDimensions.Height;
-
-            Canvas.SetTop(image, fromX);
-            Canvas.SetLeft(image, fromY);
-
-            GoToNextAnimation(fromX, fromY, toX, toY, image);
         }
 
 

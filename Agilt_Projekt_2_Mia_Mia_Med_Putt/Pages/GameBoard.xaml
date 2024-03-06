@@ -18,21 +18,14 @@
                 </Image.Source>
             </Image>
         </Grid>
-        
+
         <Canvas x:Name="GridCanvas" Width="670" Height="670" Margin="8,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <!--<Image x:Name="Bilden" Height="60" Width="60" Source="ms-appx:///Assets/Board/Pawns/Blue-1.png" Canvas.Left="0" Canvas.Top="0"></Image>
-            <Rectangle Height="60" Width="60" Stroke="White" StrokeThickness="1" Canvas.Left="0" Canvas.Top="0"></Rectangle>
-            <Rectangle Height="60" Width="60" Stroke="White" StrokeThickness="1" Canvas.Left="60" Canvas.Top="0"></Rectangle>
-            <Rectangle Height="60" Width="60" Stroke="White" StrokeThickness="1" Canvas.Left="120" Canvas.Top="0"></Rectangle>
-            <Rectangle Height="60" Width="60" Stroke="White" StrokeThickness="1" Canvas.Left="0" Canvas.Top="60"></Rectangle>
-            <Rectangle Height="60" Width="60" Stroke="White" StrokeThickness="1" Canvas.Left="0" Canvas.Top="120"></Rectangle>-->
 
         </Canvas>
         <Button Content="Nästa" Margin="0,195,0,0" VerticalAlignment="Top" Click="Button_Click" HorizontalAlignment="Right"/>
         <Button Background="Transparent" Width="60" Height="60" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="OpenButton_Click" CornerRadius="10" >
             <Image Source="/Assets/Hamburger-meny.png" Stretch="Fill"/>
         </Button>
-        <Button Content="MovePawn" Margin="50,310,0,0" VerticalAlignment="Top" Click="MovePawnClick"/>
 
     </Grid>
 </Page>

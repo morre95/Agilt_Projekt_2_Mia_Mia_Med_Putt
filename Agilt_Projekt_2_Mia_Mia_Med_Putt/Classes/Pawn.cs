@@ -50,6 +50,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
         /// </summary>
         public List<Point> PawnPath { get; private set; }
 
+
+        public bool InAnimation { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Pawn"/> class.
         /// </summary>
@@ -58,6 +61,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
         /// <param name="nestLocation">The location where the pawn was initially placed.</param>
         public Pawn(string name, List<Point> pawnPath, Point nestLocation)
         {
+            InAnimation = false;
             Location = nestLocation;
             NestLocation = nestLocation;
             EndLocation = pawnPath.Last();
