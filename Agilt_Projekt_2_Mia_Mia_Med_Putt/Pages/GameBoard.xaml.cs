@@ -386,18 +386,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
                 if (pawn.IsAtEnd())
                 {
-                    // TBD: Detta är bara för att få ett meddelande när en pjäs går i mål
-                    /*ContentDialog dialog = new ContentDialog
-                    {
-                        Title = $"{player.Name} Vann!!!!",
-                        Content = $"Är det {player.Name} som är bäste eller?",
-                        CloseButtonText = "Ja det tycker jag"
-                    };
-
-                    ContentDialogResult result = await dialog.ShowAsync();*/
-
-                    
-
                     if (i < diceRoll - 1)
                     {
                         Debug.WriteLine($"{player.Name} slog {diceRoll} och ska studsa tillbaka {diceRoll - (i + 1)}");
