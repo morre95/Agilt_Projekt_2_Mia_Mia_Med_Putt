@@ -308,7 +308,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             GridCanvas.Children.Add(img);
         }
 
-        // TODO: om man tex slår en 1 och det står en annan spelare på den platsen så blir den inte tillbaka knuffad.
         private async Task RunGameAsync()
         {
             PlayerPawns player = currentPlayer;
@@ -334,6 +333,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 pawn = player.NextPawnInNest();
                 await GoToNextPosition(pawn, player);
 
+                await PushPawns(player, pawn);
+
                 // If dice is = 1, go to next player
                 if (diceRoll == 6) Debug.WriteLine($"{player.Name} rullade 6 och får slå igen");
                 else currentIndex++;
@@ -348,6 +349,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
                 pawn = player.NextPawnInNest();
                 await GoToNextPosition(pawn, player);
+
+                await PushPawns(player, pawn);
 
                 Debug.WriteLine($"{player.Name} rullade 6 och har plockat ut två spelare och får nu slå igen");
                 //currentIndex++;
@@ -398,6 +401,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     if (i < diceRoll - 1)
                     {
                         Debug.WriteLine($"{player.Name} slog {diceRoll} och ska studsa tillbaka {diceRoll - (i + 1)}");
+
+                        // TODO: Detta bär läggar i en loop så att det går att lägga på animationen för flytt av pjäs
                         pawn.ChangeLocation(pawn.PawnPath[(pawn.PawnPath.Count - 1) - (diceRoll - (i + 1))]);
 
                         DrawPlayers();
@@ -546,10 +551,18 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             xAnimation.To = toX;
             xAnimation.Duration = TimeSpan.FromMilliseconds(100);
 
+
+            QuadraticEase ease = new QuadraticEase();
+            ease.EasingMode = EasingMode.EaseInOut;
+            xAnimation.EasingFunction = ease;
+
+
             DoubleAnimation yAnimation = new DoubleAnimation();
             yAnimation.From = fromY;
             yAnimation.To = toY;
             yAnimation.Duration = TimeSpan.FromMilliseconds(100);
+
+            yAnimation.EasingFunction = ease;
 
             Storyboard.SetTarget(xAnimation, image);
             Storyboard.SetTargetProperty(xAnimation, "(Canvas.Top)");
