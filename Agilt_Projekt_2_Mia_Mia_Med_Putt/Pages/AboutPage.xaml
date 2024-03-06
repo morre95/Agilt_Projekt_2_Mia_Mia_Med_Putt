@@ -16,7 +16,7 @@
              TextWrapping="Wrap" Margin="250, 0, 250 ,150" Foreground="White" FontFamily="Arial" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
             <TextBlock Text="Grupp 4, i bokstavsordning, består av: Erik Morén, Mattias Waldehagen, Rebecca Eskekärr och Star Bahadin" 
              TextWrapping="Wrap" Margin="250, 80, 250 ,0" Foreground="White" FontFamily="Arial" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
-            <Button Content="Bakåt" Click="BackButton_Click" Margin="900,0,0,700" HorizontalAlignment="Center" VerticalAlignment="Center" class:ButtonExtensions.ChangeCursorOnHover="True"/>
+            <Button Content="Bakåt" Style="{StaticResource OrangeBlackButtonStyle}" Click="BackButton_Click" Margin="900,0,0,700" HorizontalAlignment="Center" VerticalAlignment="Center" class:ButtonExtensions.ChangeCursorOnHover="True"/>
         </Grid>
     </Viewbox>
 </Page>

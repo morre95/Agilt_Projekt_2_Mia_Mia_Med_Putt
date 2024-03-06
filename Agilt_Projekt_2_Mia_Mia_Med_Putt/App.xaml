@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Agilt_Projekt_2_Mia_Mia_Med_Putt">
     <Application.Resources>
-        <Style TargetType="Button">
+        <Style x:Key="OrangeBlackButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#F5B40D"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="FontSize" Value="40"/>
@@ -21,7 +21,7 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="20">
-                            <!--<VisualStateManager.VisualStateGroups>
+                            <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="Normal"/>
                                     <VisualState x:Name="Pressed">
@@ -29,21 +29,19 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ButtonRoot">
                                                 <DiscreteObjectKeyFrame KeyTime="0">
                                                     <DiscreteObjectKeyFrame.Value>
-                                                        <SolidColorBrush Color="#E5A40C"/>
+                                                        <SolidColorBrush Color="#BB8810"/>
                                                     </DiscreteObjectKeyFrame.Value>
                                                 </DiscreteObjectKeyFrame>
                                             </ObjectAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>
                                     <VisualState x:Name="Disabled">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ButtonRoot">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="0.5"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
+                                        <VisualState.Setters>
+                                            <Setter Target="ButtonRoot.Background" Value="Gray"/>
+                                        </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>-->
+                            </VisualStateManager.VisualStateGroups>
                             <ContentPresenter HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"/>
                         </Border>
