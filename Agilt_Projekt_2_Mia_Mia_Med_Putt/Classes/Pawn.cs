@@ -18,7 +18,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
         /// <summary>
         /// The current location of the pawn.
         /// </summary>
-        public Point Location { get; private set; }
+        public Point Location { get; set; }
 
         /// <summary>
         /// True if pawn is on the board, false otherwise.
@@ -77,6 +77,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
         {
             int i = PawnPath.FindIndex(p => p.Equals(Location));
             Location = PawnPath[i + 1];
+        }
+
+
+        public void BackPosition()
+        {
+            int i = PawnPath.FindIndex(p => p.Equals(Location));
+            Location = PawnPath[i - 1];
         }
 
         public Point LookAhead(int steps)

@@ -203,6 +203,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn blue2 = new Pawn("Blue Pawn 2", PawnPaths.Blue, new Point(1, 8));
             Pawn blue3 = new Pawn("Blue Pawn 3", PawnPaths.Blue, new Point(2, 9));
             Pawn blue4 = new Pawn("Blue Pawn 4", PawnPaths.Blue, new Point(1, 9));
+            blue1.Location = new Point(4, 5);
             bluePlayer = new PlayerPawns("Blue Player", PawnColor.Blue, blue1, blue2, blue3, blue4);
         }
 
@@ -212,6 +213,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn red2 = new Pawn("Red Pawn 2", PawnPaths.Red, new Point(1, 1));
             Pawn red3 = new Pawn("Red Pawn 3", PawnPaths.Red, new Point(2, 2));
             Pawn red4 = new Pawn("Red Pawn 4", PawnPaths.Red, new Point(1, 2));
+
+            red1.Location = new Point(5,4);
             redPlayer = new PlayerPawns("Red Player", PawnColor.Red, red1, red2, red3, red4);
         }
 
@@ -262,14 +265,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                         Canvas.SetLeft(img, (10.5 * squareSide));
                     }
 
-
                     bitmapImage.UriSource = uri;
                     img.Source = bitmapImage;
 
                     img.Width = 32;
                     img.Height = 15;
-
-
 
                     GridCanvas.Children.Add(img);
                 }
@@ -390,8 +390,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     {
                         Debug.WriteLine($"{player.Name} slog {diceRoll} och ska studsa tillbaka {diceRoll - (i + 1)}");
 
-                        // TODO: Detta bär läggar i en loop så att det går att lägga på animationen för flytt av pjäs
-                        pawn.ChangeLocation(pawn.PawnPath[(pawn.PawnPath.Count - 1) - (diceRoll - (i + 1))]);
+                        //pawn.ChangeLocation(pawn.PawnPath[(pawn.PawnPath.Count - 1) - (diceRoll - (i + 1))]);
+
+                        for (int j = 0; j < diceRoll - (i + 1); j++)
+                        {
+                            await GoToNextPosition(pawn, player, true);
+                        }
 
                         DrawPlayers();
                         break;
@@ -442,7 +446,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
 
 
-        private async Task GoToNextPosition(Pawn pawn, PlayerPawns player)
+        private async Task GoToNextPosition(Pawn pawn, PlayerPawns player, bool backwards = false)
         {
             pawn.InAnimation = true;
             DrawPlayers();
@@ -465,7 +469,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             double fromX = from.X * squareSide;
             double fromY = from.Y * squareSide;
 
-            pawn.NextPosition();
+            if (!backwards)  pawn.NextPosition();
+            else pawn.BackPosition();
 
 
             Point to = pawn.Location;
@@ -560,7 +565,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             moveStoryboard.Children.Add(xAnimation);
             moveStoryboard.Children.Add(yAnimation);
-
 
             moveStoryboard.Begin();
         }
