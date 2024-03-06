@@ -387,7 +387,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
                 await GoToNextPosition(pawn, player);
 
-                await Task.Delay(100);
+                //await Task.Delay(100);
 
                 if (pawn.IsAtEnd())
                 {
@@ -415,7 +415,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 }
             }
 
-            // Kolla om det finns någon spelare som kan knuffa
             await PushPawns(player, pawn);
 
             currentIndex++;
@@ -496,7 +495,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             pawn.InAnimation = false;
 
-            await Task.Delay(100);
+            await Task.Delay(150);
 
             DrawPlayers();
 
@@ -575,7 +574,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             DoubleAnimation animation = new DoubleAnimation();
             animation.From = from;
             animation.To = to;
-            animation.Duration = TimeSpan.FromMilliseconds(100);
+            animation.Duration = TimeSpan.FromMilliseconds(150);
             return animation;
         }
 
