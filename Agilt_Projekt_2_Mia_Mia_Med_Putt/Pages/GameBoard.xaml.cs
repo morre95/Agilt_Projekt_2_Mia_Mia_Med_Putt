@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
@@ -312,12 +313,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             PlayerPawns player = currentPlayer;
             Pawn pawn = player.NextPawnInPlay();
 
-            // if the player has no pawns in play, bring one up so the variable pawn is not null.
-            if (player.GetPawnsInPlay().Count() == 0)
-            {
-                pawn = player.NextPawnInNest();
-            }
-
             int diceRoll = RollDice();
             await PlaySoundFile("dice-throw.wav");
 
@@ -336,7 +331,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 )
             {
                 pawn = player.NextPawnInNest();
-                await GoToNextPosition(pawn);
+                await GoToNextPosition(pawn, player);
 
                 // If dice is = 1, go to next player
                 if (diceRoll == 6) Debug.WriteLine($"{player.Name} rullade 6 och får slå igen");
@@ -348,10 +343,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             else if (pawnsInNest >= 2 && diceRoll == 6)
             {
                 pawn = player.NextPawnInNest();
-                await GoToNextPosition(pawn);
+                await GoToNextPosition(pawn, player);
 
                 pawn = player.NextPawnInNest();
-                await GoToNextPosition(pawn);
+                await GoToNextPosition(pawn, player);
 
                 Debug.WriteLine($"{player.Name} rullade 6 och har plockat ut två spelare och får nu slå igen");
                 //currentIndex++;
@@ -370,18 +365,18 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             for (int i = 0; i < diceRoll; i++)
             {
                 Point nextPosition = pawn.LookAhead(1);
-                if (nextPosition != null)
+                if (nextPosition != new Point())
                 {
                     //Pawn nextPawn = player.GetPawnAt(nextPosition);
                     if (player.IsMyPawnAt(nextPosition))
                     {
                         Debug.WriteLine($"{player.Name} har {player.CountPawnsAt(nextPosition)} pjäser på denna plats och får inte gå om sin egen pjäs");
-                        await GoToNextPosition(pawn);
+                        await GoToNextPosition(pawn, player);
                         break;
                     }
                 }
 
-                await GoToNextPosition(pawn);
+                await GoToNextPosition(pawn, player);
 
                 await Task.Delay(100);
 
@@ -429,29 +424,71 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 if (playerPawn.HasPawnOnBoard())
                 {
+                    bool isEvilSoundPlayed = false;
                     //Debug.WriteLine("Spelare '" + playerPawn.Name + "' har spelare på plan");
                     foreach (Pawn pawnToPush in playerPawn.GetPawnsInPlay())
                     {
                         if (pawn.CanPawnPush(pawnToPush.Location))
                         {
                             Debug.WriteLine("Payer: " + playerPawn.Name + " blev tillbaka knuffad av " + player.Name);
-                            await PlaySoundFile("evil-scream.wav");
-                            await Task.Delay(1500);
+                            if (!isEvilSoundPlayed)
+                            {
+                                isEvilSoundPlayed = true;
+                                await PlaySoundFile("evil-scream.wav");
+                                await Task.Delay(3000);
+                            }
 
                             pawnToPush.ChangeLocation(pawnToPush.NestLocation);
                             DrawPlayers();
-
-                            await Task.Delay(1500);
                         }
                     }
                 }
             }
         }
 
-        private async Task GoToNextPosition(Pawn pawn)
+
+
+        private async Task GoToNextPosition(Pawn pawn, PlayerPawns player)
         {
+            /*Image image = new Image();
+            BitmapImage bitmapImage = new BitmapImage();
+
+            string pawnColor = player.Color.ToString();
+            Uri uri = new Uri($"ms-appx:///Assets/Board/Pawns/{pawnColor}-1.png");
+
+            bitmapImage.UriSource = uri;
+            image.Source = bitmapImage;
+
+            image.Width = squareSide;
+            image.Height = squareSide;
+
+
+            Point from = pawn.Location;
+
+            double fromX = from.X * squareSide;
+            double fromY = from.Y * squareSide;*/
+
             pawn.NextPosition();
+
+
+            /*Point to = pawn.Location;
+
+            double toX = to.X * squareSide;
+            double toY = to.Y * squareSide;
+
+            Debug.WriteLine($"{player.Name} kommer att flyta pawn {pawn.Name} från {from} till {to}");
+
+            GridCanvas.Children.Add(image);
+
+            Canvas.SetTop(image, fromX);
+            Canvas.SetLeft(image, fromY);*/
+
             DrawPlayers();
+
+           // GoToNextAnimation(fromX, fromY, toX, toY, image);
+
+            //await Task.Delay(1000);
+
             await PlaySoundFile("move.wav");
         }
 
@@ -488,6 +525,58 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 Frame.Navigate(typeof(InGameMenu));
             }
+        }
+
+        public void GoToNextAnimation(double fromX, double fromY, double toX, double toY, Image image)
+        {
+            Storyboard moveStoryboard = new Storyboard();
+
+            DoubleAnimation xAnimation = new DoubleAnimation();
+            xAnimation.From = fromX;
+            xAnimation.To = toX;
+            xAnimation.Duration = TimeSpan.FromMilliseconds(1000);
+
+            DoubleAnimation yAnimation = new DoubleAnimation();
+            yAnimation.From = fromY;
+            yAnimation.To = toY;
+            yAnimation.Duration = TimeSpan.FromMilliseconds(1000);
+
+            Storyboard.SetTarget(xAnimation, image);
+            Storyboard.SetTargetProperty(xAnimation, "(Canvas.Top)");
+
+            Storyboard.SetTarget(yAnimation, image);
+            Storyboard.SetTargetProperty(yAnimation, "(Canvas.Left)");
+
+            moveStoryboard.Children.Add(xAnimation);
+            moveStoryboard.Children.Add(yAnimation);
+
+
+            moveStoryboard.Begin();
+        }
+
+        private void MovePawnClick(object sender, RoutedEventArgs e)
+        {
+            Point from = new Point(4, 0);
+            Point to = new Point(4, 1);
+            Size currentDimensions = new Size(60, 60);
+
+            Image image = new Image();
+            image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Board/Pawns/Blue-1.png"));
+            image.Width = 60;
+            image.Height = 60;
+
+            GridCanvas.Children.Add(image);
+
+            double fromX = from.X * currentDimensions.Width;
+            double fromY = from.Y * currentDimensions.Height;
+
+            double toX = to.X * currentDimensions.Width;
+            double toY = to.Y * currentDimensions.Height;
+
+            Canvas.SetTop(image, fromX);
+            Canvas.SetLeft(image, fromY);
+
+            GoToNextAnimation(fromX, fromY, toX, toY, image);
         }
 
 
