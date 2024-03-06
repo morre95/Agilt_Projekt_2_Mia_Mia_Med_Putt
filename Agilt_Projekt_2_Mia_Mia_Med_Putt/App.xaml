@@ -29,7 +29,7 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ButtonRoot">
                                                 <DiscreteObjectKeyFrame KeyTime="0">
                                                     <DiscreteObjectKeyFrame.Value>
-                                                        <SolidColorBrush Color="#E5A40C"/>
+                                                        <SolidColorBrush Color="#BB8810"/>
                                                     </DiscreteObjectKeyFrame.Value>
                                                 </DiscreteObjectKeyFrame>
                                             </ObjectAnimationUsingKeyFrames>
@@ -38,7 +38,6 @@
                                     <VisualState x:Name="Disabled">
                                         <VisualState.Setters>
                                             <Setter Target="ButtonRoot.Background" Value="Gray"/>
-                                            <Setter Target="ButtonRoot.Foreground" Value="DarkGrey"/>
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
