@@ -313,12 +313,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             GridCanvas.Children.Add(img);
         }
 
-        private async Task RunGameAsync()
+        private async Task RunAiPlayerAsync(int diceRoll)
         {
             PlayerPawns player = currentPlayer;
             Pawn pawn = player.NextPawnInPlay();
 
-            int diceRoll = RollDice();
             await PlaySoundFile("dice-throw.wav");
 
             // TBD: Ganska jobbigt att behöva vänta 1 sek för detta
@@ -516,7 +515,14 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            await RunGameAsync();
+            while (true)
+            {
+                // TBD: här misstänker jag den koden som skapades för tärnings animationen komma in
+                await RunAiPlayerAsync(RollDice());
+
+                if (playerPawns.All(x => x.PawnCount <= 0)) break;
+            }
+            // TBD: Här kan ett meddelande till användaren vara en bra ide 
         }
 
         private int RollDice()

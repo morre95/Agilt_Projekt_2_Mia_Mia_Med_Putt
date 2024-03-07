@@ -151,5 +151,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
             return pawn.PawnPath[pathIndex + diceRoll];
         }
 
+        public int NumberOfPawns()
+        {
+            return playerRepository.Count();
+        }
+
     }
 }
