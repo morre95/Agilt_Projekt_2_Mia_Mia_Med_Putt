@@ -608,7 +608,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             return finalResult;
         }
 
-        private async void Timer_Tick(object sender, object e)
+        private void Timer_Tick(object sender, object e)
         {
             int tempResult = random.Next(1, 7);
             while (tempResult == finalResult)
@@ -631,9 +631,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             RollButton.IsEnabled=true;
         }
 
-        private async void OpenButton_Click(object sender, RoutedEventArgs e)
+        private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
-            //await FileHelper.SaveGameAsync(playerPawns, currentIndex);
             Frame.Navigate(typeof(InGameMenu));
         }
 
