@@ -18,7 +18,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
         /// <summary>
         /// The current location of the pawn.
         /// </summary>
-        public Point Location { get; set; }
+        public Point Location { get; private set; }
 
         /// <summary>
         /// True if pawn is on the board, false otherwise.

@@ -201,7 +201,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn green3 = new Pawn("Green Pawn 3", PawnPaths.Green, new Point(8, 2));
             Pawn green4 = new Pawn("Green Pawn 4", PawnPaths.Green, new Point(9, 2));
 
-            //green1.Location = new Point(6, 5);
+            green1.ChangeLocation(new Point(7, 6));
             greenPlayer = new PlayerPawns("Green Player", PawnColor.Green, green1, green2, green3, green4);
         }
 
@@ -212,7 +212,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn yellow3 = new Pawn("Yellow Pawn 3", PawnPaths.Yellow, new Point(8, 9));
             Pawn yellow4 = new Pawn("Yellow Pawn 4", PawnPaths.Yellow, new Point(9, 9));
 
-            //yellow1.Location = new Point(5,6);
+            yellow1.ChangeLocation(new Point(4,0));
+            yellow2.ChangeLocation(new Point(4,1));
+            yellow3.ChangeLocation(new Point(4,2));
             yellowPlayer = new PlayerPawns("Yellow Player", PawnColor.Yellow, yellow1, yellow2, yellow3, yellow4);
         }
 
@@ -223,7 +225,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn blue3 = new Pawn("Blue Pawn 3", PawnPaths.Blue, new Point(2, 9));
             Pawn blue4 = new Pawn("Blue Pawn 4", PawnPaths.Blue, new Point(1, 9));
 
-            //blue1.Location = new Point(4, 5);
+            blue1.ChangeLocation(new Point(1, 6));
+            blue2.ChangeLocation(new Point(3, 6));
+            blue3.ChangeLocation(new Point(4, 6));
+            blue4.ChangeLocation(new Point(6, 8));
             bluePlayer = new PlayerPawns("Blue Player", PawnColor.Blue, blue1, blue2, blue3, blue4);
         }
 
@@ -234,7 +239,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn red3 = new Pawn("Red Pawn 3", PawnPaths.Red, new Point(2, 2));
             Pawn red4 = new Pawn("Red Pawn 4", PawnPaths.Red, new Point(1, 2));
 
-            //red1.Location = new Point(5,4);
+            red1.ChangeLocation(new Point(4,3));
+            red2.ChangeLocation(new Point(4,7));
+            red3.ChangeLocation(new Point(6,6));
             redPlayer = new PlayerPawns("Red Player", PawnColor.Red, red1, red2, red3, red4);
         }
 
@@ -251,6 +258,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 }
             }
 
+
+            // TBD: Detta ska nog tas bort när vi har popups för vad användaren ska göra
             foreach (PlayerPawns player in playerPawns)
             {
                 if (player.IsSelectedPlayer)
@@ -328,6 +337,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             GridCanvas.Children.Add(img);
         }
 
+
+        // TODO: Lägg till logik så att en pjäs knuffar en spelare om det är möjligt
         private async Task RunAiPlayerAsync(int diceRoll)
         {
             PlayerPawns player = currentPlayer;
@@ -343,9 +354,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Debug.WriteLine($"{player.Name} slog {diceRoll}");
 
             if (
-                // If the dice shows 1, bring one pawn to the gameboard if there is one.
                 (pawnsInNest >= 1 && diceRoll == 1) ||
-                // If the dice shows 6 and there is one pawn in the nest, bring one pawn to the gameboard.
                 (pawnsInNest == 1 && diceRoll == 6)
                 )
             {
@@ -360,7 +369,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
                 return;
             }
-            // If the dice shows 6, bring two pawns to the gameboard if there are two or more pawns in the nest.
             else if (pawnsInNest >= 2 && diceRoll == 6)
             {
                 pawn = player.NextPawnInNest();
@@ -382,6 +390,36 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 currentIndex++;
                 Debug.WriteLine($"Nu är det {currentPlayer.Name} tur att spela");
                 return;
+            }
+
+            // Kolla om pjäsen kan knuffa ut en annan pjäs
+            foreach (Pawn pawnInPlay in player.GetPawnsInPlay())
+            {
+                Point currentLocation = pawnInPlay.Location;
+                for (int i = 0; i < diceRoll; i++)
+                {
+                    // Kolla så AI inte går om sig själv
+                    Point nextPosition = pawnInPlay.LookAhead(1);
+                    if (nextPosition != new Point())
+                    {
+                        if (player.IsMyPawnAt(nextPosition))
+                        {
+                            pawnInPlay.ChangeLocation(currentLocation);
+                            break;
+                        }
+                    }
+
+                    pawnInPlay.NextPosition();
+                }
+                
+                if (CanPawnPush(player, pawnInPlay))
+                {
+                    pawn = pawnInPlay;
+                    pawnInPlay.ChangeLocation(currentLocation);
+                    break;
+                }
+
+                pawnInPlay.ChangeLocation(currentLocation);
             }
 
             // Move the pawn the steps the dice shows and sleep 100 ms.
@@ -434,19 +472,35 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             currentIndex++;
         }
 
+        private bool CanPawnPush(PlayerPawns player, Pawn pawn)
+        {
+            foreach (PlayerPawns otherPlayer in playerPawns.Where(x => !player.Equals(x)))
+            {
+                if (otherPlayer.HasPawnOnBoard())
+                {
+                    foreach (Pawn otherPawn in otherPlayer.GetPawnsInPlay())
+                    {
+                        if (pawn.CanPawnPush(otherPawn.Location)) return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         private async Task PushPawns(PlayerPawns player, Pawn pawn)
         {
-            foreach (PlayerPawns playerPawn in playerPawns.Where(x => !player.Equals(x)))
+            foreach (PlayerPawns otherPlayer in playerPawns.Where(x => !player.Equals(x)))
             {
-                if (playerPawn.HasPawnOnBoard())
+                if (otherPlayer.HasPawnOnBoard())
                 {
                     bool isEvilSoundPlayed = false;
                     //Debug.WriteLine("Spelare '" + playerPawn.Name + "' har spelare på plan");
-                    foreach (Pawn pawnToPush in playerPawn.GetPawnsInPlay())
+                    foreach (Pawn pawnToPush in otherPlayer.GetPawnsInPlay())
                     {
                         if (pawn.CanPawnPush(pawnToPush.Location))
                         {
-                            Debug.WriteLine("Payer: " + playerPawn.Name + " blev tillbaka knuffad av " + player.Name);
+                            Debug.WriteLine("Payer: " + otherPlayer.Name + " blev tillbaka knuffad av " + player.Name);
                             if (!isEvilSoundPlayed)
                             {
                                 isEvilSoundPlayed = true;
