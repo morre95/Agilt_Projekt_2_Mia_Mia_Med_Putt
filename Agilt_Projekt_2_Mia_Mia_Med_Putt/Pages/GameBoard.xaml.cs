@@ -541,11 +541,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            while (true)
+            await RunAiPlayerAsync(RollDice());
+            /*while (true)
             {
-                await RunAiPlayerAsync(RollDice());
-                if (playerPawns.All(x => x.PawnCount <= 0)) break;
-            }
+                
+                //if (playerPawns.All(x => x.PawnCount <= 0)) break;
+            }*/
             // TBD: Här kan ett meddelande till användaren vara en bra ide 
         }
 
