@@ -34,7 +34,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt
         {
             // Handle Start button click
             // Add your logic here
-            Frame.Navigate(typeof(GameBoard));
+            Frame.Navigate(typeof(PlayerColor));
         }
 
         private void InstructionButton_Click(object sender, RoutedEventArgs e)
