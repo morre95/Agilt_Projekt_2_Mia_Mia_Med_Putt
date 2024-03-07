@@ -113,7 +113,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             DrawPlayers();
 
             //_ = CheckSaveGame();
-
         }
 
         public GameBoard(PawnColor color)
