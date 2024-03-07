@@ -423,6 +423,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
                     Debug.WriteLine($"{player.Name} raderar pjäsen {pawn.Name}");
 
+                    // Sound effect for reaching the goal
+                    await PlaySoundFile("tada-fanfare.mp3");
+                    await Task.Delay(2000);
+
                     player.RemovePawn(pawn);
                     DrawPlayers();
 
