@@ -536,9 +536,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         {
             while (true)
             {
-                // TBD: här misstänker jag den koden som skapades för tärnings animationen komma in
                 await RunAiPlayerAsync(RollDice());
-
                 if (playerPawns.All(x => x.PawnCount <= 0)) break;
             }
             // TBD: Här kan ett meddelande till användaren vara en bra ide 
@@ -553,7 +551,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             return finalResult;
         }
 
-        private void Timer_Tick(object sender, object e)
+        private async void Timer_Tick(object sender, object e)
         {
             int tempResult = random.Next(1, 7);
             while (tempResult == finalResult)
