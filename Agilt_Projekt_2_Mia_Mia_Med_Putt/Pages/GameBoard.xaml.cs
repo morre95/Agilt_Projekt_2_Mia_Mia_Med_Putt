@@ -131,6 +131,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             timer.Tick += Timer_Tick;
         }
 
+
         public GameBoard(PawnColor color)
         {
             SetUpPlayers();
@@ -328,11 +329,15 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             GridCanvas.Children.Add(img);
         }
 
+
+
         private async Task RunAiPlayerAsync(int diceRoll)
         {
             PlayerPawns player = currentPlayer;
             Pawn pawn = player.NextPawnInPlay();
 
+
+            playerStatusBlock.Text = $"{player.Name}"; //<-- spelare Textblock
             await PlaySoundFile("dice-throw.wav");
 
             // TBD: Ganska jobbigt att behöva vänta 1 sek för detta
@@ -341,6 +346,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             int pawnsInNest = player.GetPawnsInNest().Count();
 
             Debug.WriteLine($"{player.Name} slog {diceRoll}");
+
 
             if (
                 // If the dice shows 1, bring one pawn to the gameboard if there is one.
