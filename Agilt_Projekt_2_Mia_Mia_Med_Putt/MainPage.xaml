@@ -11,6 +11,7 @@
 
     <Viewbox Stretch="Uniform">
         <Grid Background="#0AA73F" MaxHeight="1000" MaxWidth="1500">
+            
 
             <TextBlock Text="Mia Med Putt" HorizontalAlignment="Center" VerticalAlignment="center" Margin="100,0,0,370" FontSize="96" FontWeight="Bold" Width="auto" FontFamily="Inter"/>
 
@@ -25,6 +26,7 @@
                 <Button Style="{StaticResource OrangeBlackButtonStyle}" Content="Avsluta" Margin="0,10" Click="AvslutaButton_Click" HorizontalAlignment="Center" class:ButtonExtensions.ChangeCursorOnHover="True"/>
             </StackPanel>
 
+
             <Image HorizontalAlignment="center" Height="159" Margin="0,0,730,380" VerticalAlignment="Center" Width="176" FocusVisualPrimaryBrush="Black" Source="/Assets/Dice.png"/>
 
             <ContentDialog x:Name="ExitDialog"
@@ -35,6 +37,7 @@
                PrimaryButtonClick="ExitDialog_PrimaryButtonClick"
                SecondaryButtonClick="ExitDialog_SecondaryButtonClick"
                Background="#F5B40D" d:IsHidden="True"/>
+            
         </Grid>
     </Viewbox>
 </Page>

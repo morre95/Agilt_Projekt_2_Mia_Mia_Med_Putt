@@ -57,7 +57,7 @@
                 </Image.RenderTransform>
             </Image>
             
-            <Button x:Name="RollButton" Style="{StaticResource OrangeBlackButtonStyle}" Content="Rulla" Margin="900,600,0,0" VerticalAlignment="Center" Click="Button_Click" HorizontalAlignment="Center" Width="100"/>
+            <Button x:Name="RollButton" Style="{StaticResource OrangeBlackButtonStyle}" Content="Rulla" Margin="850,600,0,0" VerticalAlignment="Center" Click="Button_Click" HorizontalAlignment="Center" Width="100"/>
             
             <Button Background="Transparent" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="920,0,0,600" Click="OpenButton_Click" CornerRadius="10">
                 <Image Source="/Assets/Hamburger-meny.png" Stretch="Fill"/>
