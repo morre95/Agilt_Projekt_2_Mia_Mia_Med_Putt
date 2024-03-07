@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,5 +27,42 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         {
             this.InitializeComponent();
         }
+    }
+
+    private void StartButton_Click(object sender, RoutedEventArgs e)
+    {
+        ComboBoxItem selectedColorItem = (ComboBoxItem)ColorComboBox.SelectedItem;
+        if (selectedColorItem != null)
+        {
+            string selectedColor = selectedColorItem.Name.ToString();
+            PawnColor color;
+
+            switch (selectedColor)
+            {
+                case "Red":
+                    color = PawnColor.Red;
+                    break;
+                case "Blue":
+                    color = PawnColor.Blue;
+                    break;
+                case "Yellow":
+                    color = PawnColor.Yellow;
+                    break;
+                case "Green":
+                    color = PawnColor.Green;
+                    break;
+                default:
+                    color = PawnColor.Red;
+                    break;
+            }
+
+            Frame.Navigate(typeof(GameBoard), color);
+        }
+    }
+
+
+    private void BackButton_Click(object sender, RoutedEventArgs e)
+    {
+        Frame.GoBack();
     }
 }
