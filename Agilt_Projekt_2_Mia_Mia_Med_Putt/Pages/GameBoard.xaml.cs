@@ -127,26 +127,25 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             SetUpPlayers();
 
             DrawPlayers();
-
             timer.Interval = TimeSpan.FromMilliseconds(60);
             timer.Tick += Timer_Tick;
         }
 
-
-        public GameBoard(PawnColor color)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            SetUpPlayers();
-
+            base.OnNavigatedTo(e);
+            PawnColor pawncolor = (PawnColor)e.Parameter;
             foreach (PlayerPawns player in playerPawns)
             {
-                if (player.Color == color)
+                if (player.Color == pawncolor)
                 {
                     player.IsSelectedPlayer = true;
                 }
             }
-
+            Debug.WriteLine($"YAAAY {pawncolor}");
             DrawPlayers();
         }
+
 
         private void SetUpGrid()
         {
