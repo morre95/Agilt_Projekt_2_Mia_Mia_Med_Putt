@@ -265,7 +265,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 if (player.IsSelectedPlayer)
                 {
-                    Debug.WriteLine("Japp jag är bäst");
                     Image img = new Image();
                     BitmapImage bitmapImage = new BitmapImage();
 
