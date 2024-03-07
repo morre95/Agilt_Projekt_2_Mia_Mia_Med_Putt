@@ -123,27 +123,35 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         {
             InitializeComponent();
 
+            InitGame();
+        }
+
+        public GameBoard(PawnColor color)
+        {
+            InitializeComponent();
+
+            InitGame(color);
+        }
+
+        private void InitGame(PawnColor? color = null)
+        {
             SetUpPlayers();
+
+            if (color != null)
+            {
+                foreach (PlayerPawns player in playerPawns)
+                {
+                    if (player.Color == color)
+                    {
+                        player.IsSelectedPlayer = true;
+                    }
+                }
+            }
 
             DrawPlayers();
 
             timer.Interval = TimeSpan.FromMilliseconds(60);
             timer.Tick += Timer_Tick;
-        }
-
-        public GameBoard(PawnColor color)
-        {
-            SetUpPlayers();
-
-            foreach (PlayerPawns player in playerPawns)
-            {
-                if (player.Color == color)
-                {
-                    player.IsSelectedPlayer = true;
-                }
-            }
-
-            DrawPlayers();
         }
 
         private void SetUpGrid()
