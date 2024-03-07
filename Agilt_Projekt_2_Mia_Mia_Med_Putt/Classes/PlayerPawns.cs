@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
 {
+    public enum PawnColor  //lagt till
+    {
+        Red,
+        Blue,
+        Yellow,
+        Green
+    }
+
     /// <summary>
     /// Manages a collection of pawns that belong to a single player.
     /// </summary>
@@ -16,7 +24,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
     /// Pawn that belongs to the current player, and the GetPawnAt method can be used to retrieve a 
     /// specific Pawn when a user clicks on a square on the game board.
     /// </example>
-    internal class PlayerPawns
+    public class PlayerPawns
     {
         /// <summary>
         /// The name of the player.
@@ -33,17 +41,25 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
         /// </summary>
         public int PawnCount { get { return playerRepository.Count; } }
 
+
+        public bool IsSelectedPlayer { get; set; }
+
+        public PawnColor Color { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerPawns"/> class.
         /// </summary>
         /// <param name="playerName">The name of the player.</param>
         /// <param name="pawns">The pawns that belong to the player.</param>
-        public PlayerPawns(string playerName, params Pawn[] pawns)
+        public PlayerPawns(string playerName, PawnColor color, params Pawn[] pawns)
         {
+            IsSelectedPlayer = false;
+            Color = color;
             Name = playerName;
             foreach (var pawn in pawns) { playerRepository.Add(pawn); }
         }
 
+        
         /// <summary>
         /// Adds a pawn to the collection.
         /// </summary>
@@ -68,6 +84,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
         /// <param name="location">The location to check.</param>
         /// <returns><c>true</c> if the player has a pawn at the specified location; otherwise, <c>false</c>.</returns>
         public bool IsMyPawnAt(Point location) => playerRepository.Any(p => p.IsAtPosition(location));
+
+        public int CountPawnsAt(Point location) => playerRepository.Count(p => p.IsAtPosition(location));
 
         /// <summary>
         /// Gets the pawn at the specified location.
@@ -131,6 +149,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
             }
 
             return pawn.PawnPath[pathIndex + diceRoll];
+        }
+
+        public int NumberOfPawns()
+        {
+            return playerRepository.Count();
         }
 
     }

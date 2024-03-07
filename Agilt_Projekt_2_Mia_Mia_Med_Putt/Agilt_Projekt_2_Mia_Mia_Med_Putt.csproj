@@ -156,8 +156,26 @@
     <Content Include="Assets\Board\Dice\D4.png" />
     <Content Include="Assets\Board\Dice\D5.png" />
     <Content Include="Assets\Board\Dice\D6.png" />
+    <Content Include="Assets\Board\ArrowLeft.png" />
+    <Content Include="Assets\Board\ArrowRight.png" />
     <Content Include="Assets\Board\GameBoard.png" />
+    <Content Include="Assets\Board\Pawns\Blue-1.png" />
+    <Content Include="Assets\Board\Pawns\Blue-2.png" />
+    <Content Include="Assets\Board\Pawns\Blue-3.png" />
+    <Content Include="Assets\Board\Pawns\Blue-4.png" />
     <Content Include="Assets\Board\Pawns\Blue.png" />
+    <Content Include="Assets\Board\Pawns\Green-1.png" />
+    <Content Include="Assets\Board\Pawns\Green-2.png" />
+    <Content Include="Assets\Board\Pawns\Green-3.png" />
+    <Content Include="Assets\Board\Pawns\Green-4.png" />
+    <Content Include="Assets\Board\Pawns\Red-1.png" />
+    <Content Include="Assets\Board\Pawns\Red-2.png" />
+    <Content Include="Assets\Board\Pawns\Red-3.png" />
+    <Content Include="Assets\Board\Pawns\Red-4.png" />
+    <Content Include="Assets\Board\Pawns\Yellow-1.png" />
+    <Content Include="Assets\Board\Pawns\Yellow-2.png" />
+    <Content Include="Assets\Board\Pawns\Yellow-3.png" />
+    <Content Include="Assets\Board\Pawns\Yellow-4.png" />
     <Content Include="Assets\GameBoard-blured.png" />
     <Content Include="Assets\Hamburger-meny.png" />
     <Content Include="Assets\Spelplan.png">
@@ -171,6 +189,9 @@
     <Content Include="Assets\Board\Pawns\Green.png" />
     <Content Include="Assets\Board\Pawns\Red.png" />
     <Content Include="Assets\Board\Pawns\Yellow.png" />
+    <Content Include="dice-throw.wav" />
+    <Content Include="evil-scream.wav" />
+    <Content Include="move.wav" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -214,6 +235,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />
