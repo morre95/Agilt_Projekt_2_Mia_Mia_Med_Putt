@@ -345,7 +345,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         }
 
 
-        // TODO: Lägg till logik så att en pjäs knuffar en spelare om det är möjligt
+        // TODO: Om det bara finns en pjäs kvar i boet ska den går ut och flytta den 6 steg om den slår 6
+        // TODO: AI ska välja att gå ut med en pjäs om den kan före den flyttar en annan pjäs
         private async Task RunAiPlayerAsync(int diceRoll)
         {
             PlayerPawns player = currentPlayer;
