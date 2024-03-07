@@ -46,7 +46,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt
 
         private void OmButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(AboutPage));
+            Frame.Navigate(typeof(AboutPage));
         }
 
         private async void AvslutaButton_Click(object sender, RoutedEventArgs e)
