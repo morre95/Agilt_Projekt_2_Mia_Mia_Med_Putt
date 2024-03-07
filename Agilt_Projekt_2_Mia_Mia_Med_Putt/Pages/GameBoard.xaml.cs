@@ -131,6 +131,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             timer.Tick += Timer_Tick;
         }
 
+
         public GameBoard(PawnColor color)
         {
             SetUpPlayers();
@@ -202,7 +203,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn green4 = new Pawn("Green Pawn 4", PawnPaths.Green, new Point(9, 2));
 
             //green1.Location = new Point(6, 5);
-            greenPlayer = new PlayerPawns("Green Player", PawnColor.Green, green1, green2, green3, green4);
+            greenPlayer = new PlayerPawns("Grön", PawnColor.Green, green1, green2, green3, green4);
         }
 
         private void AddYellowPawns()
@@ -213,7 +214,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn yellow4 = new Pawn("Yellow Pawn 4", PawnPaths.Yellow, new Point(9, 9));
 
             //yellow1.Location = new Point(5,6);
-            yellowPlayer = new PlayerPawns("Yellow Player", PawnColor.Yellow, yellow1, yellow2, yellow3, yellow4);
+            yellowPlayer = new PlayerPawns("Gul", PawnColor.Yellow, yellow1, yellow2, yellow3, yellow4);
         }
 
         private void AddBluePawns()
@@ -224,7 +225,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn blue4 = new Pawn("Blue Pawn 4", PawnPaths.Blue, new Point(1, 9));
 
             //blue1.Location = new Point(4, 5);
-            bluePlayer = new PlayerPawns("Blue Player", PawnColor.Blue, blue1, blue2, blue3, blue4);
+            bluePlayer = new PlayerPawns("Blå", PawnColor.Blue, blue1, blue2, blue3, blue4);
         }
 
         private void AddRedPawns()
@@ -235,7 +236,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn red4 = new Pawn("Red Pawn 4", PawnPaths.Red, new Point(1, 2));
 
             //red1.Location = new Point(5,4);
-            redPlayer = new PlayerPawns("Red Player", PawnColor.Red, red1, red2, red3, red4);
+            redPlayer = new PlayerPawns("Röd", PawnColor.Red, red1, red2, red3, red4);
         }
 
         private void DrawPlayers()
@@ -328,11 +329,15 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             GridCanvas.Children.Add(img);
         }
 
+
+
         private async Task RunAiPlayerAsync(int diceRoll)
         {
             PlayerPawns player = currentPlayer;
             Pawn pawn = player.NextPawnInPlay();
 
+
+            playerStatusBlock.Text = $"{player.Name} spelares tur"; //<-- spelare Textblock
             await PlaySoundFile("dice-throw.wav");
 
             // TBD: Ganska jobbigt att behöva vänta 1 sek för detta
@@ -341,6 +346,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             int pawnsInNest = player.GetPawnsInNest().Count();
 
             Debug.WriteLine($"{player.Name} slog {diceRoll}");
+
 
             if (
                 // If the dice shows 1, bring one pawn to the gameboard if there is one.
