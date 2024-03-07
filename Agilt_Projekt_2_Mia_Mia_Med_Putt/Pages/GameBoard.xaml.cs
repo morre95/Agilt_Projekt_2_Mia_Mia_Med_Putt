@@ -342,6 +342,21 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         // TODO: Om det bara finns en pjäs kvar i boet ska den går ut och flytta den 6 steg om den slår 6
         // TODO: (Detta tror jag den gör) AI ska välja att gå ut med en pjäs om den kan före den flyttar en annan pjäs
         // FIXME: Den slår tärningen för spelare som redan gått ut
+        // Example fix: Radera spelar som gått ur. Genom att kolla antalet pjäser den har kvar.
+        /*  if (player.PawnCount <= 0)
+            {
+                playerPawns.Remove(player);
+                if (playerPawns.Count <= 0)
+                {
+                    Debug.WriteLine("Spelet är slut!!!!");
+                    return;
+                }
+                else
+                {
+                    player = currentPlayer;
+                }
+            }*/  
+
         // TODO: Fixa meddelande när alla spelare har gått ut. Nu stannar spelet bara
         private async Task RunAiPlayerAsync(int diceRoll)
         {
