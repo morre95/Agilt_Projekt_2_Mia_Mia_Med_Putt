@@ -237,6 +237,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             blue3.ChangeLocation(new Point(2, 5));
             blue4.ChangeLocation(new Point(1, 5));
             bluePlayer = new PlayerPawns("Blue Player", PawnColor.Blue, blue1, blue2, blue3, blue4);
+            //bluePlayer = new PlayerPawns("Blue Player", PawnColor.Blue, blue1);
         }
 
         private void AddRedPawns()
@@ -250,6 +251,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             red2.ChangeLocation(new Point(5,3));
             red3.ChangeLocation(new Point(5,2));
             redPlayer = new PlayerPawns("Red Player", PawnColor.Red, red1, red2, red3, red4);
+            //redPlayer = new PlayerPawns("Red Player", PawnColor.Red, red1);
         }
 
         private void DrawPlayers()
@@ -345,10 +347,14 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
 
         // TODO: Om det bara finns en pjäs kvar i boet ska den går ut och flytta den 6 steg om den slår 6
-        // TODO: (Detta tror jag den gör) AI ska välja att gå ut med en pjäs om den kan före den flyttar en annan pjäs
-        // FIXME: Den slår tärningen för spelare som redan gått ut
-        // Example fix: Radera spelar som gått ur. Genom att kolla antalet pjäser den har kvar.
-        /*  if (player.PawnCount <= 0)
+        // TODO: (Detta tror jag den gör) AI ska välja att gå ut med en pjäs om den kan före den flyttar en annan pjäs 
+
+        // TODO: Fixa meddelande när alla spelare har gått ut. Nu stannar spelet bara
+        private async Task RunAiPlayerAsync(int diceRoll)
+        {
+            PlayerPawns player = currentPlayer;
+
+            if (player.PawnCount <= 0)
             {
                 playerPawns.Remove(player);
                 if (playerPawns.Count <= 0)
@@ -360,12 +366,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 {
                     player = currentPlayer;
                 }
-            }*/  
+            }
 
-        // TODO: Fixa meddelande när alla spelare har gått ut. Nu stannar spelet bara
-        private async Task RunAiPlayerAsync(int diceRoll)
-        {
-            PlayerPawns player = currentPlayer;
             Pawn pawn = player.NextPawnInPlay();
 
             await PlaySoundFile("dice-throw.wav");
