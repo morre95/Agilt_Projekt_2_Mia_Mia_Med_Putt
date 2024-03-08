@@ -34,6 +34,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
                 }
             }
 
+            // TODO: Sätt dessa event i GamBoard koden istället. Så att man kan disabla detta under tärnings animationen.
             if (d is Image buttonImage)
             {
                 if ((bool)e.NewValue)
