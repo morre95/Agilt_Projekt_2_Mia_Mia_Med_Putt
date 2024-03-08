@@ -345,9 +345,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             GridCanvas.Children.Add(img);
         }
 
-
-        // TODO: Om det bara finns en pjäs kvar i boet ska den går ut och flytta den 6 steg om den slår 6
-
         // TODO: Fixa meddelande när alla spelare har gått ut. Nu stannar spelet bara
         private async Task RunAiPlayerAsync(int diceRoll)
         {
@@ -386,13 +383,23 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 )
             {
                 pawn = player.NextPawnInNest();
-                await GoToNextPosition(pawn, player);
-
-                await PushPawns(player, pawn);
 
                 // If dice is = 1, go to next player
-                if (diceRoll == 6) Debug.WriteLine($"{player.Name} rullade 6 och får slå igen");
-                else currentIndex++;
+                if (diceRoll == 6)
+                {
+                    Debug.WriteLine($"{player.Name} rullade 6 och får slå igen");
+                    for (int i = 0; i < 6; i++)
+                    {
+                        await GoToNextPosition(pawn, player);
+                    }
+                    await PushPawns(player, pawn);
+                }
+                else
+                {
+                    await GoToNextPosition(pawn, player);
+                    await PushPawns(player, pawn);
+                    currentIndex++;
+                }
 
                 return;
             }
