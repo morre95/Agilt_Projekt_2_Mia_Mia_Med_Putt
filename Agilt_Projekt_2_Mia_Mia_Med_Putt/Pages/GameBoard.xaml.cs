@@ -345,7 +345,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             GridCanvas.Children.Add(img);
         }
 
-        // TODO: Fixa meddelande när alla spelare har gått ut. Nu stannar spelet bara
+        
         private async Task RunAiPlayerAsync(int diceRoll)
         {
             PlayerPawns player = currentPlayer;
@@ -357,6 +357,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 playerPawns.Remove(player);
                 if (playerPawns.Count <= 0)
                 {
+                    // TODO: Fixa meddelande här när alla spelare har gått ut. Nu stannar spelet bara
                     Debug.WriteLine(debugMessage);
                     return;
                 }
@@ -369,8 +370,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn pawn = player.NextPawnInPlay();
 
             await PlaySoundFile("dice-throw.wav");
-
-            // TBD: Ganska jobbigt att behöva vänta 1 sek för detta
             await Task.Delay(1000);
 
             int pawnsInNest = player.GetPawnsInNest().Count();
@@ -384,7 +383,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 pawn = player.NextPawnInNest();
 
-                // If dice is = 1, go to next player
                 if (diceRoll == 6)
                 {
                     Debug.WriteLine($"{player.Name} rullade 6 och får slå igen");
@@ -414,7 +412,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 await PushPawns(player, pawn);
 
                 Debug.WriteLine($"{player.Name} rullade 6 och har plockat ut två spelare och får nu slå igen");
-                //currentIndex++;
 
                 return;
             }
@@ -426,13 +423,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 return;
             }
 
-            // Kolla om pjäsen kan knuffa ut en annan pjäs
+            // Denna foreach loop kollar om pjäsen kan knuffa ut en annan pjäs
             foreach (Pawn pawnInPlay in player.GetPawnsInPlay())
             {
                 Point currentLocation = pawnInPlay.Location;
                 for (int i = 0; i < diceRoll; i++)
                 {
-                    // Kolla så AI inte går om sig själv
                     Point nextPosition = pawnInPlay.LookAhead(1);
                     if (nextPosition != new Point())
                     {
@@ -443,8 +439,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                         }
                         pawnInPlay.NextPosition();
                     }
-
-                    //pawnInPlay.NextPosition();
                 }
                 
                 if (CanPawnPush(player, pawnInPlay))
@@ -481,8 +475,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     if (i < diceRoll - 1)
                     {
                         Debug.WriteLine($"{player.Name} slog {diceRoll} och ska studsa tillbaka {diceRoll - (i + 1)}");
-
-                        //pawn.ChangeLocation(pawn.PawnPath[(pawn.PawnPath.Count - 1) - (diceRoll - (i + 1))]);
 
                         for (int j = 0; j < diceRoll - (i + 1); j++)
                         {
@@ -591,8 +583,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             Canvas.SetTop(image, fromX);
             Canvas.SetLeft(image, fromY);
-
-            
 
             GoToNextAnimation(fromX, fromY, toX, toY, image);
 
