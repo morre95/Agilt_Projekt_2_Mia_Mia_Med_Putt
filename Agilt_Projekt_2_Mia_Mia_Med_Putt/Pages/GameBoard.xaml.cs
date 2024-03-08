@@ -15,6 +15,7 @@ using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -139,6 +140,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             timer.Interval = TimeSpan.FromMilliseconds(60);
             timer.Tick += Timer_Tick;
 
+            Uri imageUri = new Uri($"ms-appx:///Assets/Board/Dice/D{random.Next(1, 7)}.png");
+            DicePic.Source = new BitmapImage(imageUri);
+
+            DicePic.PointerReleased += DicePic_PointerReleased;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -146,6 +151,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             base.OnNavigatedTo(e);
             InitializeGame((PawnColor)e.Parameter);
         }
+
 
         private void SetUpGrid()
         {
@@ -599,6 +605,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             mediaPlayer.AutoPlay = true;
             mediaPlayer.Source = MediaSource.CreateFromStorageFile(file);
             mediaPlayer.Play();
+        }
+
+        private void DicePic_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            Button_Click(sender, e);
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)

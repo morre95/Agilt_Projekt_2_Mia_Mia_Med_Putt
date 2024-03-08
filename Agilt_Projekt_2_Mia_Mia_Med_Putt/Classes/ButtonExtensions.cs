@@ -33,6 +33,21 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
                     button.PointerExited -= Button_PointerExited;
                 }
             }
+
+            if (d is Image buttonImage)
+            {
+                if ((bool)e.NewValue)
+                {
+                    buttonImage.PointerEntered += Button_PointerEntered;
+                    buttonImage.PointerExited += Button_PointerExited;
+                }
+                else
+                {
+                    buttonImage.PointerEntered -= Button_PointerEntered;
+                    buttonImage.PointerExited -= Button_PointerExited;
+                }                   
+            }
+
         }
 
         private static void Button_PointerEntered(object sender, PointerRoutedEventArgs e)
