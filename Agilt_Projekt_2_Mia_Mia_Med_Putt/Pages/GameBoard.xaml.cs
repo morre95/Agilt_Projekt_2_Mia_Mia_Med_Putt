@@ -354,12 +354,14 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         {
             PlayerPawns player = currentPlayer;
 
+            // This if-statement deletes player with no pawns left
             if (player.PawnCount <= 0)
             {
+                string debugMessage = $"Spelet {player.Name} har inga pjäser kvar!!!";
                 playerPawns.Remove(player);
                 if (playerPawns.Count <= 0)
                 {
-                    Debug.WriteLine("Spelet är slut!!!!");
+                    Debug.WriteLine(debugMessage);
                     return;
                 }
                 else
