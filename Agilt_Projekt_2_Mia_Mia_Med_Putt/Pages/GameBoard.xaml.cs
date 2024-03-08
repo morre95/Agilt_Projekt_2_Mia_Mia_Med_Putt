@@ -150,6 +150,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         {
             base.OnNavigatedTo(e);
             InitializeGame((PawnColor)e.Parameter);
+
+            /*if (e.Parameter is PlayerSelected playerSelected)
+            {
+                Debug.WriteLine($"OnNavigatedTo(): {playerSelected.YellowName}");
+            }*/
+
+            
         }
 
 
