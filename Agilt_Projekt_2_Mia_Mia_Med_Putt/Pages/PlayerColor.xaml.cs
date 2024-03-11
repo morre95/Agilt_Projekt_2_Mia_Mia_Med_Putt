@@ -16,6 +16,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         public PlayerColor()
         {
             this.InitializeComponent();
+
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         {
             int numPlayers = NumPlayersComboBox.SelectedIndex + 1;
 
-            if (numPlayers == 4)
+            if (numPlayers == 5)
             {
                 // Handle case when 4 players are selected (e.g., show a message or navigate to the next page)
                 Debug.WriteLine("You selected 4 players. Implement the desired behavior.");
@@ -93,8 +94,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
 
             string[] playerColors = new string[numPlayers];
-
-            HashSet<string> uniqueColors = new HashSet<string>(); // To track unique colors
+            HashSet<string> uniqueColors = new HashSet<string>(StringComparer.OrdinalIgnoreCase); // Case-insensitive comparison
 
             for (int i = 0; i < numPlayers; i++)
             {
@@ -115,9 +115,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 }
             }
 
+            Debug.WriteLine($"Selected Players: {numPlayers}"); // Add this line for debugging
+
             // Navigate to the GameBoard page and pass the selected data
             Frame.Navigate(typeof(GameBoard), new GameBoardParameters { NumPlayers = numPlayers, PlayerColors = playerColors });
         }
+
 
         private async void ShowColorNotSelectedOrDuplicateAlert()
         {
@@ -129,6 +132,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
+        }
+
+        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -42,9 +42,15 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
         public int PawnCount { get { return playerRepository.Count; } }
 
 
-        public bool IsSelectedPlayer { get; set; }
+        /// <summary>
+        /// public bool IsSelectedPlayer { get; set; }
+        /// </summary>
 
         public PawnColor Color { get; set; }
+
+        ///
+        public bool IsActive { get; set; } = true; // Default to true
+        ///
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerPawns"/> class.
@@ -53,7 +59,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
         /// <param name="pawns">The pawns that belong to the player.</param>
         public PlayerPawns(string playerName, PawnColor color, params Pawn[] pawns)
         {
-            IsSelectedPlayer = false;
+            ///IsSelectedPlayer = false;
+            IsActive = false;
             Color = color;
             Name = playerName;
             foreach (var pawn in pawns) { playerRepository.Add(pawn); }

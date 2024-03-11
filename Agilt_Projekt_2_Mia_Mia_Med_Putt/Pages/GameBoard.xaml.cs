@@ -27,6 +27,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
+using static Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages.PlayerColor;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -140,17 +141,39 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            PawnColor pawncolor = (PawnColor)e.Parameter;
-            foreach (PlayerPawns player in playerPawns)
+
+            if (e.Parameter is GameBoardParameters parameters)
             {
-                if (player.Color == pawncolor)
+                int numPlayers = parameters.NumPlayers;
+                string[] playerColors = parameters.PlayerColors;
+
+                for (int i = 0; i < playerPawns.Count; i++)
                 {
-                    player.IsSelectedPlayer = true;
+                    PlayerPawns player = playerPawns[i];
+
+                    // Check if the player's color is in the selected colors
+                    if (Array.IndexOf(playerColors, player.Color.ToString()) != -1)
+                    {
+                        // Player is chosen, activate it
+                        player.IsActive = true;
+                    }
+                    else
+                    {
+                        // Player is not chosen, deactivate it
+                        player.IsActive = false;
+                    }
                 }
+
+                Debug.WriteLine($"Number of Players: {numPlayers}");
+                DrawPlayers();
             }
-            Debug.WriteLine($"YAAAY {pawncolor}");
-            DrawPlayers();
+            else
+            {
+                Debug.WriteLine("Invalid navigation parameter type.");
+            }
         }
+
+
 
 
         private void SetUpGrid()
@@ -260,7 +283,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             foreach (PlayerPawns player in playerPawns)
             {
-                if (player.IsSelectedPlayer)
+                ///if (player.IsSelectedPlayer)
+                if (player.IsActive)
                 {
                     Debug.WriteLine("Japp jag är bäst");
                     Image img = new Image();
