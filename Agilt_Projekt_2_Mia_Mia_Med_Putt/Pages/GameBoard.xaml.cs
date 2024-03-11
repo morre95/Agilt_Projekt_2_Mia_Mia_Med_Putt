@@ -1,5 +1,6 @@
 ﻿using Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -124,36 +125,38 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             InitializeComponent();
         }
 
-        private void InitializeGame(PawnColor color)
+        private void SetPlayerColor(PawnColor color)
         {
-
-            SetUpPlayers();
             foreach (PlayerPawns player in playerPawns)
             {
                 if (player.Color == color)
                 {
                     player.IsSelectedPlayer = true;
                 }
-            }
-            DrawPlayers();
-
-            timer.Interval = TimeSpan.FromMilliseconds(60);
-            timer.Tick += Timer_Tick;
-
-            Uri imageUri = new Uri($"ms-appx:///Assets/Board/Dice/D{random.Next(1, 7)}.png");
-            DicePic.Source = new BitmapImage(imageUri);
-
-            
+            } 
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            InitializeGame((PawnColor)e.Parameter);
+            //InitializeGame((PawnColor)e.Parameter);
 
             if (e.Parameter is PlayerSelected playerSelected)
             {
-                Debug.WriteLine($"OnNavigatedTo(): {playerSelected.YellowName}");
+                SetUpPlayers();
+                foreach (PawnColor pawnColor in playerSelected.ColorSelected)
+                {
+                    Debug.WriteLine($"PawnColor player: {pawnColor}");
+                    SetPlayerColor(pawnColor);
+                }
+                DrawPlayers();
+
+                timer.Interval = TimeSpan.FromMilliseconds(60);
+
+                timer.Tick += Timer_Tick;
+
+                Uri imageUri = new Uri($"ms-appx:///Assets/Board/Dice/D{random.Next(1, 7)}.png");
+                DicePic.Source = new BitmapImage(imageUri);
             }
 
             
