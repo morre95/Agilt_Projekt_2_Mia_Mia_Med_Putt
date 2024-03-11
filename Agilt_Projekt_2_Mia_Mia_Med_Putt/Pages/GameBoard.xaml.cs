@@ -141,7 +141,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            //InitializeGame((PawnColor)e.Parameter);
 
             if (e.Parameter is GameBoardParameters gameBoardParameters)
             {
