@@ -11,11 +11,11 @@ using System.Drawing;
 
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 {
-    public class PlayerSelected
+    public class GameBoardParameters
     {
         public List<PawnColor> ColorSelected { get; set; }
 
-        public PlayerSelected(params PawnColor[] colorSelected)
+        public GameBoardParameters(params PawnColor[] colorSelected)
         {
             ColorSelected = new List<PawnColor>(colorSelected);
 
@@ -142,7 +142,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             // Navigate to the GameBoard page and pass the selected data
             //Frame.Navigate(typeof(GameBoard), new GameBoardParameters { NumPlayers = numPlayers, PlayerColors = playerColors });
 
-            Frame.Navigate(typeof(GameBoard), new PlayerSelected(playerColors));
+            Frame.Navigate(typeof(GameBoard), new GameBoardParameters(playerColors));
         }
 
 
