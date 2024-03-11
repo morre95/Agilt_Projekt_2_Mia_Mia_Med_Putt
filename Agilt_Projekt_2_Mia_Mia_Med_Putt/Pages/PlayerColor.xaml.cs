@@ -14,18 +14,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
     public class PlayerSelected
     {
         public List<PawnColor> ColorSelected { get; set; }
-        public string RedName { get; set; }
-        public string GreenName { get; set; }
-        public string YellowName { get; set; }
-        public string BlueName { get; set; }
 
-        public PlayerSelected(string redName, string greenName, string yellowName, string blueName, params PawnColor[] colorSelected)
+        public PlayerSelected(params PawnColor[] colorSelected)
         {
             ColorSelected = new List<PawnColor>(colorSelected);
-            RedName = redName;
-            GreenName = greenName;
-            YellowName = yellowName;
-            BlueName = blueName;
+
         }
     }
 
@@ -149,7 +142,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             // Navigate to the GameBoard page and pass the selected data
             //Frame.Navigate(typeof(GameBoard), new GameBoardParameters { NumPlayers = numPlayers, PlayerColors = playerColors });
 
-            Frame.Navigate(typeof(GameBoard), new PlayerSelected("Röd", "Grön", "Gul", "Blå", playerColors));
+            Frame.Navigate(typeof(GameBoard), new PlayerSelected(playerColors));
         }
 
 
