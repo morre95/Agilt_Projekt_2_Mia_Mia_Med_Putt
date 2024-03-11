@@ -63,9 +63,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 }
 
                 Debug.WriteLine(color.ToString());
-                Frame.Navigate(typeof(GameBoard), color);
+                //Frame.Navigate(typeof(GameBoard), color);
 
-                //Frame.Navigate(typeof(GameBoard), new PlayerSelected("Röd", "Grön", "Gulan", "Blåbäret", new KeyValuePair<PawnColor, bool>(color, true)));
+                Frame.Navigate(typeof(GameBoard), new PlayerSelected("Röd", "Grön", "Gulan", "Blåbäret", new KeyValuePair<PawnColor, bool>(color, true)));
             }
         }
 
