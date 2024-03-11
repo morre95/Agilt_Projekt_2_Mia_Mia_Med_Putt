@@ -13,11 +13,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 {
     public class GameBoardParameters
     {
-        public List<PawnColor> ColorSelected { get; set; }
+        public List<PawnColor> ColorsSelected { get; set; }
 
         public GameBoardParameters(params PawnColor[] colorSelected)
         {
-            ColorSelected = new List<PawnColor>(colorSelected);
+            ColorsSelected = new List<PawnColor>(colorSelected);
 
         }
     }

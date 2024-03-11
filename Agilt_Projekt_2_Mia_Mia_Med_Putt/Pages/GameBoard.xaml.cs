@@ -141,10 +141,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             base.OnNavigatedTo(e);
             //InitializeGame((PawnColor)e.Parameter);
 
-            if (e.Parameter is PlayerSelected playerSelected)
+            if (e.Parameter is GameBoardParameters gameBoardParameters)
             {
                 SetUpPlayers();
-                foreach (PawnColor pawnColor in playerSelected.ColorSelected)
+                foreach (PawnColor pawnColor in gameBoardParameters.ColorsSelected)
                 {
                     Debug.WriteLine($"PawnColor player: {pawnColor}");
                     SetPlayerColor(pawnColor);
