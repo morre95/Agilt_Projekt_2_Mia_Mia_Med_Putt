@@ -347,12 +347,85 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             img.Width = currentDimensions.Width;
             img.Height = currentDimensions.Height;
 
+            img.Name = $"{gridLocation.X}:{gridLocation.Y}";
+
+            img.PointerEntered += OnPointerEntered;
+            //img.PointerExited += OnPointerExited;
+
             Canvas.SetTop(img, (gridLocation.X * currentDimensions.Width));
             Canvas.SetLeft(img, (gridLocation.Y * currentDimensions.Height));
             GridCanvas.Children.Add(img);
         }
 
-        
+        private Rectangle RectangleToRemove { get; set; }
+
+        private void OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            PlayerPawns player = currentPlayer;
+            if (sender is Image image)
+            {
+                int[] point = image.Name.Split(':').Select(Int32.Parse).ToArray();
+                Point pos = new Point(point[0], point[1]);
+                Pawn pawn = player.GetPawnAt(pos);
+                if (pawn != null)
+                {
+                    Debug.WriteLine($"{player.Name} Exited pawn {player.IsSelectedPlayer}: {pawn.Name}");
+                    GridCanvas.Children.Remove(RectangleToRemove);
+                }
+            }
+
+            if (sender is Rectangle rectangle)
+            {
+                GridCanvas.Children.Remove(rectangle);
+            }
+        }
+
+        private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            PlayerPawns player = currentPlayer;
+            if (sender is Image image && player.IsSelectedPlayer)
+            {
+                int[] point = image.Name.Split(':').Select(Int32.Parse).ToArray();
+                Pawn pawn = player.GetPawnAt(new Point(point[0], point[1]));
+
+                if (pawn != null)
+                {
+                    Debug.WriteLine($"{player.Name}'s pawn {pawn.Name} is entered");
+                    Rectangle rectangle = new Rectangle();
+                    rectangle.Stroke = new SolidColorBrush(Colors.Black);
+
+                    Color color = Colors.Black;
+                    color.A = 40;
+                    rectangle.Fill = new SolidColorBrush(color);
+
+                    rectangle.StrokeThickness = 1;
+                    rectangle.Width = squareSide;
+                    rectangle.Height = squareSide;
+
+                    Point pos = player.GetNextLocationFromRoll(pawn, 6);
+
+                    if (pawn.Location == pos)
+                    {
+                        rectangle.PointerExited += OnPointerExited;
+                        image.PointerExited -= OnPointerExited;
+                    }
+                    else
+                    {
+                        image.PointerExited += OnPointerExited;
+                    }
+                        
+
+                    Canvas.SetTop(rectangle, (pos.X * squareSide));
+                    Canvas.SetLeft(rectangle, (pos.Y * squareSide));
+
+                    GridCanvas.Children.Add(rectangle);
+                    RectangleToRemove = rectangle;
+                }
+                    
+            }
+        }
+
+
         private async Task RunAiPlayerAsync(int diceRoll)
         {
             PlayerPawns player = currentPlayer;
@@ -599,9 +672,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             DrawPlayers();
 
-            await PlaySoundFile("move.wav");
-
-            
+            await PlaySoundFile("move.wav");  
         }
 
         private async Task PlaySoundFile(string fileName)
@@ -621,11 +692,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            while (true)
-            {
+            //while (true)
+            //{
                 await RunAiPlayerAsync(RollDice());
-                if (playerPawns.All(x => x.PawnCount <= 0)) break;
-            }
+                //if (playerPawns.All(x => x.PawnCount <= 0)) break;
+            //}
             // TBD: Här kan ett meddelande till användaren vara en bra ide 
         }
 
