@@ -132,6 +132,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 if (player.Color == color)
                 {
+
                     player.IsSelectedPlayer = true;
                 }
             }
