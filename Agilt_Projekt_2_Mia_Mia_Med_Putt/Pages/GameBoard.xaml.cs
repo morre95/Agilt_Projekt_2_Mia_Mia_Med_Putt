@@ -130,14 +130,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         {
             foreach (PlayerPawns player in playerPawns)
             {
-                int numPlayers = parameters.NumPlayers;
-                string[] playerColors = parameters.PlayerColors;
-
-                for (int i = 0; i < playerPawns.Count; i++)
+                if (player.Color == color)
                 {
                     player.IsSelectedPlayer = true;
                 }
-            } 
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

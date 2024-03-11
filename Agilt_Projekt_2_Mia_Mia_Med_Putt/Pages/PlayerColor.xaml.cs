@@ -5,7 +5,6 @@ using Windows.UI;
 using Windows.UI.Xaml.Media;
 using Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes;
 using System.Diagnostics;
-using Windows.UI.Text;
 using System.Collections.Generic;
 using Windows.UI.Text;
 using System.Drawing;
@@ -23,8 +22,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         }
     }
 
-        /// <summary>
-        public class GameBoardParameters
+    /// <summary>
+    public sealed partial class PlayerColor : Page
     {
 
         private ComboBox[] colorComboBoxes;
