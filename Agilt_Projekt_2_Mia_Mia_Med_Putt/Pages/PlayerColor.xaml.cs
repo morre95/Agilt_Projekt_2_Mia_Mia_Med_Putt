@@ -7,16 +7,18 @@ using Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes;
 using System.Diagnostics;
 using Windows.UI.Text;
 using System.Collections.Generic;
+using Windows.UI.Text;
+using System.Drawing;
 
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 {
-    public sealed partial class PlayerColor : Page
+    public class GameBoardParameters
     {
-        private ComboBox[] colorComboBoxes;
+        public List<PawnColor> ColorsSelected { get; set; }
 
-        public PlayerColor()
+        public GameBoardParameters(params PawnColor[] colorSelected)
         {
-            this.InitializeComponent();
+            ColorsSelected = new List<PawnColor>(colorSelected);
 
         }
     }
@@ -24,11 +26,16 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         /// <summary>
         public class GameBoardParameters
     {
-            public int NumPlayers { get; set; }
-            public string[] PlayerColors { get; set; }
+
+        private ComboBox[] colorComboBoxes;
+
+        public PlayerColor()
+        {
+            this.InitializeComponent();
         }
         /// </summary>
 
+        // Modify the StartButton_Click method inside the PlayerColor.xaml.cs file
         private void NumPlayersComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int numPlayers = NumPlayersComboBox.SelectedIndex + 1;
@@ -83,19 +90,20 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
-        // PlayerColor.xaml.cs
+        //Frame.Navigate(typeof(GameBoard), new PlayerSelected("Röd", "Grön", "Gulan", "Blåbäret", new KeyValuePair<PawnColor, bool>(color, true)));
+
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
             int numPlayers = NumPlayersComboBox.SelectedIndex + 1;
 
             if (numPlayers == 5)
-        {
+            {
                 // Handle case when 4 players are selected (e.g., show a message or navigate to the next page)
                 Debug.WriteLine("You selected 4 players. Implement the desired behavior.");
                 return;
-        }
+            }
 
-            string[] playerColors = new string[numPlayers];
+            PawnColor[] playerColors = new PawnColor[numPlayers];
             HashSet<string> uniqueColors = new HashSet<string>(StringComparer.OrdinalIgnoreCase); // Case-insensitive comparison
 
             for (int i = 0; i < numPlayers; i++)
@@ -104,23 +112,40 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
                 if (!string.IsNullOrEmpty(selectedColor) && uniqueColors.Add(selectedColor))
                 {
-                    playerColors[i] = selectedColor;
+                    //playerColors[i] = selectedColor;
+                    switch (selectedColor)
+                    {
+                        case "Röd":
+                            playerColors[i] = PawnColor.Red;
+                            break;
+                        case "Grön":
+                            playerColors[i] = PawnColor.Green;
+                            break;
+                        case "Gul":
+                            playerColors[i] = PawnColor.Yellow;
+                            break;
+                        case "Blå":
+                            playerColors[i] = PawnColor.Blue;
+                            break;
+                    }
                 }
                 else
-                    {
+                {
                     // Handle case where a color is not selected or a duplicate color is chosen
                     Debug.WriteLine($"Player {i + 1} color not selected or duplicate color.");
                     // Show an alert or message to the user
                     // You might want to replace this with your specific logic
                     ShowColorNotSelectedOrDuplicateAlert();
                     return;
-                    }
                 }
+            }
 
             Debug.WriteLine($"Selected Players: {numPlayers}"); // Add this line for debugging
 
             // Navigate to the GameBoard page and pass the selected data
-            Frame.Navigate(typeof(GameBoard), new GameBoardParameters { NumPlayers = numPlayers, PlayerColors = playerColors });
+            //Frame.Navigate(typeof(GameBoard), new GameBoardParameters { NumPlayers = numPlayers, PlayerColors = playerColors });
+
+            Frame.Navigate(typeof(GameBoard), new GameBoardParameters(playerColors));
         }
 
 

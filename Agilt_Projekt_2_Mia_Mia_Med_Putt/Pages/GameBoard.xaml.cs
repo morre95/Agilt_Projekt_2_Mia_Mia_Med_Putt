@@ -1,5 +1,6 @@
 ﻿using Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -125,10 +126,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             InitializeComponent();
         }
 
-        private void InitializeGame(PawnColor color)
+        private void SetPlayerColor(PawnColor color)
         {
-
-            SetUpPlayers();
             foreach (PlayerPawns player in playerPawns)
             {
                 int numPlayers = parameters.NumPlayers;
@@ -138,27 +137,33 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 {
                     player.IsSelectedPlayer = true;
                 }
-            }
-            DrawPlayers();
-
-            timer.Interval = TimeSpan.FromMilliseconds(60);
-            timer.Tick += Timer_Tick;
-
-            Uri imageUri = new Uri($"ms-appx:///Assets/Board/Dice/D{random.Next(1, 7)}.png");
-            DicePic.Source = new BitmapImage(imageUri);
-
-            
+            } 
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            InitializeGame((PawnColor)e.Parameter);
+            //InitializeGame((PawnColor)e.Parameter);
 
-            /*if (e.Parameter is PlayerSelected playerSelected)
+            if (e.Parameter is GameBoardParameters gameBoardParameters)
             {
-                Debug.WriteLine($"OnNavigatedTo(): {playerSelected.YellowName}");
-            }*/
+                SetUpPlayers();
+                foreach (PawnColor pawnColor in gameBoardParameters.ColorsSelected)
+                {
+                    Debug.WriteLine($"PawnColor player: {pawnColor}");
+                    SetPlayerColor(pawnColor);
+                }
+                DrawPlayers();
+
+                timer.Interval = TimeSpan.FromMilliseconds(60);
+
+                timer.Tick += Timer_Tick;
+
+                Uri imageUri = new Uri($"ms-appx:///Assets/Board/Dice/D{random.Next(1, 7)}.png");
+                DicePic.Source = new BitmapImage(imageUri);
+
+                DicePic.PointerReleased += DicePic_PointerReleased;
+            }
 
             
         }
@@ -707,11 +712,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             while (true)
             {
 
-                DicePic.PointerReleased += DicePic_PointerReleased;
+                DicePic.PointerReleased -= DicePic_PointerReleased;
                 RollButton.IsEnabled = false;
                 await RunAiPlayerAsync(RollDice());
                 RollButton.IsEnabled = true;
-                DicePic.PointerReleased -= DicePic_PointerReleased;
+                DicePic.PointerReleased += DicePic_PointerReleased;
                 if (playerPawns.All(x => x.PawnCount <= 0)) break;
             }
 

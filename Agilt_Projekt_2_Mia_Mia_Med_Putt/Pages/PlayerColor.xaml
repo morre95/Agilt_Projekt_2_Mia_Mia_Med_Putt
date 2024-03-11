@@ -8,56 +8,53 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-	<Grid Background="#0AA73F">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition />
-		</Grid.ColumnDefinitions>
+    <Grid Background="#0AA73F">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
 
-		<Grid FocusVisualPrimaryBrush="#FFAF2525">
-			<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,299,0,0">
-				<TextBlock FontSize="36" Margin="0,0,0,20" FontFamily="Segoe UI Semibold" FontWeight="Bold" SelectionChanged="TextBlock_SelectionChanged" Width="637" >
-					<Run Text="Välj "/>
-					<Run Text="spelare och "/>
-					<Run Text="färg"/>
-					<Run Text="er"/>
-					<Run Text=" på dina pjäser"/>
-				</TextBlock>
+        <Grid FocusVisualPrimaryBrush="#FFAF2525">
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,299,0,0">
+                <TextBlock FontSize="36" Margin="0,0,0,20" FontFamily="Segoe UI Semibold" FontWeight="Bold" SelectionChanged="TextBlock_SelectionChanged" Width="637" ><Run Text="Välj "/><Run Text="spelare och "/><Run Text="färg"/><Run Text="er"/><Run Text=" på dina pjäser"/></TextBlock>
 
-				<ComboBox x:Name="NumPlayersComboBox" PlaceholderText="Antal spelare" Width="293" FocusVisualPrimaryBrush="#FFBB7F26" HorizontalAlignment="Center" FontSize="24" FontFamily="Arial" FontWeight="Bold" SelectionChanged="NumPlayersComboBox_SelectionChanged" CornerRadius="10">
-					<ComboBoxItem Content="1" />
-					<ComboBoxItem Content="2" />
-					<ComboBoxItem Content="3" />
-					<ComboBoxItem Content="4" />
-				</ComboBox>
+                <ComboBox x:Name="NumPlayersComboBox" PlaceholderText="Antal spelare" Width="293" FocusVisualPrimaryBrush="#FFBB7F26" HorizontalAlignment="Center" FontSize="24" FontFamily="Arial" FontWeight="Bold" SelectionChanged="NumPlayersComboBox_SelectionChanged" CornerRadius="10">
+                    <ComboBoxItem Content="1" />
+                    <ComboBoxItem Content="2" />
+                    <ComboBoxItem Content="3" />
+                    <ComboBoxItem Content="4" />
+                </ComboBox>
 
-				<StackPanel x:Name="PlayersStackPanel" Visibility="Collapsed" HorizontalAlignment="Center">
-					<!-- Player CheckBox and Color ComboBox controls will be added dynamically here -->
-				</StackPanel>
-			</StackPanel>
-			<Image HorizontalAlignment="Center" Height="104" Margin="0,190,0,0" VerticalAlignment="Top" Source="/Assets/4Pawns.png">
-				<Image.FocusVisualSecondaryBrush>
-					<ImageBrush />
-				</Image.FocusVisualSecondaryBrush>
-			</Image>
-		</Grid>
-		<Grid HorizontalAlignment="Center" Height="116" Margin="400,63,0,0" VerticalAlignment="Top" Width="969">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="27*" />
-				<RowDefinition Height="89*" />
-			</Grid.RowDefinitions>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="201*" />
-				<ColumnDefinition Width="121*" />
-				<ColumnDefinition />
-			</Grid.ColumnDefinitions>
+                <StackPanel x:Name="PlayersStackPanel" Visibility="Collapsed" HorizontalAlignment="Center">
+                    <!-- Player CheckBox and Color ComboBox controls will be added dynamically here -->
+                </StackPanel>
+            </StackPanel>
+            <Image HorizontalAlignment="Center" Height="104" Margin="0,190,0,0" VerticalAlignment="Top" Source="/Assets/4Pawns.png">
+                <Image.FocusVisualSecondaryBrush>
+                    <ImageBrush />
+                </Image.FocusVisualSecondaryBrush>
+            </Image>
+        </Grid>
+        <Grid HorizontalAlignment="Center" Height="116" Margin="400,63,0,0" VerticalAlignment="Top" Width="969">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="27*" />
+                <RowDefinition Height="89*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="201*" />
+                <ColumnDefinition Width="121*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
 
-			<TextBlock Text="Mia Med Putt" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="96" FontWeight="Bold" Width="647" FontFamily="Inter" Margin="10,-9,0,0" Grid.ColumnSpan="2" Grid.RowSpan="2" />
-			<Button Content="Bakåt" Click="BackButton_Click" Margin="102,23,0,0" Width="252" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Top" Background="#FFFFCC00" CornerRadius="10"/>
-			<Button Content="Start" Click="StartButton_Click" Margin="102,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.571,0.594" Grid.Column="1" Grid.Row="1" Width="251" Background="#FFFFCC00" CornerRadius="10"/>
+            <TextBlock Text="Mia Med Putt" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="96" FontWeight="Bold" Width="647" FontFamily="Inter" Margin="10,-9,0,0" Grid.ColumnSpan="2" Grid.RowSpan="2" />
+            <Button Content="Bakåt" Click="BackButton_Click" Margin="102,23,0,0" Width="252" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Top" Background="#FFFFCC00" CornerRadius="10"/>
+            <Button Content="Start" Click="StartButton_Click" Margin="102,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.571,0.594" Grid.Column="1" Grid.Row="1" Width="251" Background="#FFFFCC00" CornerRadius="10"/>
 
-		</Grid>
+        </Grid>
+        <Button Content="Start" Click="StartButton_Click" HorizontalAlignment="Center" class:ButtonExtensions.ChangeCursorOnHover="True" Margin="0,536,0,0" VerticalAlignment="Top" Style="{StaticResource OrangeBlackButtonStyle}"/>
+        <Image HorizontalAlignment="Left" Height="137" Margin="43,42,0,0" VerticalAlignment="Top" Width="156" FocusVisualPrimaryBrush="Black" Source="/Assets/Dice.png" />
 
-		<Image HorizontalAlignment="Left" Height="137" Margin="43,42,0,0" VerticalAlignment="Top" Width="156" FocusVisualPrimaryBrush="Black" Source="/Assets/Dice.png" />
+        <Image HorizontalAlignment="Left" Height="159" Margin="43,42,0,0" VerticalAlignment="Top" Width="176" FocusVisualPrimaryBrush="Black" Source="/Assets/Dice.png"/>
+
 
 	</Grid>
 </Page>
