@@ -283,8 +283,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             // TBD: Detta ska nog tas bort när vi har popups för vad användaren ska göra
             foreach (PlayerPawns player in playerPawns)
             {
-                ///if (player.IsSelectedPlayer)
-                if (player.IsActive)
+                if (player.IsSelectedPlayer)
                 {
                     Image img = new Image();
                     BitmapImage bitmapImage = new BitmapImage();
