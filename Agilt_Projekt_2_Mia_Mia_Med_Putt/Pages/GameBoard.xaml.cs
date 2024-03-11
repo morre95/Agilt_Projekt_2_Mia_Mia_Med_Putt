@@ -160,9 +160,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 DicePic.Source = new BitmapImage(imageUri);
 
                 DicePic.PointerReleased += DicePic_PointerReleased;
-            }
-
-            
+            }   
         }
 
 

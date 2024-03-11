@@ -163,6 +163,7 @@
     <Content Include="Assets\Board\ArrowLeft.png" />
     <Content Include="Assets\Board\ArrowRight.png" />
     <Content Include="Assets\Board\GameBoard.png" />
+    <Content Include="Assets\Board\GreenEllipse.png" />
     <Content Include="Assets\Board\Pawns\Blue-1.png" />
     <Content Include="Assets\Board\Pawns\Blue-2.png" />
     <Content Include="Assets\Board\Pawns\Blue-3.png" />
