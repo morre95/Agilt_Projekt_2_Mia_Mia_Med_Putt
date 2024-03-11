@@ -44,7 +44,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
 
 
         /// <summary>
-        /// public bool IsSelectedPlayer { get; set; }
+        public bool IsSelectedPlayer { get; set; }
         /// </summary>
 
         public PawnColor Color { get; set; }
