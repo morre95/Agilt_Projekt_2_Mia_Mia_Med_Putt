@@ -9,13 +9,13 @@
     KeyUp="Page_KeyUp"
     Background="#0AA73F">
     <Page.Resources>
-        <Storyboard x:Name="upToDown">
+        <Storyboard x:Name="upToDownAnimation">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="dialog" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
                 <EasingDoubleKeyFrame KeyTime="00:00:00" Value="-1582.586"/>
                 <EasingDoubleKeyFrame KeyTime="00:00:00.7" Value="-1.184"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-        <Storyboard x:Name="moveUpDialog">
+        <Storyboard x:Name="moveUpDialogAnimation">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="dialog" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
                 <EasingDoubleKeyFrame KeyTime="00:00:00" Value="-1.184"/>
                 <EasingDoubleKeyFrame KeyTime="00:00:00.7" Value="-1600.586"/>

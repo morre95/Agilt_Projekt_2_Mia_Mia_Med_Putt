@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Agilt_Projekt_2_Mia_Mia_Med_Putt">
     <Application.Resources>
+        <!-- Style setter for all buttons supposed to use the "standard" template-->
         <Style x:Key="OrangeBlackButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#F5B40D"/>
             <Setter Property="Foreground" Value="Black"/>

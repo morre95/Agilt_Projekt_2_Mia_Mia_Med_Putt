@@ -16,19 +16,17 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Core;
 using System.Threading.Tasks;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// In-game menu that allows the player to access the rules and exit the game during gameplay
     /// </summary>
     public sealed partial class InGameMenu : Page
     {
         public InGameMenu()
         {
             this.InitializeComponent();
-            upToDown.Begin();
+            upToDownAnimation.Begin();
         }
 
         // Function for opening the in-game menu through pushing the Esc-key on keyboard
@@ -44,8 +42,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         // Function for opening the in-game menu through clicking on hamburger image
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
-            upToDown.Begin();
-
+            upToDownAnimation.Begin();
         }
 
         // Button to go back to game, hide the menu
@@ -54,9 +51,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             await BackToGame();
         }
 
+        // Navigates back to the gameboard with animation
         private async Task BackToGame()
         {
-            moveUpDialog.Begin();
+            moveUpDialogAnimation.Begin();
             await Task.Delay(700);
             Frame.Navigate(typeof(GameBoard));
         }

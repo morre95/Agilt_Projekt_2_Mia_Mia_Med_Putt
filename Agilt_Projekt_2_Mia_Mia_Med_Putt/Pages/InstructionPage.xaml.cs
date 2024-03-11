@@ -13,12 +13,10 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Page with instructions for the gameplay
     /// </summary>
     public sealed partial class InstructionPage : Page
     {
@@ -29,10 +27,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Frame.CanGoBack)
-            {
                 Frame.GoBack();
-            }
         }
     }
 }

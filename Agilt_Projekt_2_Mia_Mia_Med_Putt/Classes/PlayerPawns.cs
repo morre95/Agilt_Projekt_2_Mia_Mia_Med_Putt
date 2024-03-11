@@ -114,16 +114,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
         /// <returns>The location</returns>
         public Point GetNextLocationFromRoll(Pawn pawn, int diceRoll)
         {
-            // TODO: Räkna ut hur den ska studsa tillbaka vid för högt tärningskast vid slutet
-            // exempel:
-            /*int lastIndex = pawn.LastSixLocations.FindIndex(p => p.Equals(pawn.Location));
-            List<Point> remainingSteps = pawn.LastSixLocations.Skip(lastIndex + 1).ToList();
-            if (pawn.IsWithinSixStepsFromEnd() && remainingSteps.Count > diceRoll) 
-            {
-                int adjustedIndex = diceRoll % remainingSteps.Count - 1;
-                return remainingSteps[adjustedIndex];
-            }*/
-
             int pathIndex = pawn.PawnPath.FindIndex(p => p.Equals(pawn.Location));
             if (pathIndex + diceRoll >= pawn.PawnPath.Count)
             {

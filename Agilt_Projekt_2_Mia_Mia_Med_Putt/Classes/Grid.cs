@@ -1,9 +1,11 @@
 ﻿using Windows.Foundation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 {
+    /// <summary>
+    /// Class for drawing and setting playing grid
+    /// </summary>
     class Grid
     {
         private Size[,] grid;

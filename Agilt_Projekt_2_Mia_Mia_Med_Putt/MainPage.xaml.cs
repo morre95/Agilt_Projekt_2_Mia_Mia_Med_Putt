@@ -16,8 +16,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt
 {
     public sealed partial class MainPage : Page
@@ -32,15 +30,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            // Handle Start button click
-            // Add your logic here
             Frame.Navigate(typeof(GameBoard));
         }
 
         private void InstructionButton_Click(object sender, RoutedEventArgs e)
         {
-            // Handle Instructioner button click
-            // Add your logic here
             Frame.Navigate(typeof(InstructionPage));
         }
 
@@ -61,7 +55,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt
 
         private void ExitDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            //Stängs per automatik om man väljer "NEJ", kod överflödig
+            //Stängs per automatik om man väljer "NEJ", kod överflödig men metod nödvändig
         }
 
 
