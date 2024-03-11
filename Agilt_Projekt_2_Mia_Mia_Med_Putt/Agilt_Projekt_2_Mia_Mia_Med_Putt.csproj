@@ -154,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\4pawns.png" />
+    <Content Include="Assets\Board\BlueEllipse.png" />
     <Content Include="Assets\Board\Dice\D1.png" />
     <Content Include="Assets\Board\Dice\D2.png" />
     <Content Include="Assets\Board\Dice\D3.png" />
@@ -181,6 +182,9 @@
     <Content Include="Assets\Board\Pawns\Yellow-2.png" />
     <Content Include="Assets\Board\Pawns\Yellow-3.png" />
     <Content Include="Assets\Board\Pawns\Yellow-4.png" />
+    <Content Include="Assets\Board\PurpleEllipse.png" />
+    <Content Include="Assets\Board\RedEllipse.png" />
+    <Content Include="Assets\Board\YellowEllipse.png" />
     <Content Include="Assets\GameBoard-blured.png" />
     <Content Include="Assets\Hamburger-meny.png" />
     <Content Include="Assets\Spelplan.png">

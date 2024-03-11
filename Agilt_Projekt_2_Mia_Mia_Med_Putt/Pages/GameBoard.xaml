@@ -48,7 +48,10 @@
             </Image>
             
             <Canvas x:Name="GridCanvas" Width="670" Height="670" Margin="8,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-
+                <Image Source="/Assets/Board/GreenEllipse.png" Canvas.Left="5" Canvas.Top="428"/>
+                <Image Source="/Assets/Board/RedEllipse.png" Canvas.Left="5" Canvas.Top="8"/>
+                <Image Source="/Assets/Board/YellowEllipse.png" Canvas.Left="428" Canvas.Top="428"/>
+                <Image Source="/Assets/Board/BlueEllipse.png" Canvas.Left="428" Canvas.Top="8"/>
             </Canvas>
 
             <Image x:Name="DicePic" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100" Margin="900,350,0,0" RenderTransformOrigin="0.5,0.5" class:ButtonExtensions.ChangeCursorOnHover="True">

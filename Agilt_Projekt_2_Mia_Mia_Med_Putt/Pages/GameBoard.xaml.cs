@@ -99,7 +99,15 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 if (currentIndex + 1 > playerPawns.Count)
                     currentIndex = 0;
-                return playerPawns[currentIndex];
+
+                foreach(PlayerPawns p in playerPawns)
+                {
+                    p.IsActive = false;
+                }
+
+                PlayerPawns player = playerPawns[currentIndex];
+                player.IsActive = true;
+                return player;
             }
         }
 
@@ -176,7 +184,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     Size size = new Size(SquareWidth, SquareHeight);
                     grid.SetValue(x, y, size);
 
-                    DrawRectangle(x, y, size);
+                    //DrawRectangle(x, y, size);
                 }
             }
         }
@@ -278,50 +286,53 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 }
             }
 
+            DrawTurnIndicator(currentPlayer);
+        }
 
-            // TBD: Detta ska nog tas bort när vi har popups för vad användaren ska göra
-            foreach (PlayerPawns player in playerPawns)
+        private void DrawTurnIndicator(PlayerPawns player)
+        {
+
+            if (player.IsActive)
             {
-                if (player.IsSelectedPlayer)
+                Image img = new Image();
+                BitmapImage bitmapImage = new BitmapImage();
+
+                Uri uri = new Uri($"ms-appx:///Assets/Board/PurpleEllipse.png");
+                if (player.Color == PawnColor.Green)
                 {
-                    Image img = new Image();
-                    BitmapImage bitmapImage = new BitmapImage();
-
-                    Uri uri = new Uri($"ms-appx:///Assets/Board/ArrowRight.png");
-                    if (player.Color == PawnColor.Green)
-                    {
-                        Canvas.SetTop(img, (9 * squareSide));
-                        Canvas.SetLeft(img, (0 * squareSide));
-                    }
-
-                    if (player.Color == PawnColor.Red)
-                    {
-                        Canvas.SetTop(img, (2 * squareSide));
-                        Canvas.SetLeft(img, (0 * squareSide));
-                    }
-
-                    if (player.Color == PawnColor.Yellow)
-                    {
-                        uri = new Uri($"ms-appx:///Assets/Board/ArrowLeft.png");
-                        Canvas.SetTop(img, (9 * squareSide));
-                        Canvas.SetLeft(img, (10.5 * squareSide));
-                    }
-                    if (player.Color == PawnColor.Blue)
-                    {
-                        uri = new Uri($"ms-appx:///Assets/Board/ArrowLeft.png");
-                        Canvas.SetTop(img, (2 * squareSide));
-                        Canvas.SetLeft(img, (10.5 * squareSide));
-                    }
-
-                    bitmapImage.UriSource = uri;
-                    img.Source = bitmapImage;
-
-                    img.Width = 32;
-                    img.Height = 15;
-
-                    GridCanvas.Children.Add(img);
+                    uri = new Uri($"ms-appx:///Assets/Board/GreenEllipse.png");
+                    Canvas.SetTop(img, 429);
+                    Canvas.SetLeft(img, 5);
                 }
+
+                if (player.Color == PawnColor.Red)
+                {
+                    uri = new Uri($"ms-appx:///Assets/Board/RedEllipse.png");
+                    Canvas.SetTop(img, 8);
+                    Canvas.SetLeft(img, 5);
+                }
+
+                if (player.Color == PawnColor.Yellow)
+                {
+                    uri = new Uri($"ms-appx:///Assets/Board/YellowEllipse.png");
+                    Canvas.SetTop(img, 428);
+                    Canvas.SetLeft(img, 428);
+                }
+
+                if (player.Color == PawnColor.Blue)
+                {
+                    uri = new Uri($"ms-appx:///Assets/Board/BlueEllipse.png");
+                    Canvas.SetTop(img, 8);
+                    Canvas.SetLeft(img, 428);
+                }
+
+                bitmapImage.UriSource = uri;
+                img.Source = bitmapImage;
+
+                GridCanvas.Children.Add(img);
             }
+
+            playerStatusBlock.Text = $"{player.Name} spelares tur";
         }
 
         private void DrawIfPawnExists(Size currentDimensions, Point gridLocation)
@@ -454,7 +465,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn pawn = player.NextPawnInPlay();
 
 
-            playerStatusBlock.Text = $"{player.Name} spelares tur"; //<-- spelare Textblock
+            //playerStatusBlock.Text = $"{player.Name} spelares tur"; //<-- spelare Textblock
             await PlaySoundFile("dice-throw.wav");
             await Task.Delay(1000);
 
@@ -483,7 +494,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 {
                     await GoToNextPosition(pawn, player);
                     await PushPawns(player, pawn);
-                    currentIndex++;
+                    NextPlayer();
                 }
 
                 return;
@@ -505,7 +516,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             else if (player.GetPawnsInPlay().Count() == 0)
             {
                 Debug.WriteLine($"{player.Name} har ingen spelare på plan");
-                currentIndex++;
+                NextPlayer();
                 Debug.WriteLine($"Nu är det {currentPlayer.Name} tur att spela");
                 return;
             }
@@ -587,7 +598,14 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             await PushPawns(player, pawn);
 
+            NextPlayer();
+        }
+
+        private void NextPlayer()
+        {
             currentIndex++;
+
+            DrawPlayers();
         }
 
         private bool CanPawnPush(PlayerPawns player, Pawn pawn)
@@ -701,18 +719,26 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Button_Click(sender, e);
         }
 
+        private void RunManualPlayer()
+        {
+            Debug.WriteLine($"Det är {currentPlayer.Name} som ska spela nu");
+        }
+
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            while (true)
+            while (!currentPlayer.IsSelectedPlayer)
             {
-
                 DicePic.PointerReleased -= DicePic_PointerReleased;
                 RollButton.IsEnabled = false;
                 await RunAiPlayerAsync(RollDice());
                 RollButton.IsEnabled = true;
                 DicePic.PointerReleased += DicePic_PointerReleased;
+
                 if (playerPawns.All(x => x.PawnCount <= 0)) break;
+
             }
+
+            RunManualPlayer();
 
             // TBD: Här kan ett meddelande till användaren vara en bra ide 
         }
