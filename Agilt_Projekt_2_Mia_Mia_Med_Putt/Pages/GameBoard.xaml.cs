@@ -1,5 +1,4 @@
 ﻿using Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,6 +15,7 @@ using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -123,57 +123,45 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         public GameBoard()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Required;
-
-            SetUpPlayers();
-
-            DrawPlayers();
-            timer.Interval = TimeSpan.FromMilliseconds(60);
-            timer.Tick += Timer_Tick;
         }
 
-
-        /// <summary>
-
-        /// </summary>
-        /// <param name="e"></param>
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void InitializeGame(PawnColor color)
         {
-            base.OnNavigatedTo(e);
 
-            if (e.Parameter is GameBoardParameters parameters)
+            SetUpPlayers();
+            foreach (PlayerPawns player in playerPawns)
             {
                 int numPlayers = parameters.NumPlayers;
                 string[] playerColors = parameters.PlayerColors;
 
                 for (int i = 0; i < playerPawns.Count; i++)
                 {
-                    PlayerPawns player = playerPawns[i];
-
-                    // Check if the player's color is in the selected colors
-                    if (Array.IndexOf(playerColors, player.Color.ToString()) != -1)
-                    {
-                        // Player is chosen, activate it
-                        player.IsActive = true;
-                    }
-                    else
-                    {
-                        // Player is not chosen, deactivate it
-                        player.IsActive = false;
-                    }
+                    player.IsSelectedPlayer = true;
                 }
+            }
+            DrawPlayers();
 
-                Debug.WriteLine($"Number of Players: {numPlayers}");
-                DrawPlayers();
-            }
-            else
-            {
-                Debug.WriteLine("Invalid navigation parameter type.");
-            }
+            timer.Interval = TimeSpan.FromMilliseconds(60);
+            timer.Tick += Timer_Tick;
+
+            Uri imageUri = new Uri($"ms-appx:///Assets/Board/Dice/D{random.Next(1, 7)}.png");
+            DicePic.Source = new BitmapImage(imageUri);
+
+            
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            InitializeGame((PawnColor)e.Parameter);
 
+            /*if (e.Parameter is PlayerSelected playerSelected)
+            {
+                Debug.WriteLine($"OnNavigatedTo(): {playerSelected.YellowName}");
+            }*/
+
+            
+        }
 
 
         private void SetUpGrid()
@@ -231,8 +219,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn green3 = new Pawn("Green Pawn 3", PawnPaths.Green, new Point(8, 2));
             Pawn green4 = new Pawn("Green Pawn 4", PawnPaths.Green, new Point(9, 2));
 
-            //green1.Location = new Point(6, 5);
-            greenPlayer = new PlayerPawns("Grön", PawnColor.Green, green1, green2, green3, green4);
+            //green1.ChangeLocation(new Point(6, 5));
+            greenPlayer = new PlayerPawns("Green Player", PawnColor.Green, green1, green2, green3, green4);
         }
 
         private void AddYellowPawns()
@@ -242,8 +230,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn yellow3 = new Pawn("Yellow Pawn 3", PawnPaths.Yellow, new Point(8, 9));
             Pawn yellow4 = new Pawn("Yellow Pawn 4", PawnPaths.Yellow, new Point(9, 9));
 
-            //yellow1.Location = new Point(5,6);
-            yellowPlayer = new PlayerPawns("Gul", PawnColor.Yellow, yellow1, yellow2, yellow3, yellow4);
+            //yellow1.ChangeLocation(new Point(5,6));
+            //yellow2.ChangeLocation(new Point(5,7));
+            //yellow3.ChangeLocation(new Point(5,8));
+            yellowPlayer = new PlayerPawns("Yellow Player", PawnColor.Yellow, yellow1, yellow2, yellow3, yellow4);
         }
 
         private void AddBluePawns()
@@ -253,8 +243,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn blue3 = new Pawn("Blue Pawn 3", PawnPaths.Blue, new Point(2, 9));
             Pawn blue4 = new Pawn("Blue Pawn 4", PawnPaths.Blue, new Point(1, 9));
 
-            //blue1.Location = new Point(4, 5);
-            bluePlayer = new PlayerPawns("Blå", PawnColor.Blue, blue1, blue2, blue3, blue4);
+            //blue1.ChangeLocation(new Point(0, 6));
+            //blue2.ChangeLocation(new Point(0, 6));
+            //blue3.ChangeLocation(new Point(0, 6));
+            //blue4.ChangeLocation(new Point(0, 6));
+            bluePlayer = new PlayerPawns("Blue Player", PawnColor.Blue, blue1, blue2, blue3, blue4);
+            //bluePlayer = new PlayerPawns("Blue Player", PawnColor.Blue, blue1);
         }
 
         private void AddRedPawns()
@@ -264,8 +258,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn red3 = new Pawn("Red Pawn 3", PawnPaths.Red, new Point(2, 2));
             Pawn red4 = new Pawn("Red Pawn 4", PawnPaths.Red, new Point(1, 2));
 
-            //red1.Location = new Point(5,4);
-            redPlayer = new PlayerPawns("Röd", PawnColor.Red, red1, red2, red3, red4);
+            //red1.ChangeLocation(new Point(2,4));
+            //red2.ChangeLocation(new Point(5,3));
+            //red3.ChangeLocation(new Point(5,2));
+            redPlayer = new PlayerPawns("Red Player", PawnColor.Red, red1, red2, red3, red4);
+            //redPlayer = new PlayerPawns("Red Player", PawnColor.Red, red1);
         }
 
         private void DrawPlayers()
@@ -281,12 +278,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 }
             }
 
+
+            // TBD: Detta ska nog tas bort när vi har popups för vad användaren ska göra
             foreach (PlayerPawns player in playerPawns)
             {
                 ///if (player.IsSelectedPlayer)
                 if (player.IsActive)
                 {
-                    Debug.WriteLine("Japp jag är bäst");
                     Image img = new Image();
                     BitmapImage bitmapImage = new BitmapImage();
 
@@ -354,23 +352,111 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             img.Width = currentDimensions.Width;
             img.Height = currentDimensions.Height;
 
+            img.Name = $"{gridLocation.X}:{gridLocation.Y}";
+
+            img.PointerEntered += OnPointerEntered;
+            //img.PointerExited += OnPointerExited;
+
             Canvas.SetTop(img, (gridLocation.X * currentDimensions.Width));
             Canvas.SetLeft(img, (gridLocation.Y * currentDimensions.Height));
             GridCanvas.Children.Add(img);
         }
 
+        private Rectangle RectangleToRemove { get; set; }
+
+        private void OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            PlayerPawns player = currentPlayer;
+            if (sender is Image image)
+            {
+                int[] point = image.Name.Split(':').Select(Int32.Parse).ToArray();
+                Point pos = new Point(point[0], point[1]);
+                Pawn pawn = player.GetPawnAt(pos);
+                if (pawn != null)
+                {
+                    Debug.WriteLine($"{player.Name} Exited pawn {player.IsSelectedPlayer}: {pawn.Name}");
+                    GridCanvas.Children.Remove(RectangleToRemove);
+                }
+            }
+
+            if (sender is Rectangle rectangle)
+            {
+                GridCanvas.Children.Remove(rectangle);
+            }
+        }
+
+        private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            PlayerPawns player = currentPlayer;
+            if (sender is Image image && player.IsSelectedPlayer)
+            {
+                int[] point = image.Name.Split(':').Select(Int32.Parse).ToArray();
+                Pawn pawn = player.GetPawnAt(new Point(point[0], point[1]));
+
+                if (pawn != null)
+                {
+                    Debug.WriteLine($"{player.Name}'s pawn {pawn.Name} is entered");
+                    Rectangle rectangle = new Rectangle();
+                    rectangle.Stroke = new SolidColorBrush(Colors.Black);
+
+                    Color color = Colors.Black;
+                    color.A = 40;
+                    rectangle.Fill = new SolidColorBrush(color);
+
+                    rectangle.StrokeThickness = 1;
+                    rectangle.Width = squareSide;
+                    rectangle.Height = squareSide;
+
+                    Point pos = player.GetNextLocationFromRoll(pawn, 6);
+
+                    if (pawn.Location == pos)
+                    {
+                        rectangle.PointerExited += OnPointerExited;
+                        image.PointerExited -= OnPointerExited;
+                    }
+                    else
+                    {
+                        image.PointerExited += OnPointerExited;
+                    }
+                        
+
+                    Canvas.SetTop(rectangle, (pos.X * squareSide));
+                    Canvas.SetLeft(rectangle, (pos.Y * squareSide));
+
+                    GridCanvas.Children.Add(rectangle);
+                    RectangleToRemove = rectangle;
+                }
+                    
+            }
+        }
 
 
         private async Task RunAiPlayerAsync(int diceRoll)
         {
             PlayerPawns player = currentPlayer;
+
+            // This if-statement deletes player with no pawns left
+            if (player.PawnCount <= 0)
+            {
+                string debugMessage = $"Spelet är slut. Spelare {player.Name} var sist att gå ut!!!";
+                playerPawns.Remove(player);
+                if (playerPawns.Count <= 0)
+                {
+                    // TODO: Fixa meddelande här när alla spelare har gått ut. Nu stannar spelet bara
+                    Debug.WriteLine(debugMessage);
+                    return;
+                }
+                else
+                {
+                    player = currentPlayer;
+                }
+            }
+
             Pawn pawn = player.NextPawnInPlay();
 
 
             playerStatusBlock.Text = $"{player.Name} spelares tur"; //<-- spelare Textblock
             await PlaySoundFile("dice-throw.wav");
-
-            // TBD: Ganska jobbigt att behöva vänta 1 sek för detta
             await Task.Delay(1000);
 
             int pawnsInNest = player.GetPawnsInNest().Count();
@@ -379,24 +465,30 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
 
             if (
-                // If the dice shows 1, bring one pawn to the gameboard if there is one.
                 (pawnsInNest >= 1 && diceRoll == 1) ||
-                // If the dice shows 6 and there is one pawn in the nest, bring one pawn to the gameboard.
                 (pawnsInNest == 1 && diceRoll == 6)
                 )
             {
                 pawn = player.NextPawnInNest();
-                await GoToNextPosition(pawn, player);
 
-                await PushPawns(player, pawn);
-
-                // If dice is = 1, go to next player
-                if (diceRoll == 6) Debug.WriteLine($"{player.Name} rullade 6 och får slå igen");
-                else currentIndex++;
+                if (diceRoll == 6)
+                {
+                    Debug.WriteLine($"{player.Name} rullade 6 och får slå igen");
+                    for (int i = 0; i < 6; i++)
+                    {
+                        await GoToNextPosition(pawn, player);
+                    }
+                    await PushPawns(player, pawn);
+                }
+                else
+                {
+                    await GoToNextPosition(pawn, player);
+                    await PushPawns(player, pawn);
+                    currentIndex++;
+                }
 
                 return;
             }
-            // If the dice shows 6, bring two pawns to the gameboard if there are two or more pawns in the nest.
             else if (pawnsInNest >= 2 && diceRoll == 6)
             {
                 pawn = player.NextPawnInNest();
@@ -408,7 +500,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 await PushPawns(player, pawn);
 
                 Debug.WriteLine($"{player.Name} rullade 6 och har plockat ut två spelare och får nu slå igen");
-                //currentIndex++;
 
                 return;
             }
@@ -418,6 +509,34 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 currentIndex++;
                 Debug.WriteLine($"Nu är det {currentPlayer.Name} tur att spela");
                 return;
+            }
+
+            // Denna foreach loop kollar om pjäsen kan knuffa ut en annan pjäs
+            foreach (Pawn pawnInPlay in player.GetPawnsInPlay())
+            {
+                Point currentLocation = pawnInPlay.Location;
+                for (int i = 0; i < diceRoll; i++)
+                {
+                    Point nextPosition = pawnInPlay.LookAhead(1);
+                    if (nextPosition != new Point())
+                    {
+                        if (player.IsMyPawnAt(nextPosition))
+                        {
+                            pawnInPlay.ChangeLocation(currentLocation);
+                            break;
+                        }
+                        pawnInPlay.NextPosition();
+                    }
+                }
+                
+                if (CanPawnPush(player, pawnInPlay))
+                {
+                    pawn = pawnInPlay;
+                    pawnInPlay.ChangeLocation(currentLocation);
+                    break;
+                }
+
+                pawnInPlay.ChangeLocation(currentLocation);
             }
 
             // Move the pawn the steps the dice shows and sleep 100 ms.
@@ -444,8 +563,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     if (i < diceRoll - 1)
                     {
                         Debug.WriteLine($"{player.Name} slog {diceRoll} och ska studsa tillbaka {diceRoll - (i + 1)}");
-
-                        //pawn.ChangeLocation(pawn.PawnPath[(pawn.PawnPath.Count - 1) - (diceRoll - (i + 1))]);
 
                         for (int j = 0; j < diceRoll - (i + 1); j++)
                         {
@@ -474,19 +591,35 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             currentIndex++;
         }
 
+        private bool CanPawnPush(PlayerPawns player, Pawn pawn)
+        {
+            foreach (PlayerPawns otherPlayer in playerPawns.Where(x => !player.Equals(x)))
+            {
+                if (otherPlayer.HasPawnOnBoard())
+                {
+                    foreach (Pawn otherPawn in otherPlayer.GetPawnsInPlay())
+                    {
+                        if (pawn.CanPawnPush(otherPawn.Location)) return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         private async Task PushPawns(PlayerPawns player, Pawn pawn)
         {
-            foreach (PlayerPawns playerPawn in playerPawns.Where(x => !player.Equals(x)))
+            foreach (PlayerPawns otherPlayer in playerPawns.Where(x => !player.Equals(x)))
             {
-                if (playerPawn.HasPawnOnBoard())
+                if (otherPlayer.HasPawnOnBoard())
                 {
                     bool isEvilSoundPlayed = false;
                     //Debug.WriteLine("Spelare '" + playerPawn.Name + "' har spelare på plan");
-                    foreach (Pawn pawnToPush in playerPawn.GetPawnsInPlay())
+                    foreach (Pawn pawnToPush in otherPlayer.GetPawnsInPlay())
                     {
                         if (pawn.CanPawnPush(pawnToPush.Location))
                         {
-                            Debug.WriteLine("Payer: " + playerPawn.Name + " blev tillbaka knuffad av " + player.Name);
+                            Debug.WriteLine("Payer: " + otherPlayer.Name + " blev tillbaka knuffad av " + player.Name);
                             if (!isEvilSoundPlayed)
                             {
                                 isEvilSoundPlayed = true;
@@ -543,8 +676,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Canvas.SetTop(image, fromX);
             Canvas.SetLeft(image, fromY);
 
-
-
             GoToNextAnimation(fromX, fromY, toX, toY, image);
 
             pawn.InAnimation = false;
@@ -553,9 +684,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             DrawPlayers();
 
-            await PlaySoundFile("move.wav");
-
-
+            await PlaySoundFile("move.wav");  
         }
 
         private async Task PlaySoundFile(string fileName)
@@ -568,27 +697,37 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             mediaPlayer.Play();
         }
 
+        private void DicePic_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            Button_Click(sender, e);
+        }
+
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            await RunAiPlayerAsync(RollDice());
-            /*while (true)
+            while (true)
             {
-                
-                //if (playerPawns.All(x => x.PawnCount <= 0)) break;
-            }*/
+
+                DicePic.PointerReleased += DicePic_PointerReleased;
+                RollButton.IsEnabled = false;
+                await RunAiPlayerAsync(RollDice());
+                RollButton.IsEnabled = true;
+                DicePic.PointerReleased -= DicePic_PointerReleased;
+                if (playerPawns.All(x => x.PawnCount <= 0)) break;
+            }
+
             // TBD: Här kan ett meddelande till användaren vara en bra ide 
         }
 
         private int RollDice()
         {
-            RollButton.IsEnabled = false;
-            finalResult = random.Next(1, 7);
+            //RollButton.IsEnabled = false;
+            finalResult = random.Next(1,7);
             DiceRollAnimation.Begin();
             timer.Start();
             return finalResult;
         }
 
-        private async void Timer_Tick(object sender, object e)
+        private void Timer_Tick(object sender, object e)
         {
             int tempResult = random.Next(1, 7);
             while (tempResult == finalResult)
@@ -608,12 +747,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
         private void DiceRollAnimation_Completed(object sender, object e)
         {
-            RollButton.IsEnabled = true;
+            //RollButton.IsEnabled=true;
         }
 
-        private async void OpenButton_Click(object sender, RoutedEventArgs e)
+        private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
-            //await FileHelper.SaveGameAsync(playerPawns, currentIndex);
             Frame.Navigate(typeof(InGameMenu));
         }
 

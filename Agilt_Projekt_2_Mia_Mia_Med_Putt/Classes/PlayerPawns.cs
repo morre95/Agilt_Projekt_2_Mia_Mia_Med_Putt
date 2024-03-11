@@ -4,6 +4,7 @@ using Windows.Foundation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
 {
@@ -139,29 +140,16 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
         /// <returns>The location</returns>
         public Point GetNextLocationFromRoll(Pawn pawn, int diceRoll)
         {
-            // TODO: Räkna ut hur den ska studsa tillbaka vid för högt tärningskast vid slutet
-            // exempel:
-            /*int lastIndex = pawn.LastSixLocations.FindIndex(p => p.Equals(pawn.Location));
-            List<Point> remainingSteps = pawn.LastSixLocations.Skip(lastIndex + 1).ToList();
-            if (pawn.IsWithinSixStepsFromEnd() && remainingSteps.Count > diceRoll) 
-            {
-                int adjustedIndex = diceRoll % remainingSteps.Count - 1;
-                return remainingSteps[adjustedIndex];
-            }*/
-
             int pathIndex = pawn.PawnPath.FindIndex(p => p.Equals(pawn.Location));
             if (pathIndex + diceRoll >= pawn.PawnPath.Count)
             {
-                return pawn.EndLocation;
+                return pawn.PawnPath[pawn.PawnPath.Count - Math.Abs(pawn.PawnPath.Count - pathIndex - diceRoll) - 2];
             }
 
             return pawn.PawnPath[pathIndex + diceRoll];
         }
 
-        public int NumberOfPawns()
-        {
-            return playerRepository.Count();
-        }
+        
 
     }
 }

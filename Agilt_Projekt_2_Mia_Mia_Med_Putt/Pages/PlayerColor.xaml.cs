@@ -3,6 +3,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
+using Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes;
 using System.Diagnostics;
 using Windows.UI.Text;
 using System.Collections.Generic;
@@ -18,10 +19,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             this.InitializeComponent();
 
         }
+    }
 
         /// <summary>
         public class GameBoardParameters
-        {
+    {
             public int NumPlayers { get; set; }
             public string[] PlayerColors { get; set; }
         }
@@ -87,11 +89,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             int numPlayers = NumPlayersComboBox.SelectedIndex + 1;
 
             if (numPlayers == 5)
-            {
+        {
                 // Handle case when 4 players are selected (e.g., show a message or navigate to the next page)
                 Debug.WriteLine("You selected 4 players. Implement the desired behavior.");
                 return;
-            }
+        }
 
             string[] playerColors = new string[numPlayers];
             HashSet<string> uniqueColors = new HashSet<string>(StringComparer.OrdinalIgnoreCase); // Case-insensitive comparison
@@ -105,15 +107,15 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     playerColors[i] = selectedColor;
                 }
                 else
-                {
+                    {
                     // Handle case where a color is not selected or a duplicate color is chosen
                     Debug.WriteLine($"Player {i + 1} color not selected or duplicate color.");
                     // Show an alert or message to the user
                     // You might want to replace this with your specific logic
                     ShowColorNotSelectedOrDuplicateAlert();
                     return;
+                    }
                 }
-            }
 
             Debug.WriteLine($"Selected Players: {numPlayers}"); // Add this line for debugging
 
