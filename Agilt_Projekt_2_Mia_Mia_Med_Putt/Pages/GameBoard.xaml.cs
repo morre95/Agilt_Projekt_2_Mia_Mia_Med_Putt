@@ -157,6 +157,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
                 Uri imageUri = new Uri($"ms-appx:///Assets/Board/Dice/D{random.Next(1, 7)}.png");
                 DicePic.Source = new BitmapImage(imageUri);
+
+                DicePic.PointerReleased += DicePic_PointerReleased;
             }
 
             
@@ -698,11 +700,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             while (true)
             {
 
-                DicePic.PointerReleased += DicePic_PointerReleased;
+                DicePic.PointerReleased -= DicePic_PointerReleased;
                 RollButton.IsEnabled = false;
                 await RunAiPlayerAsync(RollDice());
                 RollButton.IsEnabled = true;
-                DicePic.PointerReleased -= DicePic_PointerReleased;
+                DicePic.PointerReleased += DicePic_PointerReleased;
                 if (playerPawns.All(x => x.PawnCount <= 0)) break;
             }
 
