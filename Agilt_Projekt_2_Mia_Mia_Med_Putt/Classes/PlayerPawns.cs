@@ -5,7 +5,7 @@ using System;
 
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
 {
-    public enum PawnColor  //lagt till
+    public enum PawnColor
     {
         Red,
         Blue,

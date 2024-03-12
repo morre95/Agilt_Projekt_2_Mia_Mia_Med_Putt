@@ -75,6 +75,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     FontSize = 12,
                     ItemsSource = new List<string> { "Röd", "Grön", "Blå", "Gul" },
                     Margin = new Thickness(5),
+                    RenderTransform = new CompositeTransform() { Rotation = 0.01 },
                 };
 
                 // Add the ComboBox to the colorComboBoxes array

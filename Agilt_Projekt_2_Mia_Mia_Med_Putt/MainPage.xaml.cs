@@ -18,7 +18,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(GameBoard));
+            Frame.Navigate(typeof(PlayerColor));
         }
 
         private void InstructionButton_Click(object sender, RoutedEventArgs e)
