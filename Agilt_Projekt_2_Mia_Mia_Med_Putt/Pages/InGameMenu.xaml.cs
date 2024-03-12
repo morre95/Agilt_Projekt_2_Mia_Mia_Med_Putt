@@ -1,19 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Windows.UI.Core;
 using System.Threading.Tasks;
 
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
@@ -30,7 +18,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         }
 
         // Function for opening the in-game menu through pushing the Esc-key on keyboard
-        private async void Page_KeyUp(object sender, KeyRoutedEventArgs e)
+        private async void Esc_KeyUp(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Escape)
             {
@@ -59,10 +47,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Frame.Navigate(typeof(GameBoard));
         }
 
-
-
         // Button to open up the instructions/rules of the game
-        private void RulesButton_Click(object sender, RoutedEventArgs e)
+        private void InstructionButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InstructionPage));
         }
@@ -76,7 +62,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 Content = "Är du säker att du vill avsluta spelet?",
                 PrimaryButtonText = "Ja",
                 CloseButtonText = "Tillbaka"
-
             };
 
             ContentDialogResult result = await confirmDialog.ShowAsync();
@@ -85,7 +70,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 Application.Current.Exit();
             }
-            
         }
     }
 }

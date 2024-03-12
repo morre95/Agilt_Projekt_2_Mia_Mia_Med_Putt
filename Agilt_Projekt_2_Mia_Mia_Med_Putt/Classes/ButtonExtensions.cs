@@ -7,7 +7,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
 {
 
 /// <summary>
-/// Class for button extensions, this far only pointer change on hover applied
+/// Class for button extensions, this far only pointer change on-hover applied
 /// </summary>
     public static class ButtonExtensions
     {

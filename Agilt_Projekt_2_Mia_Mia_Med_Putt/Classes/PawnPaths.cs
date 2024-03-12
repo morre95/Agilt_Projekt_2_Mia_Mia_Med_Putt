@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Windows.Foundation;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
 {

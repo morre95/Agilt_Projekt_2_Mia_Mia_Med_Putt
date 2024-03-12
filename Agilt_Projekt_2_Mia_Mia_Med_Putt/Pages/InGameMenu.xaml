@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    KeyUp="Page_KeyUp"
+    KeyUp="Esc_KeyUp"
     Background="#0AA73F">
     <Page.Resources>
         <Storyboard x:Name="upToDownAnimation">
@@ -44,7 +44,7 @@
                         Tillbaka till spelet
                     </Button>
 
-                    <Button Width="200" Height="50" Click="RulesButton_Click" Background="#224EB5" Canvas.Left="300"  Canvas.Top="300" CornerRadius="20"  FontFamily="Calibri" FontSize="20" Foreground="White">
+                    <Button Width="200" Height="50" Click="InstructionButton_Click" Background="#224EB5" Canvas.Left="300"  Canvas.Top="300" CornerRadius="20"  FontFamily="Calibri" FontSize="20" Foreground="White">
                         Regler
                     </Button>
 
