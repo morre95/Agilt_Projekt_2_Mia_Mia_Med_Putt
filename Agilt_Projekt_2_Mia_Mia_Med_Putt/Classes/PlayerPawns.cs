@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using Windows.Foundation;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
+using System;
 
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
 {
