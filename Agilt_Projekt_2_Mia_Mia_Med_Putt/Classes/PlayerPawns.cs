@@ -106,13 +106,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
         /// Gets the next pawn in the collection of the nest.
         /// </summary>
         /// <returns>The next pawn in the collection of the nest, if any; otherwise, <c>null</c>.</returns>
-        public Pawn NextPawnInNest() => GetPawnsInNest().FirstOrDefault();
+        public Pawn GetNextPawnInNest() => GetPawnsInNest().FirstOrDefault();
 
         /// <summary>
         /// Gets the next pawn in the collection of the ones in play.
         /// </summary>
         /// <returns>The next pawn in the collection of the ones in play, if any; otherwise, <c>null</c>.</returns>
-        public Pawn NextPawnInPlay() => GetPawnsInPlay().FirstOrDefault();
+        public Pawn GetNextPawnInPlay() => GetPawnsInPlay().FirstOrDefault();
 
         /// <summary>
         /// Determines whether the player has any pawn on the board.

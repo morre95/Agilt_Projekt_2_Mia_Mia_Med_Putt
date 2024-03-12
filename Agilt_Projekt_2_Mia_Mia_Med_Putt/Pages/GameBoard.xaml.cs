@@ -22,6 +22,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
@@ -227,7 +228,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn green3 = new Pawn("Green Pawn 3", PawnPaths.Green, new Point(8, 2));
             Pawn green4 = new Pawn("Green Pawn 4", PawnPaths.Green, new Point(9, 2));
 
-            //green1.ChangeLocation(new Point(6, 5));
+            //green1.ChangeLocation(new Point(10, 0));
+            //green2.ChangeLocation(new Point(10, 1));
+            //green3.ChangeLocation(new Point(10, 2));
+            //green4.ChangeLocation(new Point(10, 3));
             greenPlayer = new PlayerPawns("Grön", PawnColor.Green, green1, green2, green3, green4);
         }
 
@@ -238,9 +242,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn yellow3 = new Pawn("Yellow Pawn 3", PawnPaths.Yellow, new Point(8, 9));
             Pawn yellow4 = new Pawn("Yellow Pawn 4", PawnPaths.Yellow, new Point(9, 9));
 
-            //yellow1.ChangeLocation(new Point(5,6));
-            //yellow2.ChangeLocation(new Point(5,7));
-            //yellow3.ChangeLocation(new Point(5,8));
+            //yellow1.ChangeLocation(new Point(10, 7));
+            //yellow2.ChangeLocation(new Point(10, 8));
+            //yellow3.ChangeLocation(new Point(10, 9));
+            //yellow4.ChangeLocation(new Point(10, 10));
             yellowPlayer = new PlayerPawns("Gul", PawnColor.Yellow, yellow1, yellow2, yellow3, yellow4);
         }
 
@@ -251,12 +256,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn blue3 = new Pawn("Blue Pawn 3", PawnPaths.Blue, new Point(2, 9));
             Pawn blue4 = new Pawn("Blue Pawn 4", PawnPaths.Blue, new Point(1, 9));
 
-            //blue1.ChangeLocation(new Point(0, 6));
-            //blue2.ChangeLocation(new Point(0, 6));
-            //blue3.ChangeLocation(new Point(0, 6));
-            //blue4.ChangeLocation(new Point(0, 6));
+            //blue1.ChangeLocation(new Point(0, 7));
+            //blue2.ChangeLocation(new Point(0, 8));
+            //blue3.ChangeLocation(new Point(0, 9));
+            //blue4.ChangeLocation(new Point(0, 10));
             bluePlayer = new PlayerPawns("Blå", PawnColor.Blue, blue1, blue2, blue3, blue4);
-            //bluePlayer = new PlayerPawns("Blue Player", PawnColor.Blue, blue1);
         }
 
         private void AddRedPawns()
@@ -266,11 +270,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn red3 = new Pawn("Red Pawn 3", PawnPaths.Red, new Point(2, 2));
             Pawn red4 = new Pawn("Red Pawn 4", PawnPaths.Red, new Point(1, 2));
 
-            //red1.ChangeLocation(new Point(2,4));
-            //red2.ChangeLocation(new Point(5,3));
-            //red3.ChangeLocation(new Point(5,2));
+            //red1.ChangeLocation(new Point(0, 0));
+            //red2.ChangeLocation(new Point(0, 1));
+            //red3.ChangeLocation(new Point(0, 2));
+            //red4.ChangeLocation(new Point(0, 3));
             redPlayer = new PlayerPawns("Röd", PawnColor.Red, red1, red2, red3, red4);
-            //redPlayer = new PlayerPawns("Red Player", PawnColor.Red, red1);
         }
 
         private void DrawPlayers()
@@ -332,7 +336,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 GridCanvas.Children.Add(img);
             }
 
-            playerStatusBlock.Text = $"{player.Name} spelares tur";
+            //playerStatusBlock.Text = $"{player.Name} spelares tur";
+            //AddStatusTextToTop($"{player.Name} spelares tur", 8);
         }
 
         private void DrawIfPawnExists(Size currentDimensions, Point gridLocation)
@@ -462,7 +467,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 }
             }
 
-            Pawn pawn = player.NextPawnInPlay();
+            Pawn pawn = player.GetNextPawnInPlay();
 
 
             //playerStatusBlock.Text = $"{player.Name} spelares tur"; //<-- spelare Textblock
@@ -479,7 +484,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 (pawnsInNest == 1 && diceRoll == 6)
                 )
             {
-                pawn = player.NextPawnInNest();
+                pawn = player.GetNextPawnInNest();
 
                 if (diceRoll == 6)
                 {
@@ -501,10 +506,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
             else if (pawnsInNest >= 2 && diceRoll == 6)
             {
-                pawn = player.NextPawnInNest();
+                pawn = player.GetNextPawnInNest();
                 await GoToNextPosition(pawn, player);
 
-                pawn = player.NextPawnInNest();
+                pawn = player.GetNextPawnInNest();
                 await GoToNextPosition(pawn, player);
 
                 await PushPawns(player, pawn);
@@ -607,6 +612,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             DrawPlayers();
         }
+
 
         private bool CanPawnPush(PlayerPawns player, Pawn pawn)
         {
@@ -719,28 +725,142 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Button_Click(sender, e);
         }
 
-        private void RunManualPlayer()
-        {
-            Debug.WriteLine($"Det är {currentPlayer.Name} som ska spela nu");
-        }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            while (!currentPlayer.IsSelectedPlayer)
+            DicePic.PointerReleased -= DicePic_PointerReleased;
+            RollButton.IsEnabled = false;
+
+            if (!currentPlayer.IsSelectedPlayer)
+                await AutoRunAiPlayerAsync();
+            else
             {
-                DicePic.PointerReleased -= DicePic_PointerReleased;
-                RollButton.IsEnabled = false;
-                await RunAiPlayerAsync(RollDice());
-                RollButton.IsEnabled = true;
-                DicePic.PointerReleased += DicePic_PointerReleased;
-
-                if (playerPawns.All(x => x.PawnCount <= 0)) break;
-
+                await RunManualPlayerAsync(RollDice());
+                await AutoRunAiPlayerAsync();
             }
 
-            RunManualPlayer();
+            RollButton.IsEnabled = true;
+            DicePic.PointerReleased += DicePic_PointerReleased;
+        }
 
-            // TBD: Här kan ett meddelande till användaren vara en bra ide 
+        private async Task AutoRunAiPlayerAsync()
+        {
+            while (!currentPlayer.IsSelectedPlayer)
+            {
+                await RunAiPlayerAsync(RollDice());
+
+                if (playerPawns.All(x => x.PawnCount <= 0)) break;
+            }  
+        }
+
+        private async Task RunManualPlayerAsync(int diceRoll)
+        {
+            AddStatusTextToTop($"Det är {currentPlayer.Name} tur", 5);
+
+            AddStatusTextToTop($"{currentPlayer.Name} slog en {diceRoll}", 5);
+
+            PlayerPawns player = currentPlayer;
+
+            int pawnsInNest = player.GetPawnsInNest().Count();
+
+            Pawn pawn = null;
+
+            
+            if (diceRoll == 1)
+            {
+                if (pawnsInNest > 0)
+                {
+                    Button b = new Button();
+                    b.Content = "Ta ut en pjäs";
+
+                    b.Click += async (s, e) =>
+                    {
+                        if (s is Button button)
+                        {
+                            pawn = await AddOnePawnAsync(player);
+
+                            await PushPawns(player, pawn);
+                            NextPlayer();
+
+                            UserButtonsStackPanel.Children.Remove(button);
+                        }
+                        
+                    };
+
+                    UserButtonsStackPanel.Children.Add(b);
+                }      
+            }
+            else if (diceRoll == 6)
+            {
+                if (pawnsInNest > 0)
+                {
+                    Button b = new Button();
+                    b.Content = "Ta ut två pjäs";
+
+                    b.Click += async (s, e) =>
+                    {
+                        if (s is Button button)
+                        {
+                            pawn = await AddOnePawnAsync(player);
+                            pawn = await AddOnePawnAsync(player);
+
+                            await PushPawns(player, pawn);
+                            NextPlayer();
+
+                            UserButtonsStackPanel.Children.Remove(button);
+                        }
+                    };
+
+                    UserButtonsStackPanel.Children.Add(b);
+
+                    Button b2 = new Button();
+                    b2.Content = "Ta ut en pjäs, gå 6 steg";
+
+                    b2.Click += async (s, e) =>
+                    {
+                        if (s is Button button)
+                        {
+                            pawn = await AddOnePawnAsync(player);
+
+                            for (int i = 0; i < 6; i++)
+                            {
+                                await GoToNextPosition(pawn, player);
+                            }
+
+                            await PushPawns(player, pawn);
+                            NextPlayer();
+
+                            UserButtonsStackPanel.Children.Remove(button);
+                        }
+                    };
+
+                    UserButtonsStackPanel.Children.Add(b2);
+                }    
+            }
+            else
+            {
+                int pawnsInField = player.GetPawnsInPlay().Count();
+                if (pawnsInField > 0)
+                {
+                    pawn = player.GetNextPawnInPlay();
+                    for (int i = 0; i < diceRoll; i++)
+                    {
+                        await GoToNextPosition(pawn, player);
+                    }
+
+                    await PushPawns(player, pawn);
+                }
+
+                NextPlayer();
+            }
+        }
+
+        private async Task<Pawn> AddOnePawnAsync(PlayerPawns player)
+        {
+            Pawn pawn = player.GetNextPawnInNest();
+            await GoToNextPosition(pawn, player);
+
+            return pawn;
         }
 
         private int RollDice()
@@ -826,5 +946,32 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             animation.Duration = TimeSpan.FromMilliseconds(150);
             return animation;
         }
+
+
+        private void AddStatusTextToTop(string text, int secondsBeforDelete)
+        {
+            TextBlock textBlockToAdd = new TextBlock
+            {
+                Text = text,
+                Margin = new Thickness(5),
+            };
+
+            StatusStackPanel.Children.Insert(0, textBlockToAdd);
+
+
+            DispatcherTimer dispatcherTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(secondsBeforDelete)
+            };
+
+            dispatcherTimer.Tick += (object sender, object e) =>
+            {
+                StatusStackPanel.Children.Remove(textBlockToAdd);
+                dispatcherTimer.Stop();
+            };
+
+            dispatcherTimer.Start();
+        }
+
     }
 }
