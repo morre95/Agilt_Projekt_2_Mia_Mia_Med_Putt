@@ -169,6 +169,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 DicePic.Source = new BitmapImage(imageUri);
 
                 DicePic.PointerReleased += DicePic_PointerReleased;
+
+                AddStatusTextToTop($"{currentPlayer.Name} spelares tur", 8);
             }   
         }
 
@@ -449,6 +451,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         private async Task RunAiPlayerAsync(int diceRoll)
         {
             PlayerPawns player = currentPlayer;
+
+            AddStatusTextToTop($"{player.Name} spelares tur", 8);
 
             // This if-statement deletes player with no pawns left
             if (player.PawnCount <= 0)
@@ -733,13 +737,17 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             DicePic.PointerReleased -= DicePic_PointerReleased;
             RollButton.IsEnabled = false;
 
-            if (!currentPlayer.IsSelectedPlayer)
-                await AutoRunAiPlayerAsync();
-            else
+            if (currentPlayer.IsSelectedPlayer)
             {
                 await RunManualPlayerAsync(RollDice());
                 await AutoRunAiPlayerAsync();
             }
+            else
+            {
+                await AutoRunAiPlayerAsync();
+            }
+
+            AddStatusTextToTop($"{currentPlayer.Name} spelares tur", 8);
 
             RollButton.IsEnabled = true;
             DicePic.PointerReleased += DicePic_PointerReleased;
@@ -752,14 +760,16 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 await RunAiPlayerAsync(RollDice());
 
                 if (playerPawns.All(x => x.PawnCount <= 0)) break;
-            }  
+            } 
+            
         }
 
         private async Task RunManualPlayerAsync(int diceRoll)
         {
-            AddStatusTextToTop($"Det är {currentPlayer.Name} tur", 5);
+            //AddStatusTextToTop($"Det är {currentPlayer.Name} tur", 5);
+            
 
-            AddStatusTextToTop($"{currentPlayer.Name} slog en {diceRoll}", 5);
+            // AddStatusTextToTop($"{currentPlayer.Name} slog en {diceRoll}", 5);
 
             PlayerPawns player = currentPlayer;
 

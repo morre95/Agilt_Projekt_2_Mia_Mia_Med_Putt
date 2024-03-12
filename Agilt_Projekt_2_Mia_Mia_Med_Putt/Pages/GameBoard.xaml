@@ -73,7 +73,7 @@
 
 
             <StackPanel x:Name="UserButtonsStackPanel" VerticalAlignment="Bottom" Margin="0,0,0,100" Width="150" Height="300" HorizontalAlignment="Right">
-                <TextBlock>Hovra över pjäsen för att se vart den kan röra sig</TextBlock>
+                <TextBlock TextWrapping="Wrap">Hovra över pjäsen för att se vart den kan röra sig</TextBlock>
                 <TextBlock>Klicka sedan på den</TextBlock>
                 <Button x:Name="AddOnePawnButton" Click="AddOnePawnClick" IsEnabled="False">Ta ut en pjäs</Button>
                 <Button x:Name="AddTwoPawnsButton" Click="AddTwoPawnsClick" IsEnabled="False">Ta ut två pjäser</Button>
