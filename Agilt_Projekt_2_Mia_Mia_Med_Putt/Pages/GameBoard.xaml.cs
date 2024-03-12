@@ -29,7 +29,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
-using static Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages.PlayerColor;
+
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -372,7 +372,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             img.Name = $"{gridLocation.X}:{gridLocation.Y}";
 
             img.PointerEntered += HoverOverPawnEnter;
-            //img.PointerExited += OnPointerExited;
+            img.PointerPressed += OnPointerPressed;
 
             Canvas.SetTop(img, (gridLocation.X * currentDimensions.Width));
             Canvas.SetLeft(img, (gridLocation.Y * currentDimensions.Height));
@@ -400,6 +400,37 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 GridCanvas.Children.Remove(rectangle);
             }
+        }
+        private async void OnPointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            PlayerPawns player = currentPlayer;
+            int diceRoll = finalDiceRollResult;
+
+            int pawnsInField = player.GetPawnsInPlay().Count();
+
+            if (sender is Image image && player.IsSelectedPlayer)
+            {
+                if (pawnsInField > 0)
+                {
+                    int[] coordinate = image.Name.Split(':').Select(Int32.Parse).ToArray();
+                    Pawn pawn = player.GetPawnAt(new Point(coordinate[0], coordinate[1]));
+                    if (pawn != null)
+                    {
+                        for (int i = 0; i < diceRoll; i++)
+                        {
+                            await GoToNextPosition(pawn, player);
+                        }
+
+                        await PushPawns(player, pawn);
+                    }
+                }
+
+                NextPlayer();
+            }
+
+            AddOnePawnButton.IsEnabled = false;
+            AddTwoPawnsButton.IsEnabled = false;
+            AddOnePawnMoveSixStepButton.IsEnabled = false;
         }
 
         private void HoverOverPawnEnter(object sender, PointerRoutedEventArgs e)
@@ -475,8 +506,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
 
             //playerStatusBlock.Text = $"{player.Name} spelares tur"; //<-- spelare Textblock
-            await PlaySoundFile("dice-throw.wav");
-            await Task.Delay(1000);
+
 
             int pawnsInNest = player.GetPawnsInNest().Count();
 
@@ -739,7 +769,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             if (currentPlayer.IsSelectedPlayer)
             {
-                await RunManualPlayerAsync(RollDice());
+                await RunManualPlayerAsync(await RollDice());
                 await AutoRunAiPlayerAsync();
             }
             else
@@ -751,13 +781,14 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             RollButton.IsEnabled = true;
             DicePic.PointerReleased += DicePic_PointerReleased;
+
         }
 
         private async Task AutoRunAiPlayerAsync()
         {
             while (!currentPlayer.IsSelectedPlayer)
             {
-                await RunAiPlayerAsync(RollDice());
+                await RunAiPlayerAsync(await RollDice());
 
                 if (playerPawns.All(x => x.PawnCount <= 0)) break;
             } 
@@ -792,7 +823,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     AddOnePawnMoveSixStepButton.IsEnabled = true;
                 }
             }
-            else
+            
+            /*else
             {
                 int pawnsInField = player.GetPawnsInPlay().Count();
                 if (pawnsInField > 0)
@@ -807,7 +839,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 }
 
                 NextPlayer();
-            }
+            }*/
         }
 
         private async Task<Pawn> AddOnePawnAsync(PlayerPawns player)
@@ -818,12 +850,14 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             return pawn;
         }
 
-        private int RollDice()
+        private async Task <int> RollDice()
         {
             //RollButton.IsEnabled = false;
             finalDiceRollResult = random.Next(1,7);
             DiceRollAnimation.Begin();
             timer.Start();
+            await PlaySoundFile("dice-throw.wav");
+            await Task.Delay(1000);
             return finalDiceRollResult;
         }
 
