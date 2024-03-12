@@ -645,6 +645,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                             Debug.WriteLine("Payer: " + otherPlayer.Name + " blev tillbaka knuffad av " + player.Name);
                             if (!isEvilSoundPlayed)
                             {
+                                AddStatusTextToTop($"{player.Name} har knuffats tillbaka {otherPlayer.Name}", 5);
                                 isEvilSoundPlayed = true;
                                 await PlaySoundFile("evil-scream.wav");
                                 await Task.Delay(3000);
@@ -965,6 +966,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 button.IsEnabled = false;
                 AddTwoPawnsButton.IsEnabled = false;
             }
+        }
+
+        private void CLickMeClick(object sender, RoutedEventArgs e)
+        {
+            AddStatusTextToTop("Hej Star", 5);
         }
     }
 }
