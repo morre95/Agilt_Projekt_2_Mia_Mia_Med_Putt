@@ -1,5 +1,6 @@
 ﻿using Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes;
 using System;
+using System.Xml;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,6 +29,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
+using Windows.UI.Notifications;
 using static Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages.PlayerColor;
 
 
@@ -585,6 +587,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
                     Debug.WriteLine($"{player.Name} raderar pjäsen {pawn.Name}");
                     uniqueplayerNotification.Text = $"The {player.Name} Pawn reaches the goal.";
+
                     // Sound effect for reaching the goal
                     await PlaySoundFile("tada-fanfare.mp3");
                     await Task.Delay(2000);
@@ -592,20 +595,35 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     player.RemovePawn(pawn);
                     DrawPlayers();
 
-            
-
-
 
                     break;
                 }
+
             }
 
             await PushPawns(player, pawn);
 
-            //Show notification: The (Red, Green, yellow, or Blue) Pawns completed the game. Next player will paly
-            uniqueplayerNotification.Text = $"The {player.Name} Pawns completed the game.";
+            if (!player.HasPawnOnBoard())
+            {
+                // Display a notification for no pawns on the board
+                uniqueplayerNotification.Text = $"Player {player.Name} has no pawns left on the board or nest.";
+                // Wait for a moment to display the notification
+                await Task.Delay(2000); // You can adjust the delay as needed
+            }
+            // Check if the pawn has reached the end
+            if (pawn.IsAtEnd())
+            {
+                // Display a notification for completing the game
+                uniqueplayerNotification.Text = $"The {player.Name} Pawns completed the game.";
+                currentIndex++;
+                // Wait for a moment to display the notification
+                await Task.Delay(2000); // You can adjust the delay as needed
+            }
+
+            // Move to the next player
             currentIndex++;
         }
+
 
         private bool CanPawnPush(PlayerPawns player, Pawn pawn)
         {
