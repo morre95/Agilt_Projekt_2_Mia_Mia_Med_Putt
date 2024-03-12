@@ -63,9 +63,14 @@
                 <Image Source="/Assets/Hamburger-meny.png" Stretch="Fill"/>
             </Button>
             <TextBlock x:Name="playerStatusBlock" Foreground="White" Width="150" Height="50" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
-            <Border x:Name="notificationBorder" Background="MediumAquamarine" Width="155" Height="80" Margin="8,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Visibility="Visible" CornerRadius="10">
-                <TextBlock x:Name="uniqueplayerNotification" Foreground="Purple" Margin="8,8,8,8" FontFamily="Calibri" FontWeight="Bold" FontSize="14" TextWrapping="Wrap"/>
+            <Border x:Name="notificationBorder" Background="MediumAquamarine" Width="155" Height="106" Margin="30,272,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Visible" CornerRadius="10">
+                <TextBlock x:Name="uniqueplayerNotification" Foreground="Purple" Margin="8,10,8,8" FontFamily="Calibri" FontWeight="Bold" FontSize="14" TextWrapping="Wrap"/>
+
             </Border>
+
+            <TextBlock Text="Evenemangstavla" FontSize="24" FontWeight="Bold" Margin="10,221,921,422"/>
+            <!-- Your other page content goes here -->
+
 
         </Grid>
     </Viewbox>
