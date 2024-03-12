@@ -138,6 +138,9 @@
     <Compile Include="Pages\InstructionPage.xaml.cs">
       <DependentUpon>InstructionPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PlayerColor.xaml.cs">
+      <DependentUpon>PlayerColor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\ButtonExtensions.cs" />
   </ItemGroup>
@@ -147,14 +150,34 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\4pawns.png" />
     <Content Include="Assets\Board\Dice\D1.png" />
     <Content Include="Assets\Board\Dice\D2.png" />
     <Content Include="Assets\Board\Dice\D3.png" />
     <Content Include="Assets\Board\Dice\D4.png" />
     <Content Include="Assets\Board\Dice\D5.png" />
     <Content Include="Assets\Board\Dice\D6.png" />
+    <Content Include="Assets\Board\ArrowLeft.png" />
+    <Content Include="Assets\Board\ArrowRight.png" />
     <Content Include="Assets\Board\GameBoard.png" />
+    <Content Include="Assets\Board\GreenEllipse.png" />
+    <Content Include="Assets\Board\Pawns\Blue-1.png" />
+    <Content Include="Assets\Board\Pawns\Blue-2.png" />
+    <Content Include="Assets\Board\Pawns\Blue-3.png" />
+    <Content Include="Assets\Board\Pawns\Blue-4.png" />
     <Content Include="Assets\Board\Pawns\Blue.png" />
+    <Content Include="Assets\Board\Pawns\Green-1.png" />
+    <Content Include="Assets\Board\Pawns\Green-2.png" />
+    <Content Include="Assets\Board\Pawns\Green-3.png" />
+    <Content Include="Assets\Board\Pawns\Green-4.png" />
+    <Content Include="Assets\Board\Pawns\Red-1.png" />
+    <Content Include="Assets\Board\Pawns\Red-2.png" />
+    <Content Include="Assets\Board\Pawns\Red-3.png" />
+    <Content Include="Assets\Board\Pawns\Red-4.png" />
+    <Content Include="Assets\Board\Pawns\Yellow-1.png" />
+    <Content Include="Assets\Board\Pawns\Yellow-2.png" />
+    <Content Include="Assets\Board\Pawns\Yellow-3.png" />
+    <Content Include="Assets\Board\Pawns\Yellow-4.png" />
     <Content Include="Assets\GameBoard-blured.png" />
     <Content Include="Assets\Hamburger-meny.png" />
     <Content Include="Assets\Spelplan.png">
@@ -168,6 +191,9 @@
     <Content Include="Assets\Board\Pawns\Green.png" />
     <Content Include="Assets\Board\Pawns\Red.png" />
     <Content Include="Assets\Board\Pawns\Yellow.png" />
+    <Content Include="dice-throw.wav" />
+    <Content Include="evil-scream.wav" />
+    <Content Include="move.wav" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -177,6 +203,7 @@
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="SplashScreen.png" />
+    <Content Include="tada-fanfare.mp3" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -203,10 +230,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\PlayerColor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />
