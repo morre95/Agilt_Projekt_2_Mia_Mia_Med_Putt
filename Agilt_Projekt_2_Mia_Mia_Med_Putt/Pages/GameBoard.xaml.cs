@@ -80,6 +80,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         /// </summary>
         private Grid grid;
 
+        ////
+        /// Notifications
+        private TextBlock playerNotification; // Declare playerNotification here
+        ///
+        ///
+
+
         /// <summary>
         /// List of all players (a list of PlayerPawns class).
         /// </summary>
@@ -124,6 +131,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         public GameBoard()
         {
             InitializeComponent();
+            // Initialize playerNotification here
+            playerNotification = new TextBlock();
+            // ... (other initialization if needed)
         }
 
         private void SetPlayerColor(PawnColor color)
@@ -434,7 +444,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         private async Task RunAiPlayerAsync(int diceRoll)
         {
             PlayerPawns player = currentPlayer;
-
+            uniqueplayerNotification.Text = string.Empty;
             // This if-statement deletes player with no pawns left
             if (player.PawnCount <= 0)
             {
@@ -574,7 +584,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     }
 
                     Debug.WriteLine($"{player.Name} raderar pjäsen {pawn.Name}");
-
+                    uniqueplayerNotification.Text = $"The {player.Name} Pawn reaches the goal.";
                     // Sound effect for reaching the goal
                     await PlaySoundFile("tada-fanfare.mp3");
                     await Task.Delay(2000);
@@ -582,12 +592,18 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     player.RemovePawn(pawn);
                     DrawPlayers();
 
+            
+
+
+
                     break;
                 }
             }
 
             await PushPawns(player, pawn);
 
+            //Show notification: The (Red, Green, yellow, or Blue) Pawns completed the game. Next player will paly
+            uniqueplayerNotification.Text = $"The {player.Name} Pawns completed the game.";
             currentIndex++;
         }
 
@@ -607,6 +623,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             return false;
         }
 
+
+
         private async Task PushPawns(PlayerPawns player, Pawn pawn)
         {
             foreach (PlayerPawns otherPlayer in playerPawns.Where(x => !player.Equals(x)))
@@ -619,6 +637,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     {
                         if (pawn.CanPawnPush(pawnToPush.Location))
                         {
+                            uniqueplayerNotification.Text = $"Den {otherPlayer.Name}a pjäsen(erna) blev tillbaka knuffad av den {player.Name}a pjäsen";
+                            Debug.WriteLine($"Player: {player.Name} pushed by {player.Name}");
+
                             Debug.WriteLine("Payer: " + otherPlayer.Name + " blev tillbaka knuffad av " + player.Name);
                             if (!isEvilSoundPlayed)
                             {
@@ -801,5 +822,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             animation.Duration = TimeSpan.FromMilliseconds(150);
             return animation;
         }
+
+   
     }
 }

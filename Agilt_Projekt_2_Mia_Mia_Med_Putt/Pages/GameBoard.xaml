@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     KeyUp="Page_KeyUp"
     Background="#0AA73F">
-    
+
     <Page.Resources>
         <Storyboard x:Name="DiceRollAnimation" Completed="DiceRollAnimation_Completed">
             <DoubleAnimation Storyboard.TargetName="DicePic"
@@ -38,7 +38,7 @@
                          RepeatBehavior="3x"/>
         </Storyboard>
     </Page.Resources>
-    
+
     <Viewbox Stretch="Uniform">
         <Grid Background="#0AA73F" MaxHeight="1000" MaxWidth="1500">
             <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="671" Height="671" Margin="8,5,0,0">
@@ -46,7 +46,7 @@
                     <BitmapImage DecodePixelWidth="1680" UriSource="/Assets/Board/GameBoard.png"/>
                 </Image.Source>
             </Image>
-            
+
             <Canvas x:Name="GridCanvas" Width="670" Height="670" Margin="8,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
 
             </Canvas>
@@ -56,13 +56,16 @@
                     <CompositeTransform/>
                 </Image.RenderTransform>
             </Image>
-            
+
             <Button x:Name="RollButton" Style="{StaticResource OrangeBlackButtonStyle}" Content="Rulla" Margin="850,600,0,0" VerticalAlignment="Center" Click="Button_Click" HorizontalAlignment="Center" Width="100"/>
-            
+
             <Button Background="Transparent" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="920,0,0,600" Click="OpenButton_Click" CornerRadius="10">
                 <Image Source="/Assets/Hamburger-meny.png" Stretch="Fill"/>
             </Button>
             <TextBlock x:Name="playerStatusBlock" Foreground="White" Width="150" Height="50" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+            <Border x:Name="notificationBorder" Background="MediumAquamarine" Width="155" Height="80" Margin="8,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Visibility="Visible" CornerRadius="10">
+                <TextBlock x:Name="uniqueplayerNotification" Foreground="Purple" Margin="8,8,8,8" FontFamily="Calibri" FontWeight="Bold" FontSize="14" TextWrapping="Wrap"/>
+            </Border>
 
         </Grid>
     </Viewbox>
