@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="#0AA73F">
-    
+
     <Viewbox Stretch="Uniform">
         <Grid Background="#0AA73F" Height="410" MaxHeight="1000" MaxWidth="1500">
             <Grid.RowDefinitions>
@@ -15,7 +15,7 @@
                 <RowDefinition Height="200"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
+
             <Image Grid.Row="0" HorizontalAlignment="Center" Height="50" Margin="10,10,330,10" VerticalAlignment="Top" Source="/Assets/Dice.png" />
             <TextBlock Grid.Row="0" Text="Mia Med Putt" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="50" FontWeight="Bold" FontFamily="Inter" Margin="60,10,0,0"/>
             <TextBlock Grid.Row="0" FontSize="16" Margin="0,70,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontWeight="Bold" Text="Välj spelare och färger på dina pjäser"/>
@@ -24,28 +24,25 @@
                     <ImageBrush />
                 </Image.FocusVisualSecondaryBrush>
             </Image>
-        
-
-            <Button Grid.Row="2" Content="Bakåt" Click="BackButton_Click" Margin="10,10,250,10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="50" Width="200" Style="{StaticResource OrangeBlackButtonStyle}"/>
-            <Button Grid.Row="2" Content="Start" Click="StartButton_Click" Margin="250,10,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="50" Width="200" Style="{StaticResource OrangeBlackButtonStyle}"/>
-
-    <ComboBox Grid.Row="0" x:Name="NumPlayersComboBox" Margin="100,100,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" PlaceholderText="Antal spelare" FocusVisualPrimaryBrush="#FFBB7F26" FontSize="10" FontFamily="Arial" FontWeight="Bold" SelectionChanged="NumPlayersComboBox_SelectionChanged" CornerRadius="10">
+            <ComboBox Grid.Row="0" x:Name="NumPlayersComboBox" Margin="100,100,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" PlaceholderText="Antal spelare" FocusVisualPrimaryBrush="#FFBB7F26" FontSize="10" FontFamily="Arial" FontWeight="Bold" SelectionChanged="NumPlayersComboBox_SelectionChanged" CornerRadius="10">
                 <ComboBox.RenderTransform>
                     <CompositeTransform Rotation="0.01"/>
-                </ComboBox.RenderTransform>            
-        <ComboBoxItem Content="1" />
-                    <ComboBoxItem Content="2" />
-                    <ComboBoxItem Content="3" />
-                    <ComboBoxItem Content="4" />
-                </ComboBox>
+                </ComboBox.RenderTransform>
+                <ComboBoxItem Content="1" />
+                <ComboBoxItem Content="2" />
+                <ComboBoxItem Content="3" />
+                <ComboBoxItem Content="4" />
+            </ComboBox>
 
             <StackPanel Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,0">
                 <StackPanel x:Name="PlayersStackPanel" Visibility="Collapsed" HorizontalAlignment="Center">
                 </StackPanel>
             </StackPanel>
-    </Grid>
+
+            <Button Grid.Row="2" Content="Bakåt" Click="BackButton_Click" Margin="10,10,200,10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="50" Width="160" Style="{StaticResource OrangeBlackButtonStyle}"/>
+            <Button Grid.Row="2" Content="Start" Click="StartButton_Click" Margin="200,10,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="50" Width="160" Style="{StaticResource OrangeBlackButtonStyle}"/>
+        </Grid>
     </Viewbox>
-    
 </Page>
 
 
