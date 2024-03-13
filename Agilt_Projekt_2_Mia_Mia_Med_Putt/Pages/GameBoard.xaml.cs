@@ -805,23 +805,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 NextPlayer();
             }
-            
-            /*else
-            {
-                int pawnsInField = player.GetPawnsInPlay().Count();
-                if (pawnsInField > 0)
-                {
-                    Pawn pawn = player.GetNextPawnInPlay();
-                    for (int i = 0; i < diceRoll; i++)
-                    {
-                        await GoToNextPosition(pawn, player);
-                    }
 
-                    await PushPawns(player, pawn);
-                }
-
-                NextPlayer();
-            }*/
         }
 
         private async Task<Pawn> AddOnePawnAsync(PlayerPawns player)
