@@ -415,12 +415,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     int pawnsInField = player.GetPawnsInPlay().Count();
                     if (pawnsInField > 0)
                     {
-                        for (int i = 0; i < diceRoll; i++)
-                        {
-                            await GoToNextPosition(pawn, player);
-                        }
-
-                        await PushPawns(player, pawn);
+                        await MovePawnNumberOfSteps(diceRoll, pawn, player);
                     }
 
                     Debug.WriteLine("Ja OnPointerPressed(object sender, PointerRoutedEventArgs e) körs ");
