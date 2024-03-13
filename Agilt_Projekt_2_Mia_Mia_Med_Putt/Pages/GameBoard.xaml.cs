@@ -230,7 +230,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn green3 = new Pawn("Green Pawn 3", PawnPaths.Green, new Point(8, 2));
             Pawn green4 = new Pawn("Green Pawn 4", PawnPaths.Green, new Point(9, 2));
 
-            //green1.ChangeLocation(new Point(10, 0));
+            green1.ChangeLocation(new Point(9, 5));
             //green2.ChangeLocation(new Point(10, 1));
             //green3.ChangeLocation(new Point(10, 2));
             //green4.ChangeLocation(new Point(10, 3));
@@ -244,7 +244,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn yellow3 = new Pawn("Yellow Pawn 3", PawnPaths.Yellow, new Point(8, 9));
             Pawn yellow4 = new Pawn("Yellow Pawn 4", PawnPaths.Yellow, new Point(9, 9));
 
-            //yellow1.ChangeLocation(new Point(10, 7));
+            yellow1.ChangeLocation(new Point(3, 4));
             //yellow2.ChangeLocation(new Point(10, 8));
             //yellow3.ChangeLocation(new Point(10, 9));
             //yellow4.ChangeLocation(new Point(10, 10));
@@ -258,8 +258,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn blue3 = new Pawn("Blue Pawn 3", PawnPaths.Blue, new Point(2, 9));
             Pawn blue4 = new Pawn("Blue Pawn 4", PawnPaths.Blue, new Point(1, 9));
 
-            //blue1.ChangeLocation(new Point(0, 7));
-            //blue2.ChangeLocation(new Point(0, 8));
+            blue1.ChangeLocation(new Point(3, 6));
+            blue2.ChangeLocation(new Point(4, 8));
             //blue3.ChangeLocation(new Point(0, 9));
             //blue4.ChangeLocation(new Point(0, 10));
             bluePlayer = new PlayerPawns("Blå", PawnColor.Blue, blue1, blue2, blue3, blue4);
