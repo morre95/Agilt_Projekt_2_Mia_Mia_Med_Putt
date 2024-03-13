@@ -186,24 +186,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 {
                     Size size = new Size(SquareWidth, SquareHeight);
                     grid.SetValue(x, y, size);
-
-                    //DrawRectangle(x, y, size);
                 }
             }
         }
-
-        /*private void DrawRectangle(int x, int y, Size size)
-        {
-            Rectangle rectangle = new Rectangle()
-            {
-                Width = size.Width,
-                Height = size.Height
-            };
-
-            Canvas.SetTop(rectangle, x * size.Width);
-            Canvas.SetLeft(rectangle, y * size.Height);
-            GridCanvas.Children.Add(rectangle);
-        }*/
 
         private void SetUpPlayers()
         {
@@ -1036,7 +1021,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                         break;
                     }
 
-                    // Sound effect for reaching the goal
                     await PlaySoundFile("tada-fanfare.mp3");
                     await Task.Delay(2000);
 
