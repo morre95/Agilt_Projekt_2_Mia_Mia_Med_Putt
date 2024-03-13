@@ -600,49 +600,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             // Move the pawn the steps the dice shows and sleep 100 ms.
             await MovePawnNumberOfSteps(diceRoll, pawn, player);
 
-            /*for (int i = 0; i < diceRoll; i++)
-            {
-                if (!CanThisPawnGoToNextPosition(pawn, player))
-                {
-                    await GoToNextPosition(pawn, player);
-                    break;
-                }
-
-
-                await GoToNextPosition(pawn, player);
-
-                //await Task.Delay(100);
-
-                if (pawn.IsAtEnd())
-                {
-                    if (i < diceRoll - 1)
-                    {
-                        Debug.WriteLine($"{player.Name} slog {diceRoll} och ska studsa tillbaka {diceRoll - (i + 1)}");
-
-                        for (int j = 0; j < diceRoll - (i + 1); j++)
-                        {
-                            await GoToNextPosition(pawn, player, true);
-                        }
-
-                        DrawPlayers();
-                        break;
-                    }
-
-                    Debug.WriteLine($"{player.Name} raderar pjäsen {pawn.Name}");
-
-                    // Sound effect for reaching the goal
-                    await PlaySoundFile("tada-fanfare.mp3");
-                    await Task.Delay(2000);
-
-                    player.RemovePawn(pawn);
-                    DrawPlayers();
-
-                    break;
-                }
-            }
-
-            await PushPawns(player, pawn);*/
-
             NextPlayer();
         }
 
