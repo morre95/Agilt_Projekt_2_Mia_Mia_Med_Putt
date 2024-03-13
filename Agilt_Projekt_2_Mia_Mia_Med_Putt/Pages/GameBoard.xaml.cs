@@ -957,7 +957,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             return finalDiceRollResult;
         }
 
-
+        /// <summary>
+        /// Timer function for the dice animation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Timer_Tick(object sender, object e)
         {
             int tempResult = random.Next(1, 7);
@@ -976,16 +980,31 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
+        /// <summary>
+        /// Dice animation complete event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DiceRollAnimation_Completed(object sender, object e)
         {
             //RollButton.IsEnabled=true;
         }
 
+        /// <summary>
+        /// Open ingame navigation event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InGameMenu));
         }
 
+        /// <summary>
+        /// Open ingame menu escape button klicked event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_KeyUp(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Escape)
@@ -994,6 +1013,14 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
+        /// <summary>
+        /// Go topp next position animation
+        /// </summary>
+        /// <param name="fromX">X position to start from</param>
+        /// <param name="fromY">Y position to start from</param>
+        /// <param name="toX">X position to move to</param>
+        /// <param name="toY">Y position to move to</param>
+        /// <param name="image">The image to move</param>
         public void GoToNextAnimation(double fromX, double fromY, double toX, double toY, Image image)
         {
             Storyboard moveStoryboard = new Storyboard();
@@ -1010,6 +1037,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             AddAnimationToBoard(image, moveStoryboard, xAnimation, yAnimation);
         }
 
+        /// <summary>
+        /// Adds the animation to move a pawn
+        /// </summary>
+        /// <param name="image">Pawn image</param>
+        /// <param name="moveStoryboard">Storyboard object</param>
+        /// <param name="xAnimation">X animation object</param>
+        /// <param name="yAnimation">Y animastion object</param>
         private static void AddAnimationToBoard(Image image, Storyboard moveStoryboard, DoubleAnimation xAnimation, DoubleAnimation yAnimation)
         {
             Storyboard.SetTarget(xAnimation, image);
@@ -1024,6 +1058,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             moveStoryboard.Begin();
         }
 
+        /// <summary>
+        /// Initializes a double animation
+        /// </summary>
+        /// <param name="from">From coordinats</param>
+        /// <param name="to">To coordinats</param>
+        /// <returns></returns>
         private static DoubleAnimation InitAnimation(double from, double to)
         {
             DoubleAnimation animation = new DoubleAnimation();
@@ -1033,7 +1073,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             return animation;
         }
 
-
+        /// <summary>
+        /// Adds status texts
+        /// </summary>
+        /// <param name="text">The test to add</param>
+        /// <param name="secondsBeforDelete">The time the status text is shown</param>
         private void AddStatusTextToTop(string text, int secondsBeforDelete)
         {
             TextBlock textBlockToAdd = new TextBlock
@@ -1059,6 +1103,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             dispatcherTimer.Start();
         }
 
+        /// <summary>
+        /// Adds a pawn to the board from the nest button click event handeler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void AddOnePawnClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
@@ -1079,6 +1128,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
+        /// <summary>
+        /// Adds two pawns to the board from the nest button click event handeler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void AddTwoPawnsClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
@@ -1099,6 +1153,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
+        /// <summary>
+        /// Adds one pawn to the board from the nest and moves it 6 steps button click event handeler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void AddOnePawnMoveSixStepClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
@@ -1118,6 +1177,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
+        /// <summary>
+        /// Move a pawn a certen amounts of steps
+        /// </summary>
+        /// <param name="steps">The steps to move the pawn</param>
+        /// <param name="pawn">The pawn to move</param>
+        /// <param name="player">The player object the pawn belongs to</param>
+        /// <returns></returns>
         private async Task MovePawnNumberOfSteps(int steps, Pawn pawn, PlayerPawns player)
         {
             for (int i = 0; i < steps; i++)
