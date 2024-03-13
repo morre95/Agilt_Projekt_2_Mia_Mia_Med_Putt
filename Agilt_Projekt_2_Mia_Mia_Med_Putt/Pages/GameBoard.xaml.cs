@@ -118,12 +118,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         private DispatcherTimer timer = new DispatcherTimer();
 
         /// <summary>
-        /// Randomizer-variable for all of the GameBoard
+        /// Randomizer-variable for the dice roll
         /// </summary>
         private Random random = new Random();
 
         /// <summary>
-        /// Int-variable for all of the GameBoard
+        /// Intedger representing the final dice roll
         /// </summary>
         private int finalDiceRollResult;
 
