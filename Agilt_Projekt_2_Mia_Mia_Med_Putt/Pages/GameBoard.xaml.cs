@@ -429,7 +429,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     if (diceRoll != 6)
                     {
                         NextPlayer();
-                        await RunGame();
+                        //await RunGame();
                     }
 
 
@@ -792,7 +792,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             else if (diceRoll == 6)
             {
                 int pawnsInNest = player.GetPawnsInNest().Count();
-                if (pawnsInNest > 0)
+                if (pawnsInNest == 1)
+                {
+                    AddOnePawnMoveSixStepButton.IsEnabled = true;
+                }
+                else if (pawnsInNest > 1)
                 {
                     AddTwoPawnsButton.IsEnabled = true;
                     AddOnePawnMoveSixStepButton.IsEnabled = true;
@@ -962,7 +966,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 
                 button.IsEnabled = false;
 
-                await RunGame();
+                //await RunGame();
 
                 //RollButton.IsEnabled = true;
                 //DicePic.PointerReleased += DicePic_PointerReleased;
