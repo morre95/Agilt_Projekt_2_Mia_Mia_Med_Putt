@@ -372,7 +372,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             img.Name = $"{gridLocation.X}:{gridLocation.Y}";
 
             img.PointerEntered += HoverOverPawnEnter;
-            img.PointerPressed += OnPointerPressed;
+            img.PointerPressed += PressedOnPawn;
 
             Canvas.SetTop(img, (gridLocation.X * currentDimensions.Width));
             Canvas.SetLeft(img, (gridLocation.Y * currentDimensions.Height));
@@ -401,7 +401,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 GridCanvas.Children.Remove(rectangle);
             }
         }
-        private async void OnPointerPressed(object sender, PointerRoutedEventArgs e)
+        private async void PressedOnPawn(object sender, PointerRoutedEventArgs e)
         {
             if (sender is Image image )
             {
