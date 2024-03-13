@@ -192,7 +192,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
-        private void DrawRectangle(int x, int y, Size size)
+        /*private void DrawRectangle(int x, int y, Size size)
         {
             Rectangle rectangle = new Rectangle()
             {
@@ -203,7 +203,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Canvas.SetTop(rectangle, x * size.Width);
             Canvas.SetLeft(rectangle, y * size.Height);
             GridCanvas.Children.Add(rectangle);
-        }
+        }*/
 
         private void SetUpPlayers()
         {
@@ -403,18 +403,17 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         }
         private async void OnPointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            PlayerPawns player = currentPlayer;
-            int diceRoll = finalDiceRollResult;
-
-            int pawnsInField = player.GetPawnsInPlay().Count();
-
-            if (sender is Image image && player.IsSelectedPlayer)
+            if (sender is Image image )
             {
-                if (pawnsInField > 0)
+                PlayerPawns player = currentPlayer;
+                int diceRoll = finalDiceRollResult;
+
+                int[] coordinate = image.Name.Split(':').Select(Int32.Parse).ToArray();
+                Pawn pawn = player.GetPawnAt(new Point(coordinate[0], coordinate[1]));
+                if (pawn != null)
                 {
-                    int[] coordinate = image.Name.Split(':').Select(Int32.Parse).ToArray();
-                    Pawn pawn = player.GetPawnAt(new Point(coordinate[0], coordinate[1]));
-                    if (pawn != null)
+                    int pawnsInField = player.GetPawnsInPlay().Count();
+                    if (pawnsInField > 0)
                     {
                         for (int i = 0; i < diceRoll; i++)
                         {
@@ -423,14 +422,24 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
                         await PushPawns(player, pawn);
                     }
-                }
 
-                NextPlayer();
-            }
+                    Debug.WriteLine("Ja OnPointerPressed(object sender, PointerRoutedEventArgs e) körs ");
 
-            AddOnePawnButton.IsEnabled = false;
-            AddTwoPawnsButton.IsEnabled = false;
-            AddOnePawnMoveSixStepButton.IsEnabled = false;
+                    
+
+                    AddOnePawnButton.IsEnabled = false;
+                    AddTwoPawnsButton.IsEnabled = false;
+                    AddOnePawnMoveSixStepButton.IsEnabled = false;
+
+                    if (diceRoll != 6)
+                    {
+                        NextPlayer();
+                        await RunGame();
+                    }
+
+
+                }      
+            }  
         }
 
         private void HoverOverPawnEnter(object sender, PointerRoutedEventArgs e)
@@ -764,12 +773,17 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         // TODO: När en spelare har slagit så att den får upp val. Så går inte spelet automatiskt vidare när valet är gjort
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            await RunGame();
+        }
+
+        private async Task RunGame()
+        {
             DicePic.PointerReleased -= DicePic_PointerReleased;
             RollButton.IsEnabled = false;
 
             if (currentPlayer.IsSelectedPlayer)
             {
-                await RunManualPlayerAsync(await RollDice());
+                RunManualPlayerAsync(await RollDice());
                 await AutoRunAiPlayerAsync();
             }
             else
@@ -781,7 +795,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             RollButton.IsEnabled = true;
             DicePic.PointerReleased += DicePic_PointerReleased;
-
         }
 
         private async Task AutoRunAiPlayerAsync()
@@ -795,7 +808,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             
         }
 
-        private async Task RunManualPlayerAsync(int diceRoll)
+        private void RunManualPlayerAsync(int diceRoll)
         {
             //AddStatusTextToTop($"Det är {currentPlayer.Name} tur", 5);
             
@@ -804,8 +817,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             PlayerPawns player = currentPlayer;
 
-            
 
+            int pawnsInPlay = player.GetPawnsInPlay().Count();
             if (diceRoll == 1)
             {
                 int pawnsInNest = player.GetPawnsInNest().Count();
@@ -822,6 +835,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     AddTwoPawnsButton.IsEnabled = true;
                     AddOnePawnMoveSixStepButton.IsEnabled = true;
                 }
+
+                RollButton.IsEnabled = false;
+                DicePic.PointerReleased -= DicePic_PointerReleased;
+            } 
+            else if (pawnsInPlay <= 0)
+            {
+                NextPlayer();
             }
             
             /*else
@@ -972,7 +992,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 await PushPawns(player, pawn);
 
                 NextPlayer();
+                
                 button.IsEnabled = false;
+
+                await RunGame();
+
+                //RollButton.IsEnabled = true;
+                //DicePic.PointerReleased += DicePic_PointerReleased;
             }
         }
 
@@ -986,9 +1012,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
                 await PushPawns(player, pawn);
 
-                NextPlayer();
+                //NextPlayer();
+
                 button.IsEnabled = false;
                 AddOnePawnMoveSixStepButton.IsEnabled = false;
+
+                //RollButton.IsEnabled = true;
+                //DicePic.PointerReleased += DicePic_PointerReleased;
             }
         }
 
@@ -1006,9 +1036,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
                 await PushPawns(player, pawn);
 
-                NextPlayer();
+                //NextPlayer();
+
                 button.IsEnabled = false;
                 AddTwoPawnsButton.IsEnabled = false;
+
+                //RollButton.IsEnabled = true;
+                //DicePic.PointerReleased += DicePic_PointerReleased;
             }
         }
 
