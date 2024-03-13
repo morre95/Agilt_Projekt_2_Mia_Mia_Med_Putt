@@ -1208,6 +1208,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                         break;
                     }
 
+                    AddStatusTextToTop($"En av {player.Name} spelares pjäser har gott i mål", 10);
+
                     await PlaySoundFile("tada-fanfare.mp3");
                     await Task.Delay(2000);
 
