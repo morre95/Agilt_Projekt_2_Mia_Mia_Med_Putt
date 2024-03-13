@@ -598,19 +598,16 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
 
             // Move the pawn the steps the dice shows and sleep 100 ms.
-            for (int i = 0; i < diceRoll; i++)
+            await MovePawnNumberOfSteps(diceRoll, pawn, player);
+
+            /*for (int i = 0; i < diceRoll; i++)
             {
-                Point nextPosition = pawn.LookAhead(1);
-                if (nextPosition != new Point())
+                if (!CanThisPawnGoToNextPosition(pawn, player))
                 {
-                    //Pawn nextPawn = player.GetPawnAt(nextPosition);
-                    if (player.IsMyPawnAt(nextPosition))
-                    {
-                        Debug.WriteLine($"{player.Name} har {player.CountPawnsAt(nextPosition)} pjäser på denna plats och får inte gå om sin egen pjäs");
-                        await GoToNextPosition(pawn, player);
-                        break;
-                    }
+                    await GoToNextPosition(pawn, player);
+                    break;
                 }
+
 
                 await GoToNextPosition(pawn, player);
 
@@ -644,9 +641,22 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 }
             }
 
-            await PushPawns(player, pawn);
+            await PushPawns(player, pawn);*/
 
             NextPlayer();
+        }
+
+        private bool CanThisPawnGoToNextPosition(Pawn pawn, PlayerPawns player)
+        {
+            Point nextPosition = pawn.LookAhead(1);
+            if (nextPosition != new Point())
+            {
+                if (player.IsMyPawnAt(nextPosition))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void NextPlayer()
@@ -1029,12 +1039,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 PlayerPawns player = currentPlayer;
                 Pawn pawn = await AddOnePawnAsync(player);
 
-                for (int i = 0; i < 6; i++)
-                {
-                    await GoToNextPosition(pawn, player);
-                }
-
-                await PushPawns(player, pawn);
+                await MovePawnNumberOfSteps(5, pawn, player);
 
                 //NextPlayer();
 
@@ -1044,6 +1049,44 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 //RollButton.IsEnabled = true;
                 //DicePic.PointerReleased += DicePic_PointerReleased;
             }
+        }
+
+        private async Task MovePawnNumberOfSteps(int steps, Pawn pawn, PlayerPawns player)
+        {
+            for (int i = 0; i < steps; i++)
+            {
+                if (!CanThisPawnGoToNextPosition(pawn, player))
+                {
+                    await GoToNextPosition(pawn, player);
+                    break;
+                }
+                await GoToNextPosition(pawn, player);
+
+                if (pawn.IsAtEnd())
+                {
+                    if (i < steps - 1)
+                    {
+                        for (int j = 0; j < steps - (i + 1); j++)
+                        {
+                            await GoToNextPosition(pawn, player, true);
+                        }
+
+                        DrawPlayers();
+                        break;
+                    }
+
+                    // Sound effect for reaching the goal
+                    await PlaySoundFile("tada-fanfare.mp3");
+                    await Task.Delay(2000);
+
+                    player.RemovePawn(pawn);
+                    DrawPlayers();
+
+                    break;
+                }
+            }
+
+            await PushPawns(player, pawn);
         }
 
     }
