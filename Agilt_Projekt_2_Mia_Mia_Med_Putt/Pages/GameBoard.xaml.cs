@@ -832,10 +832,31 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             return pawn;
         }
 
-        private async Task <int> RollDice()
+        private int diceIndex = 0;
+
+        private List<int> diceRollList = new List<int>(new int[] { 
+            // Röd går ut med två pjäser
+            // Röd går ut med en pjäs och går 6 steg, där står gul som blir tillbaka knuffad
+            6, 6, 4,
+
+            // Blå går 5 steg, Men på tredje steget står en blå spelare
+            5,
+
+            // Gul slår 1 och går ut med en spelare
+            1,
+
+            // Grön har 4 steg kvar till mål, Slår en 6 och studsar tillbaka två steg
+            6, 2
+
+        });
+
+        private async Task<int> RollDice()
         {
-            //RollButton.IsEnabled = false;
-            finalDiceRollResult = random.Next(1,7);
+            if (diceIndex < diceRollList.Count) finalDiceRollResult = diceRollList[diceIndex];
+            else finalDiceRollResult = random.Next(1, 7);
+
+            diceIndex++;
+
             DiceRollAnimation.Begin();
             timer.Start();
             await PlaySoundFile("dice-throw.wav");
