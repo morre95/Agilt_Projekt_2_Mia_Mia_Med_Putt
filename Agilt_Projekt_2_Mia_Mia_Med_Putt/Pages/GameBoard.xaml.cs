@@ -614,7 +614,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             if (pawn.IsAtEnd())
             {
                 // Display a notification for completing the game
-                uniqueplayerNotification.Text = $"The {player.Name} Pawns completed the game.";
+                uniqueplayerNotification.Text = $"The {player.Name} Pawn completed the game.";
                 currentIndex++;
                 // Wait for a moment to display the notification
                 await Task.Delay(2000); // You can adjust the delay as needed
