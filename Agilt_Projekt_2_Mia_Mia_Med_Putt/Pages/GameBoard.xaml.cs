@@ -543,22 +543,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             AddStatusTextToTop($"{player.Name} spelares tur", 8);
 
-            // This if-statement deletes player with no pawns left
-            if (player.PawnCount <= 0)
-            {
-                string debugMessage = $"Spelet är slut. Spelare {player.Name} var sist att gå ut!!!";
-                playerPawns.Remove(player);
-                if (playerPawns.Count <= 0)
-                {
-                    // TODO: Fixa meddelande här när alla spelare har gått ut. Nu stannar spelet bara
-                    Debug.WriteLine(debugMessage);
-                    return;
-                }
-                else
-                {
-                    player = currentPlayer;
-                }
-            }
+            player = DeleteIfNoPawnsLeft(player);
+
+            if (IsAnyPlayersLeft()) return;
 
             Pawn pawn = player.GetNextPawnInPlay();
 
@@ -635,7 +622,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                         pawnInPlay.NextPosition();
                     }
                 }
-                
+
                 if (CanPawnPush(player, pawnInPlay))
                 {
                     pawn = pawnInPlay;
@@ -650,6 +637,22 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             await MovePawnNumberOfSteps(diceRoll, pawn, player);
 
             NextPlayer();
+        }
+
+        private PlayerPawns DeleteIfNoPawnsLeft(PlayerPawns player)
+        {
+            if (player.PawnCount <= 0)
+            {
+                playerPawns.Remove(player);
+                player = currentPlayer;
+            }
+
+            return player;
+        }
+
+        private bool IsAnyPlayersLeft()
+        {
+            return playerPawns.Count <= 0;
         }
 
         /// <summary>
@@ -875,6 +878,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             // AddStatusTextToTop($"{currentPlayer.Name} slog en {diceRoll}", 5);
 
             PlayerPawns player = currentPlayer;
+
+            player = DeleteIfNoPawnsLeft(player);
+
+            if (IsAnyPlayersLeft()) return;
 
 
             int pawnsInPlay = player.GetPawnsInPlay().Count();
