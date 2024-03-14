@@ -66,7 +66,7 @@
                 <TextBlock TextWrapping="Wrap">Hovra över pjäsen för att se vart den kan röra sig</TextBlock>
                 <TextBlock>Klicka sedan på den</TextBlock>
                 <Button x:Name="AddOnePawnButton" Click="AddOnePawnClick" IsEnabled="False" PointerEntered="HoverAddPawnButtonEnter" PointerExited="HoverAddPawnButtonExit">Ta ut en pjäs</Button>
-                <Button x:Name="AddTwoPawnsButton" Click="AddTwoPawnsClick" IsEnabled="False" PointerEntered="HoverAddPawnButtonEnter" PointerExited="HoverAddPawnButtonExit">Ta ut två pjäser</Button>
+                <Button x:Name="AddTwoPawnsButton" Click="AddTwoPawnsClick" IsEnabled="False" PointerEntered="HoverAddTwoPawnsButtonEnter" PointerExited="HoverAddPawnButtonExit">Ta ut två pjäser</Button>
                 <Button x:Name="AddOnePawnMoveSixStepButton" Click="AddOnePawnMoveSixStepClick" IsEnabled="False" PointerEntered="HoverAddPawnButtonEnter" PointerExited="HoverAddPawnButtonExit">Ta ut en pjäs, gå 6 steg</Button>
             </StackPanel>
 

@@ -494,7 +494,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 int[] point = image.Name.Split(':').Select(Int32.Parse).ToArray();
                 Pawn pawn = player.GetPawnAt(new Point(point[0], point[1]));
-                ShowDiceRollPosition(player, image, pawn);
+                HighlightDiceRollPosition(player, image, pawn);
 
             }
         }
@@ -505,16 +505,16 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         /// <param name="player">Plasyer object that the pawn belongs to</param>
         /// <param name="image">The image that was hovered over</param>
         /// <param name="pawn">The pawn to move</param>
-        private void ShowDiceRollPosition(PlayerPawns player, Image image, Pawn pawn)
+        private void HighlightDiceRollPosition(PlayerPawns player, Image image, Pawn pawn)
         {
             if (pawn != null)
             {
                 Debug.WriteLine($"{player.Name}'s pawn {pawn.Name} is entered");
                 Rectangle rectangle = new Rectangle();
-                rectangle.Stroke = new SolidColorBrush(Colors.Black);
+                //rectangle.Stroke = new SolidColorBrush(Colors.Black);
 
                 Color color = Colors.Black;
-                color.A = 40;
+                color.A = 55;
                 rectangle.Fill = new SolidColorBrush(color);
 
                 rectangle.StrokeThickness = 1;
@@ -1238,6 +1238,26 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         }
 
         /// <summary>
+        /// Hover over add two pawns button, enter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HoverAddTwoPawnsButtonEnter(object sender, PointerRoutedEventArgs e)
+        {
+            PlayerPawns player = currentPlayer;
+            Pawn pawn = player.GetNextPawnInNest();
+            if (pawn != null)
+            {
+                int oldDiceRoll = finalDiceRollResult;
+                finalDiceRollResult = 1;
+
+                HighlightDiceRollPosition(player, new Image(), pawn);
+
+                finalDiceRollResult = oldDiceRoll;
+            }
+        }
+
+        /// <summary>
         /// Hover over add pawn button, enter
         /// </summary>
         /// <param name="sender"></param>
@@ -1248,7 +1268,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn pawn = player.GetNextPawnInNest();
             if (pawn != null)
             {
-                ShowDiceRollPosition(player, new Image(), pawn);
+                HighlightDiceRollPosition(player, new Image(), pawn);
             }
         }
 
