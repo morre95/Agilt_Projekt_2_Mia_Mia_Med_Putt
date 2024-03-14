@@ -494,41 +494,51 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 int[] point = image.Name.Split(':').Select(Int32.Parse).ToArray();
                 Pawn pawn = player.GetPawnAt(new Point(point[0], point[1]));
+                ShowDiceRollPosition(player, image, pawn);
 
-                if (pawn != null)
+            }
+        }
+
+        /// <summary>
+        /// Shows the highlighted place a pawn can move to
+        /// </summary>
+        /// <param name="player">Plasyer object that the pawn belongs to</param>
+        /// <param name="image">The image that was hovered over</param>
+        /// <param name="pawn">The pawn to move</param>
+        private void ShowDiceRollPosition(PlayerPawns player, Image image, Pawn pawn)
+        {
+            if (pawn != null)
+            {
+                Debug.WriteLine($"{player.Name}'s pawn {pawn.Name} is entered");
+                Rectangle rectangle = new Rectangle();
+                rectangle.Stroke = new SolidColorBrush(Colors.Black);
+
+                Color color = Colors.Black;
+                color.A = 40;
+                rectangle.Fill = new SolidColorBrush(color);
+
+                rectangle.StrokeThickness = 1;
+                rectangle.Width = squareSide;
+                rectangle.Height = squareSide;
+
+                Point pos = player.GetNextLocationFromRoll(pawn, finalDiceRollResult);
+
+                if (pawn.Location == pos)
                 {
-                    Debug.WriteLine($"{player.Name}'s pawn {pawn.Name} is entered");
-                    Rectangle rectangle = new Rectangle();
-                    rectangle.Stroke = new SolidColorBrush(Colors.Black);
-
-                    Color color = Colors.Black;
-                    color.A = 40;
-                    rectangle.Fill = new SolidColorBrush(color);
-
-                    rectangle.StrokeThickness = 1;
-                    rectangle.Width = squareSide;
-                    rectangle.Height = squareSide;
-
-                    Point pos = player.GetNextLocationFromRoll(pawn, finalDiceRollResult);
-
-                    if (pawn.Location == pos)
-                    {
-                        rectangle.PointerExited += HoverOverPawnExit;
-                        image.PointerExited -= HoverOverPawnExit;
-                    }
-                    else
-                    {
-                        image.PointerExited += HoverOverPawnExit;
-                    }
-                        
-
-                    Canvas.SetTop(rectangle, (pos.X * squareSide));
-                    Canvas.SetLeft(rectangle, (pos.Y * squareSide));
-
-                    GridCanvas.Children.Add(rectangle);
-                    RectangleToRemove = rectangle;
+                    rectangle.PointerExited += HoverOverPawnExit;
+                    image.PointerExited -= HoverOverPawnExit;
                 }
-                    
+                else
+                {
+                    image.PointerExited += HoverOverPawnExit;
+                }
+
+
+                Canvas.SetTop(rectangle, (pos.X * squareSide));
+                Canvas.SetLeft(rectangle, (pos.Y * squareSide));
+
+                GridCanvas.Children.Add(rectangle);
+                RectangleToRemove = rectangle;
             }
         }
 
@@ -548,10 +558,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             if (IsAnyPlayersLeft()) return;
 
             Pawn pawn = player.GetNextPawnInPlay();
-
-
-            //playerStatusBlock.Text = $"{player.Name} spelares tur"; //<-- spelare Textblock
-
 
             int pawnsInNest = player.GetPawnsInNest().Count();
 
@@ -872,12 +878,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         /// <param name="diceRoll">The dice roll</param>
         private void RunManualPlayerAsync(int diceRoll)
         {
-            //AddStatusTextToTop($"Det är {currentPlayer.Name} tur", 5);
-            
-
-            // AddStatusTextToTop($"{currentPlayer.Name} slog en {diceRoll}", 5);
-
             PlayerPawns player = currentPlayer;
+
+            AddStatusTextToTop($"{player.Name} spelares tur", 8);
 
             player = DeleteIfNoPawnsLeft(player);
 
@@ -923,7 +926,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         private async Task<Pawn> AddOnePawnAsync(PlayerPawns player)
         {
             Pawn pawn = player.GetNextPawnInNest();
-            await GoToNextPosition(pawn, player);
+            //await GoToNextPosition(pawn, player);
+            await MovePawnNumberOfSteps(1, pawn, player);
 
             return pawn;
         }
@@ -1091,7 +1095,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 Text = text,
                 Margin = new Thickness(2, 2, 2, 5),
+                Padding = new Thickness(3),
                 Foreground = new SolidColorBrush(Colors.Black),
+                TextWrapping = TextWrapping.Wrap,
             };
 
             StatusStackPanel.Children.Insert(0, textBlockToAdd);
@@ -1231,5 +1237,35 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             await PushPawns(player, pawn);
         }
 
+        /// <summary>
+        /// Hover over add pawn button, enter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HoverAddPawnButtonEnter(object sender, PointerRoutedEventArgs e)
+        {
+            PlayerPawns player = currentPlayer;
+            Pawn pawn = player.GetNextPawnInNest();
+            if (pawn != null)
+            {
+                ShowDiceRollPosition(player, new Image(), pawn);
+            }
+        }
+
+        /// <summary>
+        /// Hover over add pawn button, leave
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HoverAddPawnButtonExit(object sender, PointerRoutedEventArgs e)
+        {
+            PlayerPawns player = currentPlayer;
+            Pawn pawn = player.GetNextPawnInNest();
+            if (pawn != null) 
+            {
+                GridCanvas.Children.Remove(RectangleToRemove);
+            }
+            
+        }
     }
 }

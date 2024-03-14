@@ -60,7 +60,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Classes
         /// <param name="pawns">The pawns that belong to the player.</param>
         public PlayerPawns(string playerName, PawnColor color, params Pawn[] pawns)
         {
-            ///IsSelectedPlayer = false;
+            IsSelectedPlayer = false;
             IsActive = false;
             Color = color;
             Name = playerName;
