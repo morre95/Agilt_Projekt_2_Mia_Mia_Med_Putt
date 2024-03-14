@@ -118,14 +118,19 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         private DispatcherTimer timer = new DispatcherTimer();
 
         /// <summary>
-        /// Randomizer-variable for all of the GameBoard
+        /// Randomizer-variable for the dice roll
         /// </summary>
         private Random random = new Random();
 
         /// <summary>
-        /// Int-variable for all of the GameBoard
+        /// Intedger representing the final dice roll
         /// </summary>
         private int finalDiceRollResult;
+
+        /// <summary>
+        /// Ractangle ogject that is going to be removed from the grid when not hovering over it anymore.
+        /// </summary>
+        private Rectangle RectangleToRemove { get; set; }
 
         /// <summary>
         /// Page constructor. It initializes the page, setup players and draw them on to the game board.
@@ -135,6 +140,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Sets color for the user selected players
+        /// </summary>
+        /// <param name="color"></param>
         private void SetPlayerColor(PawnColor color)
         {
             foreach (PlayerPawns player in playerPawns)
@@ -147,6 +156,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
+        /// <summary>
+        /// Runs on nanigating to this page. And sets the color for the selected players.
+        /// </summary>
+        /// <param name="e">NavigationEventArgs event object</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -174,7 +187,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }   
         }
 
-
+        /// <summary>
+        /// Set up the grid system
+        /// </summary>
         private void SetUpGrid()
         {
             GridCanvas.Children.Clear();
@@ -190,6 +205,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
+        /// <summary>
+        /// Sets up the players
+        /// </summary>
         private void SetUpPlayers()
         {
             AddPawnsToPlayer();
@@ -200,6 +218,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             playerPawns.Add(greenPlayer);
         }
 
+        /// <summary>
+        /// Adds the pawns to the players
+        /// </summary>
         private void AddPawnsToPlayer()
         {
             AddRedPawns();
@@ -208,6 +229,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             AddGreenPawns();
         }
 
+        /// <summary>
+        /// Adds the green pawns to the greenPlayer variable
+        /// </summary>
         private void AddGreenPawns()
         {
             Pawn green1 = new Pawn("Green Pawn 1", PawnPaths.Green, new Point(8, 1));
@@ -215,13 +239,16 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn green3 = new Pawn("Green Pawn 3", PawnPaths.Green, new Point(8, 2));
             Pawn green4 = new Pawn("Green Pawn 4", PawnPaths.Green, new Point(9, 2));
 
-            //green1.ChangeLocation(new Point(10, 0));
+            green1.ChangeLocation(new Point(9, 5));
             //green2.ChangeLocation(new Point(10, 1));
             //green3.ChangeLocation(new Point(10, 2));
             //green4.ChangeLocation(new Point(10, 3));
             greenPlayer = new PlayerPawns("Grön", PawnColor.Green, green1, green2, green3, green4);
         }
 
+        /// <summary>
+        /// Adds the yellow pawns to the yellowPlayer variable
+        /// </summary>
         private void AddYellowPawns()
         {
             Pawn yellow1 = new Pawn("Yellow Pawn 1", PawnPaths.Yellow, new Point(8, 8));
@@ -229,13 +256,16 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn yellow3 = new Pawn("Yellow Pawn 3", PawnPaths.Yellow, new Point(8, 9));
             Pawn yellow4 = new Pawn("Yellow Pawn 4", PawnPaths.Yellow, new Point(9, 9));
 
-            //yellow1.ChangeLocation(new Point(10, 7));
+            yellow1.ChangeLocation(new Point(3, 4));
             //yellow2.ChangeLocation(new Point(10, 8));
             //yellow3.ChangeLocation(new Point(10, 9));
             //yellow4.ChangeLocation(new Point(10, 10));
             yellowPlayer = new PlayerPawns("Gul", PawnColor.Yellow, yellow1, yellow2, yellow3, yellow4);
         }
 
+        /// <summary>
+        /// Adds the blue pawns to the bluePlayer variable
+        /// </summary>
         private void AddBluePawns()
         {
             Pawn blue1 = new Pawn("Blue Pawn 1", PawnPaths.Blue, new Point(2, 8));
@@ -243,13 +273,16 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn blue3 = new Pawn("Blue Pawn 3", PawnPaths.Blue, new Point(2, 9));
             Pawn blue4 = new Pawn("Blue Pawn 4", PawnPaths.Blue, new Point(1, 9));
 
-            //blue1.ChangeLocation(new Point(0, 7));
-            //blue2.ChangeLocation(new Point(0, 8));
+            blue1.ChangeLocation(new Point(3, 6));
+            blue2.ChangeLocation(new Point(4, 8));
             //blue3.ChangeLocation(new Point(0, 9));
             //blue4.ChangeLocation(new Point(0, 10));
             bluePlayer = new PlayerPawns("Blå", PawnColor.Blue, blue1, blue2, blue3, blue4);
         }
 
+        /// <summary>
+        /// Adds the ren pawns to the renPlayer variable
+        /// </summary>
         private void AddRedPawns()
         {
             Pawn red1 = new Pawn("Red Pawn 1", PawnPaths.Red, new Point(2, 1));
@@ -264,6 +297,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             redPlayer = new PlayerPawns("Röd", PawnColor.Red, red1, red2, red3, red4);
         }
 
+        /// <summary>
+        /// Draws the board
+        /// </summary>
         private void DrawPlayers()
         {
             SetUpGrid();
@@ -280,6 +316,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             DrawTurnIndicator(currentPlayer);
         }
 
+        /// <summary>
+        /// Draws the turn indicator for active player
+        /// </summary>
+        /// <param name="player">PlayerPawns object</param>
         private void DrawTurnIndicator(PlayerPawns player)
         {
 
@@ -327,6 +367,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             //AddStatusTextToTop($"{player.Name} spelares tur", 8);
         }
 
+        /// <summary>
+        /// Draws the pawns if they exist
+        /// </summary>
+        /// <param name="currentDimensions">Size object</param>
+        /// <param name="gridLocation">Point object that representats the the gridlocation</param>
         private void DrawIfPawnExists(Size currentDimensions, Point gridLocation)
         {
             foreach (PlayerPawns player in playerPawns)
@@ -339,6 +384,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
+        /// <summary>
+        /// Draws the pawn
+        /// </summary>
+        /// <param name="gridLocation">Grid location to draw the pawn</param>
+        /// <param name="currentDimensions">Dimentions of the image</param>
+        /// <param name="player">The player object to which the pawn belongs</param>
         private void DrawPawn(Point gridLocation, Size currentDimensions, PlayerPawns player)
         {
             Image img = new Image();
@@ -364,8 +415,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             GridCanvas.Children.Add(img);
         }
 
-        private Rectangle RectangleToRemove { get; set; }
 
+        /// <summary>
+        /// Executes when hover over pawn is entered
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void HoverOverPawnExit(object sender, PointerRoutedEventArgs e)
         {
             PlayerPawns player = currentPlayer;
@@ -386,6 +441,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 GridCanvas.Children.Remove(rectangle);
             }
         }
+
+        /// <summary>
+        /// Executes when pressed over pawn
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void PressedOnPawn(object sender, PointerRoutedEventArgs e)
         {
             if (sender is Image image )
@@ -419,6 +480,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }  
         }
 
+        /// <summary>
+        /// Executes when hover over pawn enter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void HoverOverPawnEnter(object sender, PointerRoutedEventArgs e)
         {
             PlayerPawns player = currentPlayer;
@@ -464,29 +530,20 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
-
+        /// <summary>
+        /// Runs the AI players pawn to the location according to the dice roll result
+        /// </summary>
+        /// <param name="diceRoll"></param>
+        /// <returns></returns>
         private async Task RunAiPlayerAsync(int diceRoll)
         {
             PlayerPawns player = currentPlayer;
 
             AddStatusTextToTop($"{player.Name} spelares tur", 8);
 
-            // This if-statement deletes player with no pawns left
-            if (player.PawnCount <= 0)
-            {
-                string debugMessage = $"Spelet är slut. Spelare {player.Name} var sist att gå ut!!!";
-                playerPawns.Remove(player);
-                if (playerPawns.Count <= 0)
-                {
-                    // TODO: Fixa meddelande här när alla spelare har gått ut. Nu stannar spelet bara
-                    Debug.WriteLine(debugMessage);
-                    return;
-                }
-                else
-                {
-                    player = currentPlayer;
-                }
-            }
+            player = DeleteIfNoPawnsLeft(player);
+
+            if (IsAnyPlayersLeft()) return;
 
             Pawn pawn = player.GetNextPawnInPlay();
 
@@ -563,7 +620,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                         pawnInPlay.NextPosition();
                     }
                 }
-                
+
                 if (CanPawnPush(player, pawnInPlay))
                 {
                     pawn = pawnInPlay;
@@ -580,6 +637,28 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             NextPlayer();
         }
 
+        private PlayerPawns DeleteIfNoPawnsLeft(PlayerPawns player)
+        {
+            if (player.PawnCount <= 0)
+            {
+                playerPawns.Remove(player);
+                player = currentPlayer;
+            }
+
+            return player;
+        }
+
+        private bool IsAnyPlayersLeft()
+        {
+            return playerPawns.Count <= 0;
+        }
+
+        /// <summary>
+        /// Checks if a pawn can go to the next position
+        /// </summary>
+        /// <param name="pawn"></param>
+        /// <param name="player"></param>
+        /// <returns>True if there is no pawn with the same color on next position and false if there is</returns>
         private bool CanThisPawnGoToNextPosition(Pawn pawn, PlayerPawns player)
         {
             Point nextPosition = pawn.LookAhead(1);
@@ -593,6 +672,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             return true;
         }
 
+        /// <summary>
+        /// Selects the next ploayer in turn
+        /// </summary>
         private void NextPlayer()
         {
             currentIndex++;
@@ -600,7 +682,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             DrawPlayers();
         }
 
-
+        /// <summary>
+        /// Checks if a pawn can push another pawn
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="pawn"></param>
+        /// <returns>True if a pawn can push another pawn and false otherwise</returns>
         private bool CanPawnPush(PlayerPawns player, Pawn pawn)
         {
             foreach (PlayerPawns otherPlayer in playerPawns.Where(x => !player.Equals(x)))
@@ -617,6 +704,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             return false;
         }
 
+        /// <summary>
+        /// Pushes a pawn to its nest position
+        /// </summary>
+        /// <param name="player">Player object that reprecent the pawn</param>
+        /// <param name="pawn">Pawn thacan push</param>
         private async Task PushPawns(PlayerPawns player, Pawn pawn)
         {
             foreach (PlayerPawns otherPlayer in playerPawns.Where(x => !player.Equals(x)))
@@ -647,7 +739,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         }
 
 
-
+        /// <summary>
+        /// Moves the pawn one position
+        /// </summary>
+        /// <param name="pawn">The pawn to move</param>
+        /// <param name="player">The player object the hase the pawn</param>
+        /// <param name="backwards">The direction, false for forward and true for backwards movments</param>
         private async Task GoToNextPosition(Pawn pawn, PlayerPawns player, bool backwards = false)
         {
             pawn.InAnimation = true;
@@ -698,6 +795,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             await PlaySoundFile("move.wav");  
         }
 
+        /// <summary>
+        /// Plays a sound file
+        /// </summary>
+        /// <param name="fileName">The file name</param>
         private async Task PlaySoundFile(string fileName)
         {
             var mediaPlayer = new MediaPlayer();
@@ -708,6 +809,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             mediaPlayer.Play();
         }
 
+        /// <summary>
+        /// Dice click event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DicePic_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
             Button_Click(sender, e);
@@ -720,6 +826,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             await RunGame();
         }
 
+        /// <summary>
+        /// Runs the game
+        /// </summary>
         private async Task RunGame()
         {
             DicePic.PointerReleased -= DicePic_PointerReleased;
@@ -741,6 +850,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             DicePic.PointerReleased += DicePic_PointerReleased;
         }
 
+        /// <summary>
+        /// Atoruns the AI player
+        /// </summary>
         private async Task AutoRunAiPlayerAsync()
         {
             while (!currentPlayer.IsSelectedPlayer)
@@ -752,6 +864,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             
         }
 
+        /// <summary>
+        /// Runs the manmual players
+        /// </summary>
+        /// <param name="diceRoll">The dice roll</param>
         private void RunManualPlayerAsync(int diceRoll)
         {
             //AddStatusTextToTop($"Det är {currentPlayer.Name} tur", 5);
@@ -760,6 +876,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             // AddStatusTextToTop($"{currentPlayer.Name} slog en {diceRoll}", 5);
 
             PlayerPawns player = currentPlayer;
+
+            player = DeleteIfNoPawnsLeft(player);
+
+            if (IsAnyPlayersLeft()) return;
 
 
             int pawnsInPlay = player.GetPawnsInPlay().Count();
@@ -774,7 +894,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             else if (diceRoll == 6)
             {
                 int pawnsInNest = player.GetPawnsInNest().Count();
-                if (pawnsInNest > 0)
+                if (pawnsInNest == 1)
+                {
+                    AddOnePawnMoveSixStepButton.IsEnabled = true;
+                }
+                else if (pawnsInNest > 1)
                 {
                     AddTwoPawnsButton.IsEnabled = true;
                     AddOnePawnMoveSixStepButton.IsEnabled = true;
@@ -787,9 +911,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 NextPlayer();
             }
-
+            
         }
 
+        /// <summary>
+        /// Add one pawn to the board
+        /// </summary>
+        /// <param name="player">The player object</param>
         private async Task<Pawn> AddOnePawnAsync(PlayerPawns player)
         {
             Pawn pawn = player.GetNextPawnInNest();
@@ -798,10 +926,35 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             return pawn;
         }
 
-        private async Task <int> RollDice()
+        private int diceIndex = 0;
+
+        private List<int> diceRollList = new List<int>(new int[] { 
+            // Röd går ut med två pjäser
+            // Röd går ut med en pjäs och går 6 steg, där står gul som blir tillbaka knuffad
+            6, 6, 4,
+
+            // Blå går 5 steg, Men på tredje steget står en blå spelare
+            5,
+
+            // Gul slår 1 och går ut med en spelare
+            1,
+
+            // Grön har 4 steg kvar till mål, Slår en 6 och studsar tillbaka två steg
+            6, 2
+
+        });
+
+        /// <summary>
+        /// Rolls the dice
+        /// </summary>
+        /// <returns>The rolling resault</returns>
+        private async Task<int> RollDice()
         {
-            //RollButton.IsEnabled = false;
-            finalDiceRollResult = random.Next(1,7);
+            if (diceIndex < diceRollList.Count) finalDiceRollResult = diceRollList[diceIndex];
+            else finalDiceRollResult = random.Next(1, 7);
+
+            diceIndex++;
+
             DiceRollAnimation.Begin();
             timer.Start();
             await PlaySoundFile("dice-throw.wav");
@@ -809,6 +962,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             return finalDiceRollResult;
         }
 
+        /// <summary>
+        /// Timer function for the dice animation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Timer_Tick(object sender, object e)
         {
             int tempResult = random.Next(1, 7);
@@ -827,16 +985,31 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
+        /// <summary>
+        /// Dice animation complete event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DiceRollAnimation_Completed(object sender, object e)
         {
             //RollButton.IsEnabled=true;
         }
 
+        /// <summary>
+        /// Open ingame navigation event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InGameMenu));
         }
 
+        /// <summary>
+        /// Open ingame menu escape button klicked event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_KeyUp(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Escape)
@@ -845,6 +1018,14 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
+        /// <summary>
+        /// Go topp next position animation
+        /// </summary>
+        /// <param name="fromX">X position to start from</param>
+        /// <param name="fromY">Y position to start from</param>
+        /// <param name="toX">X position to move to</param>
+        /// <param name="toY">Y position to move to</param>
+        /// <param name="image">The image to move</param>
         public void GoToNextAnimation(double fromX, double fromY, double toX, double toY, Image image)
         {
             Storyboard moveStoryboard = new Storyboard();
@@ -861,6 +1042,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             AddAnimationToBoard(image, moveStoryboard, xAnimation, yAnimation);
         }
 
+        /// <summary>
+        /// Adds the animation to move a pawn
+        /// </summary>
+        /// <param name="image">Pawn image</param>
+        /// <param name="moveStoryboard">Storyboard object</param>
+        /// <param name="xAnimation">X animation object</param>
+        /// <param name="yAnimation">Y animastion object</param>
         private static void AddAnimationToBoard(Image image, Storyboard moveStoryboard, DoubleAnimation xAnimation, DoubleAnimation yAnimation)
         {
             Storyboard.SetTarget(xAnimation, image);
@@ -875,6 +1063,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             moveStoryboard.Begin();
         }
 
+        /// <summary>
+        /// Initializes a double animation
+        /// </summary>
+        /// <param name="from">From coordinats</param>
+        /// <param name="to">To coordinats</param>
+        /// <returns></returns>
         private static DoubleAnimation InitAnimation(double from, double to)
         {
             DoubleAnimation animation = new DoubleAnimation();
@@ -884,13 +1078,17 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             return animation;
         }
 
-
+        /// <summary>
+        /// Adds status texts
+        /// </summary>
+        /// <param name="text">The test to add</param>
+        /// <param name="secondsBeforDelete">The time the status text is shown</param>
         private void AddStatusTextToTop(string text, int secondsBeforDelete)
         {
             TextBlock textBlockToAdd = new TextBlock
             {
                 Text = text,
-                Margin = new Thickness(5),
+                Margin = new Thickness(2, 2, 2, 5),
             };
 
             StatusStackPanel.Children.Insert(0, textBlockToAdd);
@@ -910,6 +1108,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             dispatcherTimer.Start();
         }
 
+        /// <summary>
+        /// Adds a pawn to the board from the nest button click event handeler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void AddOnePawnClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
@@ -923,13 +1126,18 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 
                 button.IsEnabled = false;
 
-                await RunGame();
+                //await RunGame();
 
                 //RollButton.IsEnabled = true;
                 //DicePic.PointerReleased += DicePic_PointerReleased;
             }
         }
 
+        /// <summary>
+        /// Adds two pawns to the board from the nest button click event handeler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void AddTwoPawnsClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
@@ -950,6 +1158,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
+        /// <summary>
+        /// Adds one pawn to the board from the nest and moves it 6 steps button click event handeler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void AddOnePawnMoveSixStepClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
@@ -969,6 +1182,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
+        /// <summary>
+        /// Move a pawn a certen amounts of steps
+        /// </summary>
+        /// <param name="steps">The steps to move the pawn</param>
+        /// <param name="pawn">The pawn to move</param>
+        /// <param name="player">The player object the pawn belongs to</param>
+        /// <returns></returns>
         private async Task MovePawnNumberOfSteps(int steps, Pawn pawn, PlayerPawns player)
         {
             for (int i = 0; i < steps; i++)
@@ -993,7 +1213,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                         break;
                     }
 
-                    // Sound effect for reaching the goal
+                    AddStatusTextToTop($"En av {player.Name} spelares pjäser har gott i mål", 10);
+
                     await PlaySoundFile("tada-fanfare.mp3");
                     await Task.Delay(2000);
 

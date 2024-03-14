@@ -67,17 +67,17 @@
             </Button>
             <TextBlock x:Name="playerStatusBlock" Foreground="White" Width="150" Height="50" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
 
-            <StackPanel x:Name="StatusStackPanel" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="600" Margin="0,20,0,0" Padding="20">
+            <StackPanel x:Name="UserButtonsStackPanel" VerticalAlignment="Bottom" Margin="0,0,5,200" Width="150" Height="400" HorizontalAlignment="Right">
+                <Border x:Name="notificationBorder" Background="MediumAquamarine" Width="150" Height="190" CornerRadius="10" Margin="0,0,0,10">
+                    <StackPanel x:Name="StatusStackPanel" Orientation="Vertical">
 
-            </StackPanel>
-
-
-            <StackPanel x:Name="UserButtonsStackPanel" VerticalAlignment="Bottom" Margin="0,0,0,100" Width="150" Height="300" HorizontalAlignment="Right">
+                    </StackPanel>
+                </Border>
                 <TextBlock TextWrapping="Wrap">Hovra över pjäsen för att se vart den kan röra sig</TextBlock>
                 <TextBlock>Klicka sedan på den</TextBlock>
                 <Button x:Name="AddOnePawnButton" Click="AddOnePawnClick" IsEnabled="False">Ta ut en pjäs</Button>
                 <Button x:Name="AddTwoPawnsButton" Click="AddTwoPawnsClick" IsEnabled="False">Ta ut två pjäser</Button>
-                <Button x:Name="AddOnePawnMoveSixStepButton" Click="AddOnePawnMoveSixStepClick" IsEnabled="False">Ta ut en pjäs, gå 6 steg</Button>
+                <Button x:Name="AddOnePawnMoveSixStepButton" Click="AddOnePawnMoveSixStepClick" IsEnabled="False">Ta ut med 6 steg</Button>
             </StackPanel>
 
         </Grid>
