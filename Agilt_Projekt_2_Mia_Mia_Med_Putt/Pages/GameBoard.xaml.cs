@@ -239,7 +239,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn green3 = new Pawn("Green Pawn 3", PawnPaths.Green, new Point(8, 2));
             Pawn green4 = new Pawn("Green Pawn 4", PawnPaths.Green, new Point(9, 2));
 
-            green1.ChangeLocation(new Point(9, 5));
+            //green1.ChangeLocation(new Point(9, 5));
             //green2.ChangeLocation(new Point(10, 1));
             //green3.ChangeLocation(new Point(10, 2));
             //green4.ChangeLocation(new Point(10, 3));
@@ -256,7 +256,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn yellow3 = new Pawn("Yellow Pawn 3", PawnPaths.Yellow, new Point(8, 9));
             Pawn yellow4 = new Pawn("Yellow Pawn 4", PawnPaths.Yellow, new Point(9, 9));
 
-            yellow1.ChangeLocation(new Point(3, 4));
+            //yellow1.ChangeLocation(new Point(3, 4));
             //yellow2.ChangeLocation(new Point(10, 8));
             //yellow3.ChangeLocation(new Point(10, 9));
             //yellow4.ChangeLocation(new Point(10, 10));
@@ -273,8 +273,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn blue3 = new Pawn("Blue Pawn 3", PawnPaths.Blue, new Point(2, 9));
             Pawn blue4 = new Pawn("Blue Pawn 4", PawnPaths.Blue, new Point(1, 9));
 
-            blue1.ChangeLocation(new Point(3, 6));
-            blue2.ChangeLocation(new Point(4, 8));
+            //blue1.ChangeLocation(new Point(3, 6));
+            //blue2.ChangeLocation(new Point(4, 8));
             //blue3.ChangeLocation(new Point(0, 9));
             //blue4.ChangeLocation(new Point(0, 10));
             bluePlayer = new PlayerPawns("Blå", PawnColor.Blue, blue1, blue2, blue3, blue4);
@@ -926,34 +926,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             return pawn;
         }
 
-        private int diceIndex = 0;
-
-        private List<int> diceRollList = new List<int>(new int[] { 
-            // Röd går ut med två pjäser
-            // Röd går ut med en pjäs och går 6 steg, där står gul som blir tillbaka knuffad
-            6, 6, 4,
-
-            // Blå går 5 steg, Men på tredje steget står en blå spelare
-            5,
-
-            // Gul slår 1 och går ut med en spelare
-            1,
-
-            // Grön har 4 steg kvar till mål, Slår en 6 och studsar tillbaka två steg
-            6, 2
-
-        });
-
         /// <summary>
         /// Rolls the dice
         /// </summary>
         /// <returns>The rolling resault</returns>
         private async Task<int> RollDice()
         {
-            if (diceIndex < diceRollList.Count) finalDiceRollResult = diceRollList[diceIndex];
-            else finalDiceRollResult = random.Next(1, 7);
-
-            diceIndex++;
+            finalDiceRollResult = random.Next(1, 7);
 
             DiceRollAnimation.Begin();
             timer.Start();
