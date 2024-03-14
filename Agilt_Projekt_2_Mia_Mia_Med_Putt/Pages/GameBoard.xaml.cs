@@ -1091,6 +1091,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 Text = text,
                 Margin = new Thickness(2, 2, 2, 5),
+                Foreground = new SolidColorBrush(Colors.Black),
             };
 
             StatusStackPanel.Children.Insert(0, textBlockToAdd);
