@@ -144,7 +144,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             // Navigate to the GameBoard page and pass the selected data
             //Frame.Navigate(typeof(GameBoard), new GameBoardParameters { NumPlayers = numPlayers, PlayerColors = playerColors });
 
-            Frame.Navigate(typeof(GameBoard), new GameBoardParameters(playerColors));
+            //Create singleton instance
+            GameBoard gameBoard = GameBoard.GetInstance();
+            Frame.Navigate(gameBoard.GetType(), new GameBoardParameters(playerColors));
         }
 
 

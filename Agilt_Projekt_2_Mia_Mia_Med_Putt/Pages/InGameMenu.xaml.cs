@@ -45,7 +45,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
             upToDown.Begin();
-
         }
 
         // Button to go back to game, hide the menu
@@ -58,10 +57,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         {
             moveUpDialog.Begin();
             await Task.Delay(700);
-            Frame.Navigate(typeof(GameBoard));
+            //Frame.Navigate(gameBoard.GetType(), 1);
+            Frame.GoBack();
         }
-
-
 
         // Button to open up the instructions/rules of the game
         private void RulesButton_Click(object sender, RoutedEventArgs e)
@@ -87,7 +85,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 Application.Current.Exit();
             }
-            
+
         }
     }
 }

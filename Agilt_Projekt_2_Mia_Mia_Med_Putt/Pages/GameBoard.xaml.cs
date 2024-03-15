@@ -30,8 +30,6 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 
-
-
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
@@ -101,7 +99,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 if (currentIndex + 1 > playerPawns.Count)
                     currentIndex = 0;
 
-                foreach(PlayerPawns p in playerPawns)
+                foreach (PlayerPawns p in playerPawns)
                 {
                     p.IsActive = false;
                 }
@@ -138,6 +136,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         public GameBoard()
         {
             InitializeComponent();
+            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+        }
+
+        public static GameBoard GetInstance()
+        {
+            return GameBoardSingleton.Instance.GetGameBoardInstance();
         }
 
         /// <summary>
@@ -160,8 +164,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         /// Runs on nanigating to this page. And sets the color for the selected players.
         /// </summary>
         /// <param name="e">NavigationEventArgs event object</param>
+        private bool isNavigated = false;//OnNavigatedTo should be run only one time
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            if (isNavigated)
+            {
+                return;
+            }
             base.OnNavigatedTo(e);
 
             if (e.Parameter is GameBoardParameters gameBoardParameters)
@@ -184,7 +193,18 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 DicePic.PointerReleased += DicePic_PointerReleased;
 
                 AddStatusTextToTop($"{currentPlayer.Name} spelares tur", 8);
-            }   
+            }
+            isNavigated = true;
+        }
+
+        /// <summary>
+        /// Open ingame navigation event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(InGameMenu));
         }
 
         /// <summary>
@@ -239,7 +259,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn green3 = new Pawn("Green Pawn 3", PawnPaths.Green, new Point(8, 2));
             Pawn green4 = new Pawn("Green Pawn 4", PawnPaths.Green, new Point(9, 2));
 
-            green1.ChangeLocation(new Point(9, 5));
+            //green1.ChangeLocation(new Point(9, 5));
             //green2.ChangeLocation(new Point(10, 1));
             //green3.ChangeLocation(new Point(10, 2));
             //green4.ChangeLocation(new Point(10, 3));
@@ -256,7 +276,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn yellow3 = new Pawn("Yellow Pawn 3", PawnPaths.Yellow, new Point(8, 9));
             Pawn yellow4 = new Pawn("Yellow Pawn 4", PawnPaths.Yellow, new Point(9, 9));
 
-            yellow1.ChangeLocation(new Point(3, 4));
+            //yellow1.ChangeLocation(new Point(3, 4));
             //yellow2.ChangeLocation(new Point(10, 8));
             //yellow3.ChangeLocation(new Point(10, 9));
             //yellow4.ChangeLocation(new Point(10, 10));
@@ -273,8 +293,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn blue3 = new Pawn("Blue Pawn 3", PawnPaths.Blue, new Point(2, 9));
             Pawn blue4 = new Pawn("Blue Pawn 4", PawnPaths.Blue, new Point(1, 9));
 
-            blue1.ChangeLocation(new Point(3, 6));
-            blue2.ChangeLocation(new Point(4, 8));
+            //Don't change location when start
+            //blue1.ChangeLocation(new Point(3, 6));
+            //blue2.ChangeLocation(new Point(4, 8));
             //blue3.ChangeLocation(new Point(0, 9));
             //blue4.ChangeLocation(new Point(0, 10));
             bluePlayer = new PlayerPawns("Blå", PawnColor.Blue, blue1, blue2, blue3, blue4);
@@ -449,7 +470,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         /// <param name="e"></param>
         private async void PressedOnPawn(object sender, PointerRoutedEventArgs e)
         {
-            if (sender is Image image )
+            if (sender is Image image)
             {
                 PlayerPawns player = currentPlayer;
                 int diceRoll = finalDiceRollResult;
@@ -466,7 +487,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
                     Debug.WriteLine("Ja OnPointerPressed(object sender, PointerRoutedEventArgs e) körs ");
 
-                    
+
 
                     AddOnePawnButton.IsEnabled = false;
                     AddTwoPawnsButton.IsEnabled = false;
@@ -478,8 +499,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                     }
 
 
-                }      
-            }  
+                }
+            }
         }
 
         /// <summary>
@@ -800,7 +821,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             DrawPlayers();
 
-            await PlaySoundFile("move.wav");  
+            await PlaySoundFile("move.wav");
         }
 
         /// <summary>
@@ -845,7 +866,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             if (currentPlayer.IsSelectedPlayer)
             {
                 RunManualPlayerAsync(await RollDice());
-                await AutoRunAiPlayerAsync();
+                //await AutoRunAiPlayerAsync();
             }
             else
             {
@@ -868,8 +889,8 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 await RunAiPlayerAsync(await RollDice());
 
                 if (playerPawns.All(x => x.PawnCount <= 0)) break;
-            } 
-            
+            }
+
         }
 
         /// <summary>
@@ -894,7 +915,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 if (pawnsInNest > 0)
                 {
                     AddOnePawnButton.IsEnabled = true;
-                }      
+                }
             }
             else if (diceRoll == 6)
             {
@@ -911,12 +932,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
                 RollButton.IsEnabled = false;
                 DicePic.PointerReleased -= DicePic_PointerReleased;
-            } 
+            }
             else if (pawnsInPlay <= 0)
             {
                 NextPlayer();
             }
-            
+
         }
 
         /// <summary>
@@ -999,16 +1020,6 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         private void DiceRollAnimation_Completed(object sender, object e)
         {
             //RollButton.IsEnabled=true;
-        }
-
-        /// <summary>
-        /// Open ingame navigation event handler
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OpenButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(InGameMenu));
         }
 
         /// <summary>
@@ -1132,7 +1143,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 await PushPawns(player, pawn);
 
                 NextPlayer();
-                
+
                 button.IsEnabled = false;
 
                 //await RunGame();
@@ -1261,11 +1272,40 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         {
             PlayerPawns player = currentPlayer;
             Pawn pawn = player.GetNextPawnInNest();
-            if (pawn != null) 
+            if (pawn != null)
             {
                 GridCanvas.Children.Remove(RectangleToRemove);
             }
-            
+
+        }
+    }
+
+    public class GameBoardSingleton
+    {
+        private static GameBoardSingleton instance;
+        private GameBoard gameBoardInstance;
+
+        private GameBoardSingleton() { }
+
+        public static GameBoardSingleton Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new GameBoardSingleton();
+                }
+                return instance;
+            }
+        }
+
+        public GameBoard GetGameBoardInstance()
+        {
+            if (gameBoardInstance == null)
+            {
+                gameBoardInstance = new GameBoard();
+            }
+            return gameBoardInstance;
         }
     }
 }
