@@ -852,7 +852,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 await AutoRunAiPlayerAsync();
             }
 
-            AddStatusTextToTop($"{currentPlayer.Name} spelares tur", 8);
+            //AddStatusTextToTop($"{currentPlayer.Name} spelares tur", 8);
 
             RollButton.IsEnabled = true;
             DicePic.PointerReleased += DicePic_PointerReleased;
