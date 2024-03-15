@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     KeyUp="Page_KeyUp"
     Background="#0AA73F">
-    
+
     <Page.Resources>
         <Storyboard x:Name="DiceRollAnimation" Completed="DiceRollAnimation_Completed">
             <DoubleAnimation Storyboard.TargetName="DicePic"
@@ -38,31 +38,45 @@
                          RepeatBehavior="3x"/>
         </Storyboard>
     </Page.Resources>
-    
+
     <Viewbox Stretch="Uniform">
         <Grid Background="#0AA73F" MaxHeight="1000" MaxWidth="1500">
+            <Button Background="Transparent" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="920,0,0,600" Click="OpenButton_Click" CornerRadius="10">
+                <Image Source="/Assets/Hamburger-meny.png" Stretch="Fill"/>
+            </Button>
             <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="671" Height="671" Margin="8,5,0,0">
                 <Image.Source>
                     <BitmapImage DecodePixelWidth="1680" UriSource="/Assets/Board/GameBoard.png"/>
                 </Image.Source>
             </Image>
-            
-            <Canvas x:Name="GridCanvas" Width="670" Height="670" Margin="8,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
 
+            <Canvas x:Name="GridCanvas" Width="670" Height="670" Margin="8,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="/Assets/Board/GreenEllipse.png" Canvas.Left="5" Canvas.Top="428"/>
+                <Image Source="/Assets/Board/RedEllipse.png" Canvas.Left="5" Canvas.Top="8"/>
+                <Image Source="/Assets/Board/YellowEllipse.png" Canvas.Left="428" Canvas.Top="428"/>
+                <Image Source="/Assets/Board/BlueEllipse.png" Canvas.Left="428" Canvas.Top="8"/>
             </Canvas>
+
+            <StackPanel x:Name="UserButtonsStackPanel" VerticalAlignment="Bottom" Margin="0,0,0,200" Width="160" Height="400" HorizontalAlignment="Right">
+                <Border x:Name="notificationBorder" Background="MediumAquamarine" Width="150" Height="190" CornerRadius="10" Margin="0,0,0,10">
+                    <StackPanel x:Name="StatusStackPanel" Orientation="Vertical">
+
+                    </StackPanel>
+                </Border>
+                <TextBlock TextWrapping="Wrap">Hovra över pjäsen för att se vart den kan röra sig</TextBlock>
+                <TextBlock>Klicka sedan på den</TextBlock>
+                <Button x:Name="AddOnePawnButton" Click="AddOnePawnClick" IsEnabled="False" PointerEntered="HoverAddPawnButtonEnter" PointerExited="HoverAddPawnButtonExit">Ta ut en pjäs</Button>
+                <Button x:Name="AddTwoPawnsButton" Click="AddTwoPawnsClick" IsEnabled="False" PointerEntered="HoverAddTwoPawnsButtonEnter" PointerExited="HoverAddPawnButtonExit">Ta ut två pjäser</Button>
+                <Button x:Name="AddOnePawnMoveSixStepButton" Click="AddOnePawnMoveSixStepClick" IsEnabled="False" PointerEntered="HoverAddPawnButtonEnter" PointerExited="HoverAddPawnButtonExit">Ta ut en pjäs, gå 6 steg</Button>
+            </StackPanel>
 
             <Image x:Name="DicePic" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100" Margin="900,350,0,0" RenderTransformOrigin="0.5,0.5" class:ButtonExtensions.ChangeCursorOnHover="True">
                 <Image.RenderTransform>
                     <CompositeTransform/>
                 </Image.RenderTransform>
             </Image>
-            
-            <Button x:Name="RollButton" Style="{StaticResource OrangeBlackButtonStyle}" Content="Rulla" Margin="850,600,0,0" VerticalAlignment="Center" Click="Button_Click" HorizontalAlignment="Center" Width="100"/>
-            
-            <Button Background="Transparent" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="920,0,0,600" Click="OpenButton_Click" CornerRadius="10">
-                <Image Source="/Assets/Hamburger-meny.png" Stretch="Fill"/>
-            </Button>
-            <TextBlock x:Name="playerStatusBlock" Foreground="White" Width="150" Height="50" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Calibri" FontWeight="Bold" FontSize="18"/>
+
+            <Button x:Name="RollButton" Style="{StaticResource OrangeBlackButtonStyle}" Content="Rulla" Margin="850,600,0,0" VerticalAlignment="Center" Click="Button_Click" HorizontalAlignment="Center" Width="100" class:ButtonExtensions.ChangeCursorOnHover="True"/>
 
         </Grid>
     </Viewbox>

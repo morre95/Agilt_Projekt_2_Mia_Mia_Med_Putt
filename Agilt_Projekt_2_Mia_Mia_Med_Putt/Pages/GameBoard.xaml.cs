@@ -22,13 +22,14 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
-using static Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages.PlayerColor;
+
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -99,7 +100,15 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             {
                 if (currentIndex + 1 > playerPawns.Count)
                     currentIndex = 0;
-                return playerPawns[currentIndex];
+
+                foreach(PlayerPawns p in playerPawns)
+                {
+                    p.IsActive = false;
+                }
+
+                PlayerPawns player = playerPawns[currentIndex];
+                player.IsActive = true;
+                return player;
             }
         }
 
@@ -109,14 +118,19 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         private DispatcherTimer timer = new DispatcherTimer();
 
         /// <summary>
-        /// Randomizer-variable for all of the GameBoard
+        /// Randomizer-variable for the dice roll
         /// </summary>
         private Random random = new Random();
 
         /// <summary>
-        /// Int-variable for all of the GameBoard
+        /// Intedger representing the final dice roll
         /// </summary>
-        private int finalResult;
+        private int finalDiceRollResult;
+
+        /// <summary>
+        /// Ractangle ogject that is going to be removed from the grid when not hovering over it anymore.
+        /// </summary>
+        private Rectangle RectangleToRemove { get; set; }
 
         /// <summary>
         /// Page constructor. It initializes the page, setup players and draw them on to the game board.
@@ -124,8 +138,14 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         public GameBoard()
         {
             InitializeComponent();
+
+            NavigationCacheMode = NavigationCacheMode.Required;
         }
 
+        /// <summary>
+        /// Sets color for the user selected players
+        /// </summary>
+        /// <param name="color"></param>
         private void SetPlayerColor(PawnColor color)
         {
             foreach (PlayerPawns player in playerPawns)
@@ -138,10 +158,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
+        /// <summary>
+        /// Runs on nanigating to this page. And sets the color for the selected players.
+        /// </summary>
+        /// <param name="e">NavigationEventArgs event object</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            //InitializeGame((PawnColor)e.Parameter);
 
             if (e.Parameter is GameBoardParameters gameBoardParameters)
             {
@@ -161,10 +184,14 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 DicePic.Source = new BitmapImage(imageUri);
 
                 DicePic.PointerReleased += DicePic_PointerReleased;
+
+                AddStatusTextToTop($"{currentPlayer.Name} spelares tur", 8);
             }   
         }
 
-
+        /// <summary>
+        /// Set up the grid system
+        /// </summary>
         private void SetUpGrid()
         {
             GridCanvas.Children.Clear();
@@ -176,25 +203,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 {
                     Size size = new Size(SquareWidth, SquareHeight);
                     grid.SetValue(x, y, size);
-
-                    DrawRectangle(x, y, size);
                 }
             }
         }
 
-        private void DrawRectangle(int x, int y, Size size)
-        {
-            Rectangle rectangle = new Rectangle()
-            {
-                Width = size.Width,
-                Height = size.Height
-            };
-
-            Canvas.SetTop(rectangle, x * size.Width);
-            Canvas.SetLeft(rectangle, y * size.Height);
-            GridCanvas.Children.Add(rectangle);
-        }
-
+        /// <summary>
+        /// Sets up the players
+        /// </summary>
         private void SetUpPlayers()
         {
             AddPawnsToPlayer();
@@ -205,6 +220,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             playerPawns.Add(greenPlayer);
         }
 
+        /// <summary>
+        /// Adds the pawns to the players
+        /// </summary>
         private void AddPawnsToPlayer()
         {
             AddRedPawns();
@@ -213,6 +231,9 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             AddGreenPawns();
         }
 
+        /// <summary>
+        /// Adds the green pawns to the greenPlayer variable
+        /// </summary>
         private void AddGreenPawns()
         {
             Pawn green1 = new Pawn("Green Pawn 1", PawnPaths.Green, new Point(8, 1));
@@ -220,10 +241,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn green3 = new Pawn("Green Pawn 3", PawnPaths.Green, new Point(8, 2));
             Pawn green4 = new Pawn("Green Pawn 4", PawnPaths.Green, new Point(9, 2));
 
-            //green1.ChangeLocation(new Point(6, 5));
             greenPlayer = new PlayerPawns("Grön", PawnColor.Green, green1, green2, green3, green4);
         }
 
+        /// <summary>
+        /// Adds the yellow pawns to the yellowPlayer variable
+        /// </summary>
         private void AddYellowPawns()
         {
             Pawn yellow1 = new Pawn("Yellow Pawn 1", PawnPaths.Yellow, new Point(8, 8));
@@ -231,27 +254,24 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn yellow3 = new Pawn("Yellow Pawn 3", PawnPaths.Yellow, new Point(8, 9));
             Pawn yellow4 = new Pawn("Yellow Pawn 4", PawnPaths.Yellow, new Point(9, 9));
 
-            //yellow1.ChangeLocation(new Point(5,6));
-            //yellow2.ChangeLocation(new Point(5,7));
-            //yellow3.ChangeLocation(new Point(5,8));
             yellowPlayer = new PlayerPawns("Gul", PawnColor.Yellow, yellow1, yellow2, yellow3, yellow4);
         }
 
+        /// <summary>
+        /// Adds the blue pawns to the bluePlayer variable
+        /// </summary>
         private void AddBluePawns()
         {
             Pawn blue1 = new Pawn("Blue Pawn 1", PawnPaths.Blue, new Point(2, 8));
             Pawn blue2 = new Pawn("Blue Pawn 2", PawnPaths.Blue, new Point(1, 8));
             Pawn blue3 = new Pawn("Blue Pawn 3", PawnPaths.Blue, new Point(2, 9));
             Pawn blue4 = new Pawn("Blue Pawn 4", PawnPaths.Blue, new Point(1, 9));
-
-            //blue1.ChangeLocation(new Point(0, 6));
-            //blue2.ChangeLocation(new Point(0, 6));
-            //blue3.ChangeLocation(new Point(0, 6));
-            //blue4.ChangeLocation(new Point(0, 6));
             bluePlayer = new PlayerPawns("Blå", PawnColor.Blue, blue1, blue2, blue3, blue4);
-            //bluePlayer = new PlayerPawns("Blue Player", PawnColor.Blue, blue1);
         }
 
+        /// <summary>
+        /// Adds the ren pawns to the renPlayer variable
+        /// </summary>
         private void AddRedPawns()
         {
             Pawn red1 = new Pawn("Red Pawn 1", PawnPaths.Red, new Point(2, 1));
@@ -259,13 +279,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             Pawn red3 = new Pawn("Red Pawn 3", PawnPaths.Red, new Point(2, 2));
             Pawn red4 = new Pawn("Red Pawn 4", PawnPaths.Red, new Point(1, 2));
 
-            //red1.ChangeLocation(new Point(2,4));
-            //red2.ChangeLocation(new Point(5,3));
-            //red3.ChangeLocation(new Point(5,2));
             redPlayer = new PlayerPawns("Röd", PawnColor.Red, red1, red2, red3, red4);
-            //redPlayer = new PlayerPawns("Red Player", PawnColor.Red, red1);
         }
 
+        /// <summary>
+        /// Draws the board
+        /// </summary>
         private void DrawPlayers()
         {
             SetUpGrid();
@@ -279,52 +298,65 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 }
             }
 
-
-            // TBD: Detta ska nog tas bort när vi har popups för vad användaren ska göra
-            foreach (PlayerPawns player in playerPawns)
-            {
-                if (player.IsSelectedPlayer)
-                {
-                    Image img = new Image();
-                    BitmapImage bitmapImage = new BitmapImage();
-
-                    Uri uri = new Uri($"ms-appx:///Assets/Board/ArrowRight.png");
-                    if (player.Color == PawnColor.Green)
-                    {
-                        Canvas.SetTop(img, (9 * squareSide));
-                        Canvas.SetLeft(img, (0 * squareSide));
-                    }
-
-                    if (player.Color == PawnColor.Red)
-                    {
-                        Canvas.SetTop(img, (2 * squareSide));
-                        Canvas.SetLeft(img, (0 * squareSide));
-                    }
-
-                    if (player.Color == PawnColor.Yellow)
-                    {
-                        uri = new Uri($"ms-appx:///Assets/Board/ArrowLeft.png");
-                        Canvas.SetTop(img, (9 * squareSide));
-                        Canvas.SetLeft(img, (10.5 * squareSide));
-                    }
-                    if (player.Color == PawnColor.Blue)
-                    {
-                        uri = new Uri($"ms-appx:///Assets/Board/ArrowLeft.png");
-                        Canvas.SetTop(img, (2 * squareSide));
-                        Canvas.SetLeft(img, (10.5 * squareSide));
-                    }
-
-                    bitmapImage.UriSource = uri;
-                    img.Source = bitmapImage;
-
-                    img.Width = 32;
-                    img.Height = 15;
-
-                    GridCanvas.Children.Add(img);
-                }
-            }
+            DrawTurnIndicator(currentPlayer);
         }
 
+        /// <summary>
+        /// Draws the turn indicator for active player
+        /// </summary>
+        /// <param name="player">PlayerPawns object</param>
+        private void DrawTurnIndicator(PlayerPawns player)
+        {
+
+            if (player.IsActive)
+            {
+                Image img = new Image();
+                BitmapImage bitmapImage = new BitmapImage();
+
+                Uri uri = new Uri($"ms-appx:///Assets/Board/PurpleEllipse.png");
+                if (player.Color == PawnColor.Green)
+                {
+                    uri = new Uri($"ms-appx:///Assets/Board/GreenEllipse.png");
+                    Canvas.SetTop(img, 429);
+                    Canvas.SetLeft(img, 5);
+                }
+
+                if (player.Color == PawnColor.Red)
+                {
+                    uri = new Uri($"ms-appx:///Assets/Board/RedEllipse.png");
+                    Canvas.SetTop(img, 8);
+                    Canvas.SetLeft(img, 5);
+                }
+
+                if (player.Color == PawnColor.Yellow)
+                {
+                    uri = new Uri($"ms-appx:///Assets/Board/YellowEllipse.png");
+                    Canvas.SetTop(img, 428);
+                    Canvas.SetLeft(img, 428);
+                }
+
+                if (player.Color == PawnColor.Blue)
+                {
+                    uri = new Uri($"ms-appx:///Assets/Board/BlueEllipse.png");
+                    Canvas.SetTop(img, 8);
+                    Canvas.SetLeft(img, 428);
+                }
+
+                bitmapImage.UriSource = uri;
+                img.Source = bitmapImage;
+
+                GridCanvas.Children.Add(img);
+            }
+
+            //playerStatusBlock.Text = $"{player.Name} spelares tur";
+            //AddStatusTextToTop($"{player.Name} spelares tur", 8);
+        }
+
+        /// <summary>
+        /// Draws the pawns if they exist
+        /// </summary>
+        /// <param name="currentDimensions">Size object</param>
+        /// <param name="gridLocation">Point object that representats the the gridlocation</param>
         private void DrawIfPawnExists(Size currentDimensions, Point gridLocation)
         {
             foreach (PlayerPawns player in playerPawns)
@@ -337,6 +369,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
+        /// <summary>
+        /// Draws the pawn
+        /// </summary>
+        /// <param name="gridLocation">Grid location to draw the pawn</param>
+        /// <param name="currentDimensions">Dimentions of the image</param>
+        /// <param name="player">The player object to which the pawn belongs</param>
         private void DrawPawn(Point gridLocation, Size currentDimensions, PlayerPawns player)
         {
             Image img = new Image();
@@ -354,17 +392,21 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
 
             img.Name = $"{gridLocation.X}:{gridLocation.Y}";
 
-            img.PointerEntered += OnPointerEntered;
-            //img.PointerExited += OnPointerExited;
+            img.PointerEntered += HoverOverPawnEnter;
+            img.PointerPressed += PressedOnPawn;
 
             Canvas.SetTop(img, (gridLocation.X * currentDimensions.Width));
             Canvas.SetLeft(img, (gridLocation.Y * currentDimensions.Height));
             GridCanvas.Children.Add(img);
         }
 
-        private Rectangle RectangleToRemove { get; set; }
 
-        private void OnPointerExited(object sender, PointerRoutedEventArgs e)
+        /// <summary>
+        /// Executes when hover over pawn is entered
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HoverOverPawnExit(object sender, PointerRoutedEventArgs e)
         {
             PlayerPawns player = currentPlayer;
             if (sender is Image image)
@@ -385,79 +427,122 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
-        private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        /// <summary>
+        /// Executes when pressed over pawn
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void PressedOnPawn(object sender, PointerRoutedEventArgs e)
+        {
+            if (sender is Image image )
+            {
+                PlayerPawns player = currentPlayer;
+                int diceRoll = finalDiceRollResult;
+
+                int[] coordinate = image.Name.Split(':').Select(Int32.Parse).ToArray();
+                Pawn pawn = player.GetPawnAt(new Point(coordinate[0], coordinate[1]));
+                if (pawn != null)
+                {
+                    int pawnsInField = player.GetPawnsInPlay().Count();
+                    if (pawnsInField > 0)
+                    {
+                        await MovePawnNumberOfSteps(diceRoll, pawn, player);
+                    }
+
+                    Debug.WriteLine("Ja OnPointerPressed(object sender, PointerRoutedEventArgs e) körs ");
+
+                    
+
+                    AddOnePawnButton.IsEnabled = false;
+                    AddTwoPawnsButton.IsEnabled = false;
+                    AddOnePawnMoveSixStepButton.IsEnabled = false;
+
+                    if (diceRoll != 6)
+                    {
+                        NextPlayer();
+                    }
+
+
+                }      
+            }  
+        }
+
+        /// <summary>
+        /// Executes when hover over pawn enter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HoverOverPawnEnter(object sender, PointerRoutedEventArgs e)
         {
             PlayerPawns player = currentPlayer;
             if (sender is Image image && player.IsSelectedPlayer)
             {
                 int[] point = image.Name.Split(':').Select(Int32.Parse).ToArray();
                 Pawn pawn = player.GetPawnAt(new Point(point[0], point[1]));
+                HighlightDiceRollPosition(player, image, pawn);
 
-                if (pawn != null)
-                {
-                    Debug.WriteLine($"{player.Name}'s pawn {pawn.Name} is entered");
-                    Rectangle rectangle = new Rectangle();
-                    rectangle.Stroke = new SolidColorBrush(Colors.Black);
-
-                    Color color = Colors.Black;
-                    color.A = 40;
-                    rectangle.Fill = new SolidColorBrush(color);
-
-                    rectangle.StrokeThickness = 1;
-                    rectangle.Width = squareSide;
-                    rectangle.Height = squareSide;
-
-                    Point pos = player.GetNextLocationFromRoll(pawn, 6);
-
-                    if (pawn.Location == pos)
-                    {
-                        rectangle.PointerExited += OnPointerExited;
-                        image.PointerExited -= OnPointerExited;
-                    }
-                    else
-                    {
-                        image.PointerExited += OnPointerExited;
-                    }
-                        
-
-                    Canvas.SetTop(rectangle, (pos.X * squareSide));
-                    Canvas.SetLeft(rectangle, (pos.Y * squareSide));
-
-                    GridCanvas.Children.Add(rectangle);
-                    RectangleToRemove = rectangle;
-                }
-                    
             }
         }
 
+        /// <summary>
+        /// Shows the highlighted place a pawn can move to
+        /// </summary>
+        /// <param name="player">Plasyer object that the pawn belongs to</param>
+        /// <param name="image">The image that was hovered over</param>
+        /// <param name="pawn">The pawn to move</param>
+        private void HighlightDiceRollPosition(PlayerPawns player, Image image, Pawn pawn)
+        {
+            if (pawn != null)
+            {
+                Debug.WriteLine($"{player.Name}'s pawn {pawn.Name} is entered");
+                Rectangle rectangle = new Rectangle();
+                //rectangle.Stroke = new SolidColorBrush(Colors.Black);
 
+                Color color = Colors.Black;
+                color.A = 55;
+                rectangle.Fill = new SolidColorBrush(color);
+
+                rectangle.StrokeThickness = 1;
+                rectangle.Width = squareSide;
+                rectangle.Height = squareSide;
+
+                Point pos = player.GetNextLocationFromRoll(pawn, finalDiceRollResult);
+
+                if (pawn.Location == pos)
+                {
+                    rectangle.PointerExited += HoverOverPawnExit;
+                    image.PointerExited -= HoverOverPawnExit;
+                }
+                else
+                {
+                    image.PointerExited += HoverOverPawnExit;
+                }
+
+
+                Canvas.SetTop(rectangle, (pos.X * squareSide));
+                Canvas.SetLeft(rectangle, (pos.Y * squareSide));
+
+                GridCanvas.Children.Add(rectangle);
+                RectangleToRemove = rectangle;
+            }
+        }
+
+        /// <summary>
+        /// Runs the AI players pawn to the location according to the dice roll result
+        /// </summary>
+        /// <param name="diceRoll"></param>
+        /// <returns></returns>
         private async Task RunAiPlayerAsync(int diceRoll)
         {
             PlayerPawns player = currentPlayer;
 
-            // This if-statement deletes player with no pawns left
-            if (player.PawnCount <= 0)
-            {
-                string debugMessage = $"Spelet är slut. Spelare {player.Name} var sist att gå ut!!!";
-                playerPawns.Remove(player);
-                if (playerPawns.Count <= 0)
-                {
-                    // TODO: Fixa meddelande här när alla spelare har gått ut. Nu stannar spelet bara
-                    Debug.WriteLine(debugMessage);
-                    return;
-                }
-                else
-                {
-                    player = currentPlayer;
-                }
-            }
+            AddStatusTextToTop($"{player.Name} spelares tur", 8);
 
-            Pawn pawn = player.NextPawnInPlay();
+            player = DeleteIfNoPawnsLeft(player);
 
+            if (IsAnyPlayersLeft()) return;
 
-            playerStatusBlock.Text = $"{player.Name} spelares tur"; //<-- spelare Textblock
-            await PlaySoundFile("dice-throw.wav");
-            await Task.Delay(1000);
+            Pawn pawn = player.GetNextPawnInPlay();
 
             int pawnsInNest = player.GetPawnsInNest().Count();
 
@@ -469,7 +554,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 (pawnsInNest == 1 && diceRoll == 6)
                 )
             {
-                pawn = player.NextPawnInNest();
+                pawn = player.GetNextPawnInNest();
 
                 if (diceRoll == 6)
                 {
@@ -484,17 +569,17 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                 {
                     await GoToNextPosition(pawn, player);
                     await PushPawns(player, pawn);
-                    currentIndex++;
+                    NextPlayer();
                 }
 
                 return;
             }
             else if (pawnsInNest >= 2 && diceRoll == 6)
             {
-                pawn = player.NextPawnInNest();
+                pawn = player.GetNextPawnInNest();
                 await GoToNextPosition(pawn, player);
 
-                pawn = player.NextPawnInNest();
+                pawn = player.GetNextPawnInNest();
                 await GoToNextPosition(pawn, player);
 
                 await PushPawns(player, pawn);
@@ -506,7 +591,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             else if (player.GetPawnsInPlay().Count() == 0)
             {
                 Debug.WriteLine($"{player.Name} har ingen spelare på plan");
-                currentIndex++;
+                NextPlayer();
                 Debug.WriteLine($"Nu är det {currentPlayer.Name} tur att spela");
                 return;
             }
@@ -528,7 +613,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                         pawnInPlay.NextPosition();
                     }
                 }
-                
+
                 if (CanPawnPush(player, pawnInPlay))
                 {
                     pawn = pawnInPlay;
@@ -540,57 +625,62 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
 
             // Move the pawn the steps the dice shows and sleep 100 ms.
-            for (int i = 0; i < diceRoll; i++)
-            {
-                Point nextPosition = pawn.LookAhead(1);
-                if (nextPosition != new Point())
-                {
-                    //Pawn nextPawn = player.GetPawnAt(nextPosition);
-                    if (player.IsMyPawnAt(nextPosition))
-                    {
-                        Debug.WriteLine($"{player.Name} har {player.CountPawnsAt(nextPosition)} pjäser på denna plats och får inte gå om sin egen pjäs");
-                        await GoToNextPosition(pawn, player);
-                        break;
-                    }
-                }
+            await MovePawnNumberOfSteps(diceRoll, pawn, player);
 
-                await GoToNextPosition(pawn, player);
-
-                //await Task.Delay(100);
-
-                if (pawn.IsAtEnd())
-                {
-                    if (i < diceRoll - 1)
-                    {
-                        Debug.WriteLine($"{player.Name} slog {diceRoll} och ska studsa tillbaka {diceRoll - (i + 1)}");
-
-                        for (int j = 0; j < diceRoll - (i + 1); j++)
-                        {
-                            await GoToNextPosition(pawn, player, true);
-                        }
-
-                        DrawPlayers();
-                        break;
-                    }
-
-                    Debug.WriteLine($"{player.Name} raderar pjäsen {pawn.Name}");
-
-                    // Sound effect for reaching the goal
-                    await PlaySoundFile("tada-fanfare.mp3");
-                    await Task.Delay(2000);
-
-                    player.RemovePawn(pawn);
-                    DrawPlayers();
-
-                    break;
-                }
-            }
-
-            await PushPawns(player, pawn);
-
-            currentIndex++;
+            NextPlayer();
         }
 
+        private PlayerPawns DeleteIfNoPawnsLeft(PlayerPawns player)
+        {
+            if (player.PawnCount <= 0)
+            {
+                playerPawns.Remove(player);
+                player = currentPlayer;
+            }
+
+            return player;
+        }
+
+        private bool IsAnyPlayersLeft()
+        {
+            return playerPawns.Count <= 0;
+        }
+
+        /// <summary>
+        /// Checks if a pawn can go to the next position
+        /// </summary>
+        /// <param name="pawn"></param>
+        /// <param name="player"></param>
+        /// <returns>True if there is no pawn with the same color on next position and false if there is</returns>
+        private bool CanThisPawnGoToNextPosition(Pawn pawn, PlayerPawns player)
+        {
+            Point nextPosition = pawn.LookAhead(1);
+            if (nextPosition != new Point())
+            {
+                if (player.IsMyPawnAt(nextPosition))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Selects the next ploayer in turn
+        /// </summary>
+        private void NextPlayer()
+        {
+            currentIndex++;
+
+            DrawPlayers();
+        }
+
+        /// <summary>
+        /// Checks if a pawn can push another pawn
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="pawn"></param>
+        /// <returns>True if a pawn can push another pawn and false otherwise</returns>
         private bool CanPawnPush(PlayerPawns player, Pawn pawn)
         {
             foreach (PlayerPawns otherPlayer in playerPawns.Where(x => !player.Equals(x)))
@@ -607,6 +697,11 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             return false;
         }
 
+        /// <summary>
+        /// Pushes a pawn to its nest position
+        /// </summary>
+        /// <param name="player">Player object that reprecent the pawn</param>
+        /// <param name="pawn">Pawn thacan push</param>
         private async Task PushPawns(PlayerPawns player, Pawn pawn)
         {
             foreach (PlayerPawns otherPlayer in playerPawns.Where(x => !player.Equals(x)))
@@ -622,6 +717,7 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
                             Debug.WriteLine("Payer: " + otherPlayer.Name + " blev tillbaka knuffad av " + player.Name);
                             if (!isEvilSoundPlayed)
                             {
+                                AddStatusTextToTop($"{player.Name} har knuffats tillbaka {otherPlayer.Name}", 5);
                                 isEvilSoundPlayed = true;
                                 await PlaySoundFile("evil-scream.wav");
                                 await Task.Delay(3000);
@@ -636,7 +732,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
         }
 
 
-
+        /// <summary>
+        /// Moves the pawn one position
+        /// </summary>
+        /// <param name="pawn">The pawn to move</param>
+        /// <param name="player">The player object the hase the pawn</param>
+        /// <param name="backwards">The direction, false for forward and true for backwards movments</param>
         private async Task GoToNextPosition(Pawn pawn, PlayerPawns player, bool backwards = false)
         {
             pawn.InAnimation = true;
@@ -687,6 +788,10 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             await PlaySoundFile("move.wav");  
         }
 
+        /// <summary>
+        /// Plays a sound file
+        /// </summary>
+        /// <param name="fileName">The file name</param>
         private async Task PlaySoundFile(string fileName)
         {
             var mediaPlayer = new MediaPlayer();
@@ -697,40 +802,145 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             mediaPlayer.Play();
         }
 
+        /// <summary>
+        /// Dice click event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DicePic_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
             Button_Click(sender, e);
         }
 
+
+        // TODO: När en spelare har slagit så att den får upp val. Så går inte spelet automatiskt vidare när valet är gjort
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            while (true)
-            {
+            await RunGame();
+        }
 
-                DicePic.PointerReleased -= DicePic_PointerReleased;
-                RollButton.IsEnabled = false;
-                await RunAiPlayerAsync(RollDice());
-                RollButton.IsEnabled = true;
-                DicePic.PointerReleased += DicePic_PointerReleased;
-                if (playerPawns.All(x => x.PawnCount <= 0)) break;
+        /// <summary>
+        /// Runs the game
+        /// </summary>
+        private async Task RunGame()
+        {
+            DicePic.PointerReleased -= DicePic_PointerReleased;
+            RollButton.IsEnabled = false;
+
+            if (currentPlayer.IsSelectedPlayer)
+            {
+                RunManualPlayerAsync(await RollDice());
+                await AutoRunAiPlayerAsync();
+            }
+            else
+            {
+                await AutoRunAiPlayerAsync();
             }
 
-            // TBD: Här kan ett meddelande till användaren vara en bra ide 
+            //AddStatusTextToTop($"{currentPlayer.Name} spelares tur", 8);
+
+            RollButton.IsEnabled = true;
+            DicePic.PointerReleased += DicePic_PointerReleased;
         }
 
-        private int RollDice()
+        /// <summary>
+        /// Atoruns the AI player
+        /// </summary>
+        private async Task AutoRunAiPlayerAsync()
         {
-            //RollButton.IsEnabled = false;
-            finalResult = random.Next(1,7);
+            while (!currentPlayer.IsSelectedPlayer)
+            {
+                await RunAiPlayerAsync(await RollDice());
+
+                if (playerPawns.All(x => x.PawnCount <= 0)) break;
+            } 
+            
+        }
+
+        /// <summary>
+        /// Runs the manmual players
+        /// </summary>
+        /// <param name="diceRoll">The dice roll</param>
+        private void RunManualPlayerAsync(int diceRoll)
+        {
+            PlayerPawns player = currentPlayer;
+
+            AddStatusTextToTop($"{player.Name} spelares tur", 8);
+
+            player = DeleteIfNoPawnsLeft(player);
+
+            if (IsAnyPlayersLeft()) return;
+
+
+            int pawnsInPlay = player.GetPawnsInPlay().Count();
+            if (diceRoll == 1)
+            {
+                int pawnsInNest = player.GetPawnsInNest().Count();
+                if (pawnsInNest > 0)
+                {
+                    AddOnePawnButton.IsEnabled = true;
+                }      
+            }
+            else if (diceRoll == 6)
+            {
+                int pawnsInNest = player.GetPawnsInNest().Count();
+                if (pawnsInNest == 1)
+                {
+                    AddOnePawnMoveSixStepButton.IsEnabled = true;
+                }
+                else if (pawnsInNest > 1)
+                {
+                    AddTwoPawnsButton.IsEnabled = true;
+                    AddOnePawnMoveSixStepButton.IsEnabled = true;
+                }
+
+                RollButton.IsEnabled = false;
+                DicePic.PointerReleased -= DicePic_PointerReleased;
+            } 
+            else if (pawnsInPlay <= 0)
+            {
+                NextPlayer();
+            }
+            
+        }
+
+        /// <summary>
+        /// Add one pawn to the board
+        /// </summary>
+        /// <param name="player">The player object</param>
+        private async Task<Pawn> AddOnePawnAsync(PlayerPawns player)
+        {
+            Pawn pawn = player.GetNextPawnInNest();
+            //await GoToNextPosition(pawn, player);
+            await MovePawnNumberOfSteps(1, pawn, player);
+
+            return pawn;
+        }
+
+        /// <summary>
+        /// Rolls the dice
+        /// </summary>
+        /// <returns>The rolling resault</returns>
+        private async Task<int> RollDice()
+        {
+            random.Next(1, 7);
+
             DiceRollAnimation.Begin();
             timer.Start();
-            return finalResult;
+            await PlaySoundFile("dice-throw.wav");
+            await Task.Delay(1000);
+            return finalDiceRollResult;
         }
 
+        /// <summary>
+        /// Timer function for the dice animation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Timer_Tick(object sender, object e)
         {
             int tempResult = random.Next(1, 7);
-            while (tempResult == finalResult)
+            while (tempResult == finalDiceRollResult)
             {
                 tempResult = random.Next(1, 7);
             }
@@ -741,20 +951,35 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             if (!DiceRollAnimation.GetCurrentState().Equals(ClockState.Active))
             {
                 timer.Stop();
-                DicePic.Source = new BitmapImage(new Uri($"ms-appx:///Assets/Board/Dice/D{finalResult}.png"));
+                DicePic.Source = new BitmapImage(new Uri($"ms-appx:///Assets/Board/Dice/D{finalDiceRollResult}.png"));
             }
         }
 
+        /// <summary>
+        /// Dice animation complete event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DiceRollAnimation_Completed(object sender, object e)
         {
             //RollButton.IsEnabled=true;
         }
 
+        /// <summary>
+        /// Open ingame navigation event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(InGameMenu));
         }
 
+        /// <summary>
+        /// Open ingame menu escape button klicked event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_KeyUp(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Escape)
@@ -763,6 +988,14 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             }
         }
 
+        /// <summary>
+        /// Go topp next position animation
+        /// </summary>
+        /// <param name="fromX">X position to start from</param>
+        /// <param name="fromY">Y position to start from</param>
+        /// <param name="toX">X position to move to</param>
+        /// <param name="toY">Y position to move to</param>
+        /// <param name="image">The image to move</param>
         public void GoToNextAnimation(double fromX, double fromY, double toX, double toY, Image image)
         {
             Storyboard moveStoryboard = new Storyboard();
@@ -779,6 +1012,13 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             AddAnimationToBoard(image, moveStoryboard, xAnimation, yAnimation);
         }
 
+        /// <summary>
+        /// Adds the animation to move a pawn
+        /// </summary>
+        /// <param name="image">Pawn image</param>
+        /// <param name="moveStoryboard">Storyboard object</param>
+        /// <param name="xAnimation">X animation object</param>
+        /// <param name="yAnimation">Y animastion object</param>
         private static void AddAnimationToBoard(Image image, Storyboard moveStoryboard, DoubleAnimation xAnimation, DoubleAnimation yAnimation)
         {
             Storyboard.SetTarget(xAnimation, image);
@@ -793,6 +1033,12 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             moveStoryboard.Begin();
         }
 
+        /// <summary>
+        /// Initializes a double animation
+        /// </summary>
+        /// <param name="from">From coordinats</param>
+        /// <param name="to">To coordinats</param>
+        /// <returns></returns>
         private static DoubleAnimation InitAnimation(double from, double to)
         {
             DoubleAnimation animation = new DoubleAnimation();
@@ -800,6 +1046,209 @@ namespace Agilt_Projekt_2_Mia_Mia_Med_Putt.Pages
             animation.To = to;
             animation.Duration = TimeSpan.FromMilliseconds(150);
             return animation;
+        }
+
+        /// <summary>
+        /// Adds status texts
+        /// </summary>
+        /// <param name="text">The test to add</param>
+        /// <param name="secondsBeforDelete">The time the status text is shown</param>
+        private void AddStatusTextToTop(string text, int secondsBeforDelete)
+        {
+            TextBlock textBlockToAdd = new TextBlock
+            {
+                Text = text,
+                Margin = new Thickness(2, 2, 2, 5),
+                Padding = new Thickness(3),
+                Foreground = new SolidColorBrush(Colors.Black),
+                TextWrapping = TextWrapping.Wrap,
+            };
+
+            StatusStackPanel.Children.Insert(0, textBlockToAdd);
+
+
+            DispatcherTimer dispatcherTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(secondsBeforDelete)
+            };
+
+            dispatcherTimer.Tick += (object sender, object e) =>
+            {
+                StatusStackPanel.Children.Remove(textBlockToAdd);
+                dispatcherTimer.Stop();
+            };
+
+            dispatcherTimer.Start();
+        }
+
+        /// <summary>
+        /// Adds a pawn to the board from the nest button click event handeler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void AddOnePawnClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                PlayerPawns player = currentPlayer;
+                Pawn pawn = await AddOnePawnAsync(player);
+
+                await PushPawns(player, pawn);
+
+                NextPlayer();
+                
+                button.IsEnabled = false;
+
+                //await RunGame();
+
+                //RollButton.IsEnabled = true;
+                //DicePic.PointerReleased += DicePic_PointerReleased;
+            }
+        }
+
+        /// <summary>
+        /// Adds two pawns to the board from the nest button click event handeler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void AddTwoPawnsClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                PlayerPawns player = currentPlayer;
+                await AddOnePawnAsync(player);
+                Pawn pawn = await AddOnePawnAsync(player);
+
+                await PushPawns(player, pawn);
+
+                //NextPlayer();
+
+                button.IsEnabled = false;
+                AddOnePawnMoveSixStepButton.IsEnabled = false;
+
+                //RollButton.IsEnabled = true;
+                //DicePic.PointerReleased += DicePic_PointerReleased;
+            }
+        }
+
+        /// <summary>
+        /// Adds one pawn to the board from the nest and moves it 6 steps button click event handeler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void AddOnePawnMoveSixStepClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                PlayerPawns player = currentPlayer;
+                Pawn pawn = await AddOnePawnAsync(player);
+
+                await MovePawnNumberOfSteps(5, pawn, player);
+
+                //NextPlayer();
+
+                button.IsEnabled = false;
+                AddTwoPawnsButton.IsEnabled = false;
+
+                //RollButton.IsEnabled = true;
+                //DicePic.PointerReleased += DicePic_PointerReleased;
+            }
+        }
+
+        /// <summary>
+        /// Move a pawn a certen amounts of steps
+        /// </summary>
+        /// <param name="steps">The steps to move the pawn</param>
+        /// <param name="pawn">The pawn to move</param>
+        /// <param name="player">The player object the pawn belongs to</param>
+        private async Task MovePawnNumberOfSteps(int steps, Pawn pawn, PlayerPawns player)
+        {
+            for (int i = 0; i < steps; i++)
+            {
+                if (!CanThisPawnGoToNextPosition(pawn, player))
+                {
+                    await GoToNextPosition(pawn, player);
+                    break;
+                }
+                await GoToNextPosition(pawn, player);
+
+                if (pawn.IsAtEnd())
+                {
+                    if (i < steps - 1)
+                    {
+                        for (int j = 0; j < steps - (i + 1); j++)
+                        {
+                            await GoToNextPosition(pawn, player, true);
+                        }
+
+                        DrawPlayers();
+                        break;
+                    }
+
+                    AddStatusTextToTop($"En av {player.Name} spelares pjäser har gott i mål", 10);
+
+                    await PlaySoundFile("tada-fanfare.mp3");
+                    await Task.Delay(2000);
+
+                    player.RemovePawn(pawn);
+                    DrawPlayers();
+
+                    break;
+                }
+            }
+
+            await PushPawns(player, pawn);
+        }
+
+        /// <summary>
+        /// Hover over add two pawns button, enter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HoverAddTwoPawnsButtonEnter(object sender, PointerRoutedEventArgs e)
+        {
+            PlayerPawns player = currentPlayer;
+            Pawn pawn = player.GetNextPawnInNest();
+            if (pawn != null)
+            {
+                int oldDiceRoll = finalDiceRollResult;
+                finalDiceRollResult = 1;
+
+                HighlightDiceRollPosition(player, new Image(), pawn);
+
+                finalDiceRollResult = oldDiceRoll;
+            }
+        }
+
+        /// <summary>
+        /// Hover over add pawn button, enter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HoverAddPawnButtonEnter(object sender, PointerRoutedEventArgs e)
+        {
+            PlayerPawns player = currentPlayer;
+            Pawn pawn = player.GetNextPawnInNest();
+            if (pawn != null)
+            {
+                HighlightDiceRollPosition(player, new Image(), pawn);
+            }
+        }
+
+        /// <summary>
+        /// Hover over add pawn button, leave
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HoverAddPawnButtonExit(object sender, PointerRoutedEventArgs e)
+        {
+            PlayerPawns player = currentPlayer;
+            Pawn pawn = player.GetNextPawnInNest();
+            if (pawn != null) 
+            {
+                GridCanvas.Children.Remove(RectangleToRemove);
+            }
+            
         }
     }
 }
