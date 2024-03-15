@@ -6,6 +6,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace Agilt_Projekt_2_Mia_Mia_Med_Putt
 {
+    /// <summary>
+    /// Page for the mainmenu
+    /// </summary>
     public sealed partial class MainPage : Page
     {
         public MainPage()
